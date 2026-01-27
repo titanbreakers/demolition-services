@@ -1,79 +1,97 @@
 'use client'
 
-import Link from "next/link";
-import { ArrowRight, Shield, Clock, Award } from "lucide-react";
-import Image from "next/image";
+import Link from 'next/link'
+import { ArrowRight, Shield, Clock, Award } from 'lucide-react'
+import Image from 'next/image'
 
 interface HeroData {
-  title: string;
-  subtitle: string;
-  description: string;
+  title: string
+  subtitle: string
+  description: string
+  backgroundImage?: {
+    url?: string
+    alt?: string
+  }
   ctaButtons: Array<{
-    text: string;
-    url: string;
-    style: string;
-  }>;
+    text: string
+    url: string
+    style: string
+  }>
   stats: Array<{
-    number: string;
-    label: string;
-  }>;
+    number: string
+    label: string
+  }>
   features: Array<{
-    icon: string;
-    title: string;
-    description: string;
-  }>;
+    icon: string
+    title: string
+    description: string
+  }>
 }
 
 interface HeroProps {
-  data?: HeroData;
+  data?: HeroData
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
   // Fallback data if no CMS data
   const fallbackData = {
+    backgroundImage: {
+      url: '/hero-demolition.jpg',
+      alt: 'Demolition equipment and machinery',
+    },
     title: 'KRACHT IN',
     subtitle: 'SLOOPWERK',
-    description: 'TitanBrekers is uw betrouwbare partner voor professioneel sloop- en demontagewerk. Met meer dan 25 jaar ervaring maken wij ruimte voor uw toekomst.',
+    description:
+      'TitanBrekers is uw betrouwbare partner voor professioneel sloop- en demontagewerk. Met meer dan 25 jaar ervaring maken wij ruimte voor uw toekomst.',
     ctaButtons: [
       { text: 'Gratis Offerte', url: '/contact', style: 'primary' },
-      { text: 'Bekijk Projecten', url: '/projecten', style: 'secondary' }
+      { text: 'Bekijk Projecten', url: '/projecten', style: 'secondary' },
     ],
     stats: [
       { number: '25+', label: 'Jaar Ervaring' },
       { number: '500+', label: 'Projecten' },
-      { number: '100%', label: 'Veilig' }
+      { number: '100%', label: 'Veilig' },
     ],
     features: [
       { icon: 'Clock', title: 'Snelle Respons', description: 'Binnen 24 uur reactie' },
       { icon: 'Shield', title: 'Volledig Verzekerd', description: 'Tot €5 miljoen dekking' },
-      { icon: 'Award', title: 'VCA Gecertificeerd', description: 'Hoogste veiligheidsnormen' }
-    ]
+      { icon: 'Award', title: 'VCA Gecertificeerd', description: 'Hoogste veiligheidsnormen' },
+    ],
   }
-  
+
   const heroData: HeroData = {
     title: data?.title || fallbackData.title,
     subtitle: data?.subtitle || fallbackData.subtitle,
     description: data?.description || fallbackData.description,
+    backgroundImage: data?.backgroundImage,
     ctaButtons: data?.ctaButtons || fallbackData.ctaButtons,
     stats: data?.stats || fallbackData.stats,
     features: data?.features || fallbackData.features,
-  };
+  }
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Clock': return <Clock className="w-6 h-6 text-primary" />;
-      case 'Shield': return <Shield className="w-6 h-6 text-primary" />;
-      case 'Award': return <Award className="w-6 h-6 text-primary" />;
-      default: return <Shield className="w-6 h-6 text-primary" />;
+      case 'Clock':
+        return <Clock className="w-6 h-6 text-primary" />
+      case 'Shield':
+        return <Shield className="w-6 h-6 text-primary" />
+      case 'Award':
+        return <Award className="w-6 h-6 text-primary" />
+      default:
+        return <Shield className="w-6 h-6 text-primary" />
     }
-  };
+  }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(/hero-demolition.jpg)` }}
+        style={{
+          backgroundImage: heroData.backgroundImage?.url
+            ? `url(${heroData.backgroundImage.url})`
+            : `url('/hero-demolition.jpg')`,
+        }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/50" />
       </div>
@@ -90,9 +108,9 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           </div>
 
           {/* Heading */}
-          <h1 
+          <h1
             className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-none mb-4 sm:mb-6 animate-fade-in"
-            style={{ animationDelay: "0.1s" }}
+            style={{ animationDelay: '0.1s' }}
           >
             {heroData.title}
             <br />
@@ -100,23 +118,27 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           </h1>
 
           {/* Description */}
-          <p 
+          <p
             className="text-base sm:text-lg sm:text-xl text-muted-foreground max-w-xl mb-6 sm:mb-10 animate-fade-in"
-            style={{ animationDelay: "0.2s" }}
+            style={{ animationDelay: '0.2s' }}
           >
             {heroData.description}
           </p>
 
           {/* CTA Buttons */}
-          <div 
+          <div
             className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mb-12 sm:mb-16 animate-fade-in"
-            style={{ animationDelay: "0.3s" }}
+            style={{ animationDelay: '0.3s' }}
           >
             {heroData.ctaButtons.map((button, index) => (
-              <Link 
+              <Link
                 key={index}
-                href={button.url} 
-                className={button.style === 'primary' ? "btn-power flex items-center gap-2 justify-center sm:justify-start" : "btn-outline-power justify-center sm:justify-start"}
+                href={button.url}
+                className={
+                  button.style === 'primary'
+                    ? 'btn-power flex items-center gap-2 justify-center sm:justify-start'
+                    : 'btn-outline-power justify-center sm:justify-start'
+                }
               >
                 {button.text}
                 {button.style === 'primary' && <ArrowRight className="w-5 h-5" />}
@@ -125,13 +147,15 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           </div>
 
           {/* Stats */}
-          <div 
+          <div
             className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 animate-fade-in"
-            style={{ animationDelay: "0.4s" }}
+            style={{ animationDelay: '0.4s' }}
           >
             {heroData.stats.map((stat, index) => (
               <div key={index} className="border-l-2 border-primary pl-4 sm:pl-4">
-                <div className="font-display text-3xl sm:text-4xl text-foreground">{stat.number}</div>
+                <div className="font-display text-3xl sm:text-4xl text-foreground">
+                  {stat.number}
+                </div>
                 <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
@@ -149,8 +173,12 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                   {getIcon(feature.icon)}
                 </div>
                 <div className="min-w-0">
-                  <div className="font-semibold text-sm sm:text-base text-foreground truncate">{feature.title}</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{feature.description}</div>
+                  <div className="font-semibold text-sm sm:text-base text-foreground truncate">
+                    {feature.title}
+                  </div>
+                  <div className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
+                    {feature.description}
+                  </div>
                 </div>
               </div>
             ))}
@@ -158,7 +186,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
