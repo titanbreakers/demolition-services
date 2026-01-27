@@ -1,15 +1,19 @@
+/* Industrial Theme Overrides */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
 @config '../../../tailwind.config.mjs';
 
 @custom-variant dark (&:is([data-theme='dark'] *));
-@custom-variant sm (@media (width >= theme(--breakpoint-sm)));
-@custom-variant md (@media (width >= theme(--breakpoint-md)));
-@custom-variant lg (@media (width >= theme(--breakpoint-lg)));
-@custom-variant xl (@media (width >= theme(--breakpoint-xl)));
-@custom-variant 2xl (@media (width >= theme(--breakpoint-2xl)));
-@custom-variant 4k (@media (width >= theme(--breakpoint-4k)));
+@custom-variant sm (@media (width >=theme(--breakpoint-sm)));
+@custom-variant md (@media (width >=theme(--breakpoint-md)));
+@custom-variant lg (@media (width >=theme(--breakpoint-lg)));
+@custom-variant xl (@media (width >=theme(--breakpoint-xl)));
+@custom-variant 2xl (@media (width >=theme(--breakpoint-2xl)));
+@custom-variant 4k (@media (width >=theme(--breakpoint-4k)));
 
 @layer base {
   h1,
@@ -217,6 +221,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
@@ -231,35 +236,32 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
-/* Industrial Theme Overrides */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
 :root {
   /* Dark industrial theme colors */
   --background: oklch(13% 0.01 240deg);
   --foreground: oklch(96% 0.005 60deg);
   --card: oklch(16% 0.01 240deg);
   --card-foreground: oklch(96% 0.005 60deg);
-  
+
   /* Vibrant Orange/Amber accent - industrial power */
   --primary: oklch(68% 0.19 45deg);
   --primary-foreground: oklch(13% 0.01 240deg);
-  
+
   --secondary: oklch(22% 0.01 240deg);
   --secondary-foreground: oklch(96% 0.005 60deg);
-  
+
   --muted: oklch(20% 0.01 240deg);
   --muted-foreground: oklch(62% 0.01 240deg);
-  
+
   --accent: oklch(68% 0.19 45deg);
   --accent-foreground: oklch(13% 0.01 240deg);
-  
+
   --border: oklch(24% 0.01 240deg);
   --input: oklch(24% 0.01 240deg);
   --ring: oklch(68% 0.19 45deg);
-  
+
   --radius: 0.25rem;
-  
+
   --font-sans: 'Inter', var(--font-geist-sans), sans-serif;
 }
 
@@ -269,20 +271,20 @@ html[data-theme='light'] {
   --foreground: oklch(96% 0.005 60deg);
   --card: oklch(16% 0.01 240deg);
   --card-foreground: oklch(96% 0.005 60deg);
-  
+
   /* Vibrant Orange/Amber accent */
   --primary: oklch(68% 0.19 45deg);
   --primary-foreground: oklch(13% 0.01 240deg);
-  
+
   --secondary: oklch(22% 0.01 240deg);
   --secondary-foreground: oklch(96% 0.005 60deg);
-  
+
   --muted: oklch(20% 0.01 240deg);
   --muted-foreground: oklch(62% 0.01 240deg);
-  
+
   --accent: oklch(68% 0.19 45deg);
   --accent-foreground: oklch(13% 0.01 240deg);
-  
+
   --border: oklch(24% 0.01 240deg);
   --input: oklch(24% 0.01 240deg);
   --ring: oklch(68% 0.19 45deg);
@@ -329,13 +331,11 @@ html[data-theme='light'] {
 }
 
 .warning-stripe {
-  background: repeating-linear-gradient(
-    45deg,
-    oklch(68% 0.19 45deg),
-    oklch(68% 0.19 45deg) 10px,
-    oklch(13% 0.01 240deg) 10px,
-    oklch(13% 0.01 240deg) 20px
-  );
+  background: repeating-linear-gradient(45deg,
+      oklch(68% 0.19 45deg),
+      oklch(68% 0.19 45deg) 10px,
+      oklch(13% 0.01 240deg) 10px,
+      oklch(13% 0.01 240deg) 20px);
 }
 
 @keyframes fade-in {
@@ -343,6 +343,7 @@ html[data-theme='light'] {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
