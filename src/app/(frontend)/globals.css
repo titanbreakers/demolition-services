@@ -414,3 +414,167 @@ select:disabled,
 .disabled {
   cursor: not-allowed;
 }
+
+/* ===========================================
+   View Transitions API Styles
+   =========================================== */
+
+/* Default view transition settings */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fade transition for the entire page */
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+::view-transition-old(root) {
+  animation: fade-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Slide transitions for parent/child page flows */
+@keyframes slide-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-to-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-from-left {
+  from {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-to-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Custom view transition groups */
+::view-transition-old(slide-content) {
+  animation: slide-to-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-new(slide-content) {
+  animation: slide-from-right 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Header/Navigation view transition - subtle */
+::view-transition-old(header),
+::view-transition-new(header) {
+  animation-duration: 0.2s;
+}
+
+/* Hero section transitions */
+::view-transition-old(hero),
+::view-transition-new(hero) {
+  animation-duration: 0.4s;
+}
+
+/* Named element view transitions */
+::view-transition-old(hero-image),
+::view-transition-new(hero-image) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-old(logo),
+::view-transition-new(logo) {
+  animation-duration: 0.3s;
+}
+
+::view-transition-old(footer),
+::view-transition-new(footer) {
+  animation-duration: 0.3s;
+}
+
+::view-transition-old(content),
+::view-transition-new(content) {
+  animation-duration: 0.35s;
+}
+
+::view-transition-old(services),
+::view-transition-new(services) {
+  animation-duration: 0.4s;
+  animation-delay: 0.1s;
+}
+
+::view-transition-old(projects),
+::view-transition-new(projects) {
+  animation-duration: 0.4s;
+  animation-delay: 0.2s;
+}
+
+::view-transition-old(page-title),
+::view-transition-new(page-title) {
+  animation-duration: 0.3s;
+}
+
+/* Smooth scrolling - helps with page transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

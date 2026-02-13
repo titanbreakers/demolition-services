@@ -15,7 +15,7 @@ const { default: config } = await import(path.join(__dirname, '..', 'src', 'payl
 
 // Helper function to upload images
 async function uploadImage(payload: any, filename: string, alt: string) {
-  const mediaDir = path.join(__dirname, '..', 'public', 'media')
+  const mediaDir = path.join(process.cwd(), 'public', 'media')
   const filePath = path.join(mediaDir, filename)
 
   if (!fs.existsSync(filePath)) {
@@ -74,72 +74,98 @@ async function seedAllTranslations() {
     const heroImage = await uploadImage(
       payload,
       'hero-demolition.webp',
-      'Hand demolition work with hammer and tools',
+      'Professional demolition work',
     )
     // Project images
     const project1Image = await uploadImage(
       payload,
       'project-1.webp',
-      'Kitchen demolition project - Amsterdam',
+      'Kitchen Renovation Amsterdam',
     )
     const project2Image = await uploadImage(
       payload,
       'project-2.webp',
-      'Bathroom demolition with hand tools - Utrecht',
+      'Bathroom Demolition Utrecht',
     )
-    const project3Image = await uploadImage(
-      payload,
-      'project-3.webp',
-      'Office strip-out - Rotterdam',
-    )
-    // Note: project-4.webp, project-5.webp, and project-6.webp don't exist in the folder
-    // We'll use existing images for these
+    const project3Image = await uploadImage(payload, 'project-3.webp', 'Office Strip-out Rotterdam')
     const project4Image = await uploadImage(
       payload,
-      'project-1.webp',
-      'Property clearing - Eindhoven',
+      'project-4.webp',
+      'Property Clearing Eindhoven',
     )
     const project5Image = await uploadImage(
       payload,
-      'project-2.webp',
-      'Apartment renovation - The Hague',
+      'project-5.webp',
+      'Apartment Renovation The Hague',
     )
-    const project6Image = await uploadImage(payload, 'project-3.webp', 'Retail space stripping')
+    const project6Image = await uploadImage(payload, 'project-6.webp', 'Retail Space Stripping')
     // Service images
     const serviceManualImage = await uploadImage(
       payload,
       'service-manual.webp',
-      'Manual demolition with hammer',
+      'Manual Demolition',
     )
     const serviceInteriorImage = await uploadImage(
       payload,
       'interior-demolishion.webp',
-      'Interior strip-out work',
+      'Interior Strip-out',
     )
     const serviceSelectiveImage = await uploadImage(
       payload,
       'service-selective.webp',
-      'Selective demolition preserving structure',
+      'Selective Demolition',
     )
-    // Note: service-asbestos.webp doesn't exist, skip it
-    const serviceAsbestosImage = null
-    // Note: service-kitchen-bathroom.webp exists
+    const serviceAsbestosImage = await uploadImage(
+      payload,
+      'service-asbestos.webp',
+      'Asbestos Removal',
+    )
     const serviceKitchenBathroomImage = await uploadImage(
       payload,
       'service-kitchen-bathroom.webp',
-      'Kitchen and bathroom demolition',
+      'Kitchen and Bathroom Demolition',
     )
-    // Note: service-property-clearing.webp doesn't exist, use interior image instead
     const servicePropertyClearingImage = await uploadImage(
       payload,
-      'interior-demolishion.webp',
-      'Property clearing',
+      'service-property-clearing.webp',
+      'Property Clearing',
+    )
+    // Blog images
+    const blogManualDemoImage = await uploadImage(
+      payload,
+      'blog-manual-demo.webp',
+      'Manual Demolition Benefits',
+    )
+    const blogAsbestosSafetyImage = await uploadImage(
+      payload,
+      'blog-asbestos-safety.webp',
+      'Asbestos Safety',
+    )
+    const blogKitchenPrepImage = await uploadImage(
+      payload,
+      'blog-kitchen-prep.webp',
+      'Kitchen Renovation Prep',
+    )
+    const blogBathroomTipsImage = await uploadImage(
+      payload,
+      'blog-bathroom-tips.webp',
+      'Bathroom Demo Tips',
+    )
+    const blogAnniversaryImage = await uploadImage(
+      payload,
+      'blog-anniversary.webp',
+      '25 Year Anniversary',
+    )
+    const blogSustainableImage = await uploadImage(
+      payload,
+      'blog-sustainable.webp',
+      'Sustainable Demolition',
     )
     // About image
     const aboutTeamImage = await uploadImage(
       payload,
       'about-team.webp',
-      'TitanBreakers professional team',
+      'TitanBreakers Professional Team',
     )
 
     console.log('✅ Images uploaded')
@@ -207,6 +233,7 @@ async function seedAllTranslations() {
         },
         icon: 'Shield',
         featured: true,
+        image: serviceAsbestosImage,
       },
       {
         nl: {
@@ -221,6 +248,7 @@ async function seedAllTranslations() {
         },
         icon: 'Droplet',
         featured: false,
+        image: serviceKitchenBathroomImage,
       },
       {
         nl: {
@@ -235,6 +263,7 @@ async function seedAllTranslations() {
         },
         icon: 'Layers',
         featured: false,
+        image: servicePropertyClearingImage,
       },
     ]
 
@@ -343,7 +372,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2023-09-05',
-        image: project1Image,
+        image: project4Image,
       },
       {
         nl: {
@@ -360,6 +389,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2023-07-22',
+        image: project5Image,
       },
       {
         nl: {
@@ -376,6 +406,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2022-12-15',
+        image: project6Image,
       },
     ]
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Shield, Clock, Award } from 'lucide-react'
+import { ArrowRight, Shield, Clock, Award, Recycle } from 'lucide-react'
 import type { Locale } from '@/utilities/translations'
 
 interface HeroData {
@@ -56,51 +56,60 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
     description: data?.description?.trim()
       ? data.description
       : isEnglish
-        ? 'TitanBrekers is your reliable partner for professional demolition work. With more than 25 years of experience, we make room for your future.'
-        : 'TitanBrekers is uw betrouwbare partner voor professioneel sloop- en demontagewerk. Met meer dan 25 jaar ervaring maken wij ruimte voor uw toekomst.',
+        ? 'titanbreakers is your reliable partner for professional demolition work. With more than 25 years of experience, we make room for your future.'
+        : 'titaanbrekers is uw betrouwbare partner voor professioneel sloop- en demontagewerk. Met meer dan 25 jaar ervaring maken wij ruimte voor uw toekomst.',
     ctaButtons:
       data?.ctaButtons && data.ctaButtons.length > 0 && data.ctaButtons[0]?.text
         ? data.ctaButtons
         : [
-            {
-              text: isEnglish ? 'Free Quote' : 'Gratis Offerte',
-              url: '/contact',
-              style: 'primary',
-            },
-            {
-              text: isEnglish ? 'View Projects' : 'Bekijk Projecten',
-              url: '/projecten',
-              style: 'secondary',
-            },
-          ],
+          {
+            text: isEnglish ? 'Free Quote' : 'Gratis Offerte',
+            url: '/contact',
+            style: 'primary',
+          },
+          {
+            text: isEnglish ? 'View Projects' : 'Bekijk Projecten',
+            url: '/projecten',
+            style: 'secondary',
+          },
+        ],
     stats:
       data?.stats && data.stats.length > 0
         ? data.stats
         : [
-            { number: '25+', label: isEnglish ? 'Years Experience' : 'Jaar Ervaring' },
-            { number: '500+', label: isEnglish ? 'Projects' : 'Projecten' },
-            { number: '100%', label: isEnglish ? 'Safe' : 'Veilig' },
-          ],
+          { number: '25+', label: isEnglish ? 'Years Experience' : 'Jaar Ervaring' },
+          { number: '500+', label: isEnglish ? 'Projects' : 'Projecten' },
+          { number: '100%', label: isEnglish ? 'Safe' : 'Veilig' },
+        ],
     features:
       data?.features && data.features.length > 0 && data.features[0]?.title
         ? data.features
         : [
-            {
-              icon: 'Clock',
-              title: isEnglish ? 'Fast Response' : 'Snelle Respons',
-              description: isEnglish ? 'Response within 24 hours' : 'Binnen 24 uur reactie',
-            },
-            {
-              icon: 'Shield',
-              title: isEnglish ? 'Fully Insured' : 'Volledig Verzekerd',
-              description: isEnglish ? 'Up to €5 million coverage' : 'Tot €5 miljoen dekking',
-            },
-            {
-              icon: 'Award',
-              title: isEnglish ? 'VCA Certified' : 'VCA Gecertificeerd',
-              description: isEnglish ? 'Highest safety standards' : 'Hoogste veiligheidsnormen',
-            },
-          ],
+          {
+            icon: 'Award',
+            title: isEnglish ? 'VCA** Certified' : 'VCA** Gecertificeerd',
+            description: isEnglish
+              ? 'Fully certified & insured'
+              : 'Volledig gecertificeerd & verzekerd',
+          },
+          {
+            icon: 'Shield',
+            title: isEnglish ? 'Specialist' : 'Specialist',
+            description: isEnglish ? 'Manual demolition work' : 'Handmatige sloopwerk',
+          },
+          {
+            icon: 'Recycle',
+            title: isEnglish ? '98% Recycling' : '98% Recyclen',
+            description: isEnglish
+              ? 'Waste separation & recycling'
+              : 'Afvalscheiding & recycling',
+          },
+          {
+            icon: 'Clock',
+            title: isEnglish ? 'No Nuisance' : 'Geen Overlast',
+            description: isEnglish ? 'Working without disturbance' : 'Werken zonder overlast',
+          },
+        ],
   }
 
   const heroData: HeroData = {
@@ -121,6 +130,8 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         return <Shield className="w-6 h-6 text-primary" />
       case 'Award':
         return <Award className="w-6 h-6 text-primary" />
+      case 'Recycle':
+        return <Recycle className="w-6 h-6 text-primary" />
       default:
         return <Shield className="w-6 h-6 text-primary" />
     }
@@ -141,7 +152,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
       </div>
 
       {/* Content */}
-      <div className="relative container mx-auto px-4 pt-20 pb-24 sm:pt-32 sm:pb-20">
+      <div className="relative container mx-auto px-4 pt-20 pb-50 sm:pt-32 sm:pb-56">
         <div className="max-w-3xl">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 px-3 py-2 mb-6 sm:px-4 sm:mb-8 animate-fade-in">

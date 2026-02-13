@@ -8,31 +8,71 @@ import { translations, type Locale } from '@/utilities/translations'
 
 export const dynamic = 'force-dynamic'
 
+const supportedLocales: Locale[] = [
+  'nl',
+  'en',
+  'fr',
+  'de',
+  'it',
+  'es',
+  'sv',
+  'fi',
+  'pl',
+  'ar',
+  'zh',
+  'ja',
+  'pt',
+  'tr',
+  'ru',
+]
+
+const localePathMap: Record<Locale, string> = {
+  nl: '/nieuws',
+  en: '/blog',
+  fr: '/actualites',
+  de: '/neuigkeiten',
+  it: '/notizie',
+  es: '/noticias',
+  sv: '/nyheter',
+  fi: '/uutiset',
+  pl: '/aktualnosci',
+  ar: '/akhbar',
+  zh: '/xinwen',
+  ja: '/nyusu',
+  pt: '/noticias',
+  tr: '/haberler',
+  ru: '/novosti',
+}
+
 interface BlogPageProps {
   params: Promise<{ lang: string }>
 }
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const { lang } = await params
-  const locale = (lang === 'en' ? 'en' : 'nl') as Locale
+  const locale = supportedLocales.includes(lang as Locale) ? (lang as Locale) : 'nl'
 
   return {
-    title: `${locale === 'nl' ? 'Nieuws' : 'Blog'} | TitanBreakers`,
+    title: `${locale === 'nl' ? 'Nieuws' : locale === 'en' ? 'Blog' : translations[locale].nav.blog} | TitanBreakers`,
     description:
       locale === 'nl'
         ? 'Lees het laatste nieuws en blogs over sloopwerkzaamheden, renovaties en meer.'
-        : 'Read the latest news and blogs about demolition work, renovations, and more.',
+        : locale === 'en'
+          ? 'Read the latest news and blogs about demolition work, renovations, and more.'
+          : translations[locale].sections.blog,
   }
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
   const { lang } = await params
-  const locale = (lang === 'en' ? 'en' : 'nl') as Locale
+  const locale = supportedLocales.includes(lang as Locale) ? (lang as Locale) : 'nl'
+  const blogPath = localePathMap[locale]
 
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'posts',
+    locale: locale as any,
     depth: 2,
     limit: 12,
     overrideAccess: false,
@@ -56,17 +96,34 @@ export default async function BlogPage({ params }: BlogPageProps) {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 px-4 py-2 mb-6">
               <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                {locale === 'nl' ? 'Laatste Nieuws' : 'Latest News'}
+                {locale === 'nl'
+                  ? 'Laatste Nieuws'
+                  : locale === 'en'
+                    ? 'Latest News'
+                    : translations[locale].sections.latestNews}
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl mb-4">
-              {locale === 'nl' ? 'NIEUWS' : 'BLOG'}{' '}
-              <span className="text-gradient">& {locale === 'nl' ? 'ARTIKELEN' : 'ARTICLES'}</span>
+              {locale === 'nl'
+                ? 'NIEUWS'
+                : locale === 'en'
+                  ? 'BLOG'
+                  : translations[locale].sections.blog}{' '}
+              <span className="text-gradient">
+                &{' '}
+                {locale === 'nl'
+                  ? 'ARTIKELEN'
+                  : locale === 'en'
+                    ? 'ARTICLES'
+                    : translations[locale].sections.readMore.toUpperCase()}
+              </span>
             </h1>
             <p className="text-muted-foreground text-lg">
               {locale === 'nl'
                 ? 'Blijf op de hoogte van het laatste nieuws, tips en inzichten over sloopwerkzaamheden en renovaties.'
-                : 'Stay up to date with the latest news, tips, and insights about demolition work and renovations.'}
+                : locale === 'en'
+                  ? 'Stay up to date with the latest news, tips, and insights about demolition work and renovations.'
+                  : translations[locale].company.tagline}
             </p>
           </div>
         </div>
@@ -80,12 +137,14 @@ export default async function BlogPage({ params }: BlogPageProps) {
               <div className="mb-8 text-muted-foreground">
                 {locale === 'nl'
                   ? `${posts.totalDocs} artikel${posts.totalDocs !== 1 ? 'en' : ''} gevonden`
-                  : `${posts.totalDocs} article${posts.totalDocs !== 1 ? 's' : ''} found`}
+                  : locale === 'en'
+                    ? `${posts.totalDocs} article${posts.totalDocs !== 1 ? 's' : ''} found`
+                    : `${posts.totalDocs} ${translations[locale].sections.blog.toLowerCase()}`}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {posts.docs.map((post) => (
-                  <BlogCard key={post.id} doc={post} showCategories />
+                  <BlogCard key={post.id} doc={post} showCategories locale={locale} />
                 ))}
               </div>
 
@@ -94,7 +153,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                   {Array.from({ length: posts.totalPages }, (_, i) => i + 1).map((pageNum) => (
                     <a
                       key={pageNum}
-                      href={`/${locale}${locale === 'nl' ? '/nieuws' : '/blog'}/page/${pageNum}`}
+                      href={`/${locale}${blogPath}/page/${pageNum}`}
                       className={`px-4 py-2 border ${
                         pageNum === posts.page
                           ? 'bg-primary text-primary-foreground border-primary'
@@ -112,7 +171,9 @@ export default async function BlogPage({ params }: BlogPageProps) {
               <p className="text-muted-foreground text-lg">
                 {locale === 'nl'
                   ? 'Er zijn nog geen artikelen geplaatst.'
-                  : 'No articles have been posted yet.'}
+                  : locale === 'en'
+                    ? 'No articles have been posted yet.'
+                    : translations[locale].general.error}
               </p>
             </div>
           )}

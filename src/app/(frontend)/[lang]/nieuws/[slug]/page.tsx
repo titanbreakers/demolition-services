@@ -5,8 +5,62 @@ import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { format } from 'date-fns'
-import { nl, enUS } from 'date-fns/locale'
+import { nl, enUS, fr, de, it, es, sv, fi, pl, ar, zhCN, ja, pt, tr, ru } from 'date-fns/locale'
 import type { Locale } from '@/utilities/translations'
+
+const localeMap: Record<string, Locale> = {
+  nl: 'nl',
+  en: 'en',
+  fr: 'fr',
+  de: 'de',
+  it: 'it',
+  es: 'es',
+  sv: 'sv',
+  fi: 'fi',
+  pl: 'pl',
+  ar: 'ar',
+  zh: 'zh',
+  ja: 'ja',
+  pt: 'pt',
+  tr: 'tr',
+  ru: 'ru',
+}
+
+const dateLocaleMap: Record<Locale, any> = {
+  nl,
+  en: enUS,
+  fr,
+  de,
+  it,
+  es,
+  sv,
+  fi,
+  pl,
+  ar,
+  zh: zhCN,
+  ja,
+  pt,
+  tr,
+  ru,
+}
+
+const supportedLocales: Locale[] = [
+  'nl',
+  'en',
+  'fr',
+  'de',
+  'it',
+  'es',
+  'sv',
+  'fi',
+  'pl',
+  'ar',
+  'zh',
+  'ja',
+  'pt',
+  'tr',
+  'ru',
+]
 
 interface BlogPostPageProps {
   params: Promise<{ lang: string; slug: string }>
@@ -14,7 +68,7 @@ interface BlogPostPageProps {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { lang, slug } = await params
-  const locale = (lang === 'en' ? 'en' : 'nl') as Locale
+  const locale = localeMap[lang] || 'nl'
 
   const payload = await getPayload({ config: configPromise })
 
@@ -45,8 +99,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { lang, slug } = await params
-  const locale = (lang === 'en' ? 'en' : 'nl') as Locale
-  const dateLocale = locale === 'nl' ? nl : enUS
+  const locale = localeMap[lang] || 'nl'
+  const dateLocale = dateLocaleMap[locale]
 
   const payload = await getPayload({ config: configPromise })
 
@@ -85,6 +139,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const plainText = getPlainText(post.content)
 
+  // Get the blog path for the current locale
+  const blogPath = locale === 'nl' ? '/nieuws' : '/blog'
+  const homeLabel = locale === 'nl' ? 'Home' : 'Home'
+  const blogLabel = locale === 'nl' ? 'Nieuws' : 'Blog'
+  const backLabel = locale === 'nl' ? 'Terug naar nieuws' : 'Back to blog'
+  const publishedLabel = locale === 'nl' ? 'Geplaatst op' : 'Published on'
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -110,15 +171,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="max-w-3xl">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-              <a href={`/${locale}`} className="hover:text-primary transition-colors">
-                {locale === 'nl' ? 'Home' : 'Home'}
+              <a href={`/${lang}`} className="hover:text-primary transition-colors">
+                {homeLabel}
               </a>
               <span>/</span>
-              <a
-                href={`/${locale}${locale === 'nl' ? '/nieuws' : '/blog'}`}
-                className="hover:text-primary transition-colors"
-              >
-                {locale === 'nl' ? 'Nieuws' : 'Blog'}
+              <a href={`/${lang}${blogPath}`} className="hover:text-primary transition-colors">
+                {blogLabel}
               </a>
               <span>/</span>
               <span className="text-primary">{post.title}</span>
@@ -142,7 +200,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {post.publishedAt && (
               <p className="text-muted-foreground">
-                {locale === 'nl' ? 'Geplaatst op' : 'Published on'}{' '}
+                {publishedLabel}{' '}
                 {format(new Date(post.publishedAt), 'd MMMM yyyy', { locale: dateLocale })}
               </p>
             )}
@@ -182,7 +240,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Back to Blog */}
             <div className="mt-16 pt-8 border-t border-border">
               <a
-                href={`/${locale}${locale === 'nl' ? '/nieuws' : '/blog'}`}
+                href={`/${lang}${blogPath}`}
                 className="inline-flex items-center gap-2 text-primary hover:underline"
               >
                 <svg
@@ -198,7 +256,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 >
                   <path d="m15 18-6-6 6-6" />
                 </svg>
-                {locale === 'nl' ? 'Terug naar nieuws' : 'Back to blog'}
+                {backLabel}
               </a>
             </div>
           </div>

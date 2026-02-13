@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import type { Locale } from '@/utilities/translations'
 
 interface AboutPreviewProps {
@@ -11,22 +12,49 @@ interface AboutPreviewProps {
 
 const AboutPreview = ({ data }: AboutPreviewProps) => {
   const [locale, setLocale] = useState<Locale>('nl')
+  const pathname = usePathname()
 
   useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
+    const pathParts = pathname.split('/').filter(Boolean)
+    const urlLocale = pathParts[0] as Locale
+
+    if (
+      urlLocale &&
+      [
+        'nl',
+        'en',
+        'fr',
+        'de',
+        'it',
+        'es',
+        'sv',
+        'fi',
+        'pl',
+        'ar',
+        'zh',
+        'ja',
+        'pt',
+        'tr',
+        'ru',
+      ].includes(urlLocale)
+    ) {
+      setLocale(urlLocale)
+    } else {
+      const storedLang = localStorage.getItem('locale') as Locale
+      if (storedLang) {
+        setLocale(storedLang)
+      }
     }
-  }, [])
+  }, [pathname])
 
   const isEnglish = locale === 'en'
 
-  const title = data?.title || (isEnglish ? 'ABOUT TITANBREKERS' : 'OVER TITANBREKERS')
+  const title = data?.title || (isEnglish ? 'ABOUT TITANBREAKERS' : 'OVER TITAANBREKERS')
   const description =
     data?.description ||
     (isEnglish
-      ? 'With more than 25 years of experience, TitanBrekers has grown into one of the most respected demolition companies in the Netherlands. We combine craftsmanship with modern techniques for every type of demolition and dismantling project.'
-      : 'Met meer dan 25 jaar ervaring is TitanBrekers uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Wij combineren vakmanschap met moderne technieken voor elk type sloop- en demontageproject.')
+      ? 'With more than 25 years of experience, titanbreakers has grown into one of the most respected demolition companies in the Netherlands. We combine craftsmanship with modern techniques for every type of demolition and dismantling project.'
+      : 'Met meer dan 25 jaar ervaring is titaanbrekers uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Wij combineren vakmanschap met moderne technieken voor elk type sloop- en demontageproject.')
 
   const highlights = data?.highlights || [
     {

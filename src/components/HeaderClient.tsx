@@ -41,20 +41,42 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
     const pathParts = pathname.split('/').filter(Boolean)
     const urlLocale = pathParts[0] as Locale
 
-    if (urlLocale && (urlLocale === 'nl' || urlLocale === 'en')) {
+    const supportedLocales = [
+      'nl',
+      'en',
+      'fr',
+      'de',
+      'it',
+      'es',
+      'sv',
+      'fi',
+      'pl',
+      'ar',
+      'zh',
+      'ja',
+      'pt',
+      'tr',
+      'ru',
+    ]
+
+    if (urlLocale && supportedLocales.includes(urlLocale)) {
       setLocale(urlLocale)
       localStorage.setItem('locale', urlLocale)
     } else {
       // Fallback to localStorage or default
       const storedLang = localStorage.getItem('locale') as Locale
-      if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
+      if (storedLang && supportedLocales.includes(storedLang)) {
         setLocale(storedLang)
       }
     }
   }, [pathname])
 
-  const t = translations[locale]
+  const t = translations[locale as keyof typeof translations] as any
   const paths = pathMappings[locale] || pathMappings['nl']!
+
+  // Get company name from translations based on locale
+  const companyName = t?.company?.name || (locale === 'en' ? 'titanbreakers' : 'titaanbrekers')
+  const isEnglish = locale === 'en'
 
   const navLinks = [
     { name: t.nav.home, path: paths.home },
@@ -68,9 +90,8 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
     { name: t.nav.contact, path: paths.contact },
   ]
 
-  const companyName = siteSettings?.companyName || 'TitanBrekers'
-  const logoLetter = siteSettings?.logo?.letter || 'T'
-  const phone = siteSettings?.contact?.phone || '06-12345678'
+  const logoLetter = 'T'
+  const phone = '06-12345678'
 
   // Check if current path matches (accounting for locale prefix)
   const isActive = (path: string) => {
@@ -91,8 +112,17 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
               </span>
             </div>
             <span className="font-display text-2xl tracking-wider text-foreground">
-              {companyName.split('Brekers')[0]}
-              <span className="text-primary">BREKERS</span>
+              {companyName === 'titaanbrekers' ? (
+                <>
+                  <span>titaan</span>
+                  <span className="text-primary">brekers</span>
+                </>
+              ) : (
+                <>
+                  <span>titan</span>
+                  <span className="text-primary">breakers</span>
+                </>
+              )}
             </span>
           </Link>
 

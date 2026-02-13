@@ -6,20 +6,60 @@ import { usePathname } from 'next/navigation'
 import React, { Fragment } from 'react'
 import type { Post } from '@/payload-types'
 import { Media } from '@/components/Media'
+import type { Locale } from '@/utilities/translations'
 
 export type BlogCardData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'heroImage'>
+
+const localePathMap: Record<Locale, string> = {
+  nl: '/nieuws',
+  en: '/blog',
+  fr: '/actualites',
+  de: '/neuigkeiten',
+  it: '/notizie',
+  es: '/noticias',
+  sv: '/nyheter',
+  fi: '/uutiset',
+  pl: '/aktualnosci',
+  ar: '/akhbar',
+  zh: '/xinwen',
+  ja: '/nyusu',
+  pt: '/noticias',
+  tr: '/haberler',
+  ru: '/novosti',
+}
+
+const supportedLocales: Locale[] = [
+  'nl',
+  'en',
+  'fr',
+  'de',
+  'it',
+  'es',
+  'sv',
+  'fi',
+  'pl',
+  'ar',
+  'zh',
+  'ja',
+  'pt',
+  'tr',
+  'ru',
+]
 
 export const BlogCard: React.FC<{
   className?: string
   doc?: BlogCardData
   showCategories?: boolean
+  locale?: Locale
 }> = (props) => {
-  const { className, doc, showCategories } = props
+  const { className, doc, showCategories, locale: propLocale } = props
   const pathname = usePathname()
 
-  // Get locale from URL path
+  // Get locale from URL path or prop
   const pathParts = pathname.split('/').filter(Boolean)
-  const locale = pathParts[0] === 'en' ? 'en' : 'nl'
+  const urlLocale = pathParts[0]
+  const locale =
+    propLocale || (supportedLocales.includes(urlLocale as Locale) ? (urlLocale as Locale) : 'nl')
 
   const { slug, categories, meta, title, heroImage } = doc || {}
   const { description } = meta || {}
@@ -28,7 +68,8 @@ export const BlogCard: React.FC<{
   const sanitizedDescription = description?.replace(/\s/g, ' ')
 
   // Create localized href
-  const href = `/${locale}${locale === 'en' ? '/blog' : '/nieuws'}/${slug}`
+  const blogPath = localePathMap[locale]
+  const href = `/${locale}${blogPath}/${slug}`
 
   return (
     <article

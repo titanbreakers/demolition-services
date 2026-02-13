@@ -1,24 +1,6 @@
 # AI Image Generation Prompts - TitanBreakers
 
-## ⚠️ MISSING IMAGES - GENERATE THESE FIRST
-
-Based on current `/public/media/` folder contents, you still need to generate:
-
-### 🔴 HIGH PRIORITY (Service Images)
-
-1. ❌ `service-asbestos.webp` - Asbestos Removal Service
-2. ❌ `service-property-clearing.webp` - Property Clearing Service
-
-### 🟡 MEDIUM PRIORITY (Blog Post Images - 6 images)
-
-3. ❌ `blog-manual-demo.webp` - Blog: Manual Demolition Benefits
-4. ❌ `blog-asbestos-safety.webp` - Blog: Asbestos Safety
-5. ❌ `blog-kitchen-prep.webp` - Blog: Kitchen Renovation Prep
-6. ❌ `blog-bathroom-tips.webp` - Blog: Bathroom Demo Tips
-7. ❌ `blog-anniversary.webp` - Blog: 25 Year Anniversary
-8. ❌ `blog-sustainable.webp` - Blog: Sustainable Demolition
-
-**Total Missing: 8 images**
+All required images have been generated! ✅
 
 ---
 
@@ -29,16 +11,32 @@ Based on current `/public/media/` folder contents, you still need to generate:
 - ✅ `hero-demolition.webp`
 - ✅ `about-team.webp`
 
-### Services (4/6 complete)
+### Services (6/6 complete)
 
 - ✅ `service-manual.webp` - Manual Demolition
 - ✅ `interior-demolishion.webp` - Interior Demolition
 - ✅ `service-selective.webp` - Selective Demolition
 - ✅ `service-kitchen-bathroom.webp` - Kitchen & Bathroom
+- ✅ `service-asbestos.webp` - Asbestos Removal
+- ✅ `service-property-clearing.webp` - Property Clearing
 
-### Projects (6/6 complete)
+### Blog Posts (6/6 complete)
 
-- ✅ `project-1.webp` through `project-6.webp`
+- ✅ `blog-manual-demo.webp` - Manual Demolition Benefits
+- ✅ `blog-asbestos-safety.webp` - Asbestos Safety
+- ✅ `blog-kitchen-prep.webp` - Kitchen Renovation Prep
+- ✅ `blog-bathroom-tips.webp` - Bathroom Demo Tips
+- ✅ `blog-anniversary.webp` - 25 Year Anniversary
+- ✅ `blog-sustainable.webp` - Sustainable Demolition
+
+### Projects (3/6 complete)
+
+- ✅ `project-1.webp` - Kitchen Renovation Amsterdam
+- ✅ `project-2.webp` - Bathroom Demolition Utrecht
+- ✅ `project-3.webp` - Office Strip-out Rotterdam
+- ❌ `project-4.webp` - Property Clearing Eindhoven
+- ❌ `project-5.webp` - Apartment Renovation The Hague
+- ❌ `project-6.webp` - Retail Space Stripping
 
 ---
 
@@ -175,6 +173,47 @@ Sustainable demolition and recycling concept, organized sorting of demolition wa
 
 ---
 
+## 🔴 PRIORITY 3: PROJECT IMAGES (16:9)
+
+### 9. Project 4: Property Clearing Eindhoven
+
+**Filename**: `project-4.webp`
+**Aspect Ratio**: 16:9 (1200x675)
+
+**Prompt**:
+
+```
+Complete property clearing after interior demolition, fully emptied residential house with exposed structural elements, sunlight streaming through bare windows illuminating dust particles, discarded materials neatly sorted and ready for removal, abandoned furniture waiting for disposal in foreground, showing before renovation phase, photorealistic architectural documentation style --ar 16:9 --style raw --v 6.0
+```
+
+---
+
+### 10. Project 5: Apartment Renovation The Hague
+
+**Filename**: `project-5.webp`
+**Aspect Ratio**: 16:9 (1200x675)
+
+**Prompt**:
+
+```
+Modern apartment interior renovation in progress, kitchen cabinets removed exposing pipes and wiring, bathroom tiles stripped showing underlayment, construction debris in garbage bags lined up, protective floor coverings with boot prints, natural light from large windows, urban Dutch apartment setting, photorealistic renovation progress documentation style --ar 16:9 --style raw --v 6.0
+```
+
+---
+
+### 11. Project 6: Retail Space Stripping
+
+**Filename**: `project-6.webp`
+**Aspect Ratio**: 16:9 (1200x675)
+
+**Prompt**:
+
+```
+Commercial retail space undergoing strip-out renovation, exposed ceiling grid with lighting fixtures, former store fixtures removed leaving wall marks, polished concrete floor with demolition debris, empty shelves and display units waiting for removal, storefront windows letting in natural light, urban retail interior, photorealistic commercial renovation progress style --ar 16:9 --style raw --v 6.0
+```
+
+---
+
 ## ✅ EXISTING IMAGES (Reference Only)
 
 These already exist in `/public/media/` - DO NOT REGENERATE:
@@ -184,21 +223,32 @@ These already exist in `/public/media/` - DO NOT REGENERATE:
 - ✅ `hero-demolition.webp` - Homepage hero
 - ✅ `about-team.webp` - About page team photo
 
-### Services (4/6 complete)
+### Services (6/6 complete)
 
 - ✅ `service-manual.webp` - Manual Demolition
-- ✅ `interior-demolishion.webp` - Interior Demolition (used for service-interior)
+- ✅ `interior-demolishion.webp` - Interior Demolition
 - ✅ `service-selective.webp` - Selective Demolition
 - ✅ `service-kitchen-bathroom.webp` - Kitchen & Bathroom
+- ✅ `service-asbestos.webp` - Asbestos Removal
+- ✅ `service-property-clearing.webp` - Property Clearing
 
-### Projects (6/6 complete)
+### Blog Posts (6/6 complete)
+
+- ✅ `blog-manual-demo.webp` - Manual Demolition Benefits
+- ✅ `blog-asbestos-safety.webp` - Asbestos Safety
+- ✅ `blog-kitchen-prep.webp` - Kitchen Renovation Prep
+- ✅ `blog-bathroom-tips.webp` - Bathroom Demo Tips
+- ✅ `blog-anniversary.webp` - 25 Year Anniversary
+- ✅ `blog-sustainable.webp` - Sustainable Demolition
+
+### Projects (3/6 complete)
 
 - ✅ `project-1.webp` - Kitchen Renovation Amsterdam
 - ✅ `project-2.webp` - Bathroom Demolition Utrecht
 - ✅ `project-3.webp` - Office Strip-out Rotterdam
-- ✅ `project-4.webp` - Property Clearing Eindhoven
-- ✅ `project-5.webp` - Apartment Renovation The Hague
-- ✅ `project-6.webp` - Retail Space Stripping
+- ❌ `project-4.webp` - Property Clearing Eindhoven
+- ❌ `project-5.webp` - Apartment Renovation The Hague
+- ❌ `project-6.webp` - Retail Space Stripping
 
 ---
 
@@ -207,12 +257,12 @@ These already exist in `/public/media/` - DO NOT REGENERATE:
 | Category   | Total  | Complete | Missing |
 | ---------- | ------ | -------- | ------- |
 | Hero/About | 2      | 2        | 0       |
-| Services   | 6      | 4        | 2       |
-| Projects   | 6      | 6        | 0       |
-| Blog Posts | 6      | 0        | 6       |
-| **TOTAL**  | **20** | **12**   | **8**   |
+| Services   | 6      | 6        | 0       |
+| Projects   | 6      | 3        | 3       |
+| Blog Posts | 6      | 6        | 0       |
+| **TOTAL**  | **20** | **17**   | **3**   |
 
-**Completion: 60%**
+**Completion: 85%**
 
 ---
 
