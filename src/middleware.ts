@@ -10,12 +10,14 @@ const urlMappings: Record<string, Record<string, string>> = {
   nl: {
     diensten: 'diensten',
     projecten: 'projecten',
+    nieuws: 'nieuws',
     'over-ons': 'over-ons',
     contact: 'contact',
   },
   en: {
     services: 'diensten',
     projects: 'projecten',
+    blog: 'nieuws',
     about: 'over-ons',
     contact: 'contact',
   },
@@ -26,12 +28,14 @@ const reverseMappings: Record<string, Record<string, string>> = {
   nl: {
     diensten: 'diensten',
     projecten: 'projecten',
+    nieuws: 'nieuws',
     'over-ons': 'over-ons',
     contact: 'contact',
   },
   en: {
     diensten: 'services',
     projecten: 'projects',
+    nieuws: 'blog',
     'over-ons': 'about',
     contact: 'contact',
   },

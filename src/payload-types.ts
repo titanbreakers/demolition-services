@@ -1865,6 +1865,10 @@ export interface AboutPage {
   hero?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Background image for the hero section (e.g., team photo or work environment)
+     */
+    backgroundImage?: (string | null) | Media;
   };
   story?: {
     title?: string | null;
@@ -2098,6 +2102,7 @@ export interface AboutPageSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        backgroundImage?: T;
       };
   story?:
     | T

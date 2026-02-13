@@ -1,7 +1,6 @@
 /* Industrial Theme Overrides */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -303,7 +302,7 @@ html[data-theme='light'] {
 }
 
 .btn-power {
-  @apply px-8 py-4 bg-primary text-primary-foreground font-bold uppercase tracking-wider transition-all duration-300;
+  @apply px-8 py-4 bg-primary text-primary-foreground font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer;
   box-shadow: 0 0 0 oklch(68% 0.19 45deg / 0);
   @apply hover:scale-105 active:scale-95;
 }
@@ -313,7 +312,7 @@ html[data-theme='light'] {
 }
 
 .btn-outline-power {
-  @apply px-8 py-4 border-2 border-primary text-primary font-bold uppercase tracking-wider transition-all duration-300;
+  @apply px-8 py-4 border-2 border-primary text-primary font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer;
   @apply hover:bg-primary hover:text-primary-foreground;
 }
 
@@ -331,11 +330,13 @@ html[data-theme='light'] {
 }
 
 .warning-stripe {
-  background: repeating-linear-gradient(45deg,
-      oklch(68% 0.19 45deg),
-      oklch(68% 0.19 45deg) 10px,
-      oklch(13% 0.01 240deg) 10px,
-      oklch(13% 0.01 240deg) 20px);
+  background: repeating-linear-gradient(
+    45deg,
+    oklch(68% 0.19 45deg),
+    oklch(68% 0.19 45deg) 10px,
+    oklch(13% 0.01 240deg) 10px,
+    oklch(13% 0.01 240deg) 20px
+  );
 }
 
 @keyframes fade-in {
@@ -352,4 +353,64 @@ html[data-theme='light'] {
 
 .animate-fade-in {
   animation: fade-in 0.8s ease-out forwards;
+}
+
+/* Cursor pointer for clickable elements only */
+a,
+button:not(:disabled),
+[role='button'],
+input[type='submit']:not(:disabled),
+input[type='button']:not(:disabled),
+input[type='reset']:not(:disabled),
+select,
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Navigation links */
+nav a,
+.navigation-link {
+  cursor: pointer;
+}
+
+/* Clickable cards only (when they have click handlers) */
+.card-clickable,
+a.card-industrial,
+[role='link'].card-industrial {
+  cursor: pointer;
+}
+
+/* Ensure disabled elements don't show pointer */
+button:disabled,
+input:disabled,
+select:disabled,
+.disabled {
+  cursor: not-allowed;
+}
+
+/* Form inputs should use default cursor */
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='password'],
+input[type='number'],
+textarea {
+  cursor: text;
+}
+
+/* Additional interactive elements */
+.dropdown-trigger,
+.select-trigger,
+.navigation-link,
+.card-clickable,
+.interactive {
+  cursor: pointer;
+}
+
+/* Ensure disabled elements don't show pointer */
+button:disabled,
+input:disabled,
+select:disabled,
+.disabled {
+  cursor: not-allowed;
 }

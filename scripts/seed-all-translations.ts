@@ -15,8 +15,8 @@ const { default: config } = await import(path.join(__dirname, '..', 'src', 'payl
 
 // Helper function to upload images
 async function uploadImage(payload: any, filename: string, alt: string) {
-  const publicDir = path.join(__dirname, '..', 'public')
-  const filePath = path.join(publicDir, filename)
+  const mediaDir = path.join(__dirname, '..', 'public', 'media')
+  const filePath = path.join(mediaDir, filename)
 
   if (!fs.existsSync(filePath)) {
     console.log(`  ⚠️  Image not found: ${filename}`)
@@ -73,30 +73,73 @@ async function seedAllTranslations() {
 
     const heroImage = await uploadImage(
       payload,
-      'hero-demolition.jpg',
+      'hero-demolition.webp',
       'Hand demolition work with hammer and tools',
     )
-    const project1Image = await uploadImage(payload, 'project-1.jpg', 'Kitchen demolition project')
+    // Project images
+    const project1Image = await uploadImage(
+      payload,
+      'project-1.webp',
+      'Kitchen demolition project - Amsterdam',
+    )
     const project2Image = await uploadImage(
       payload,
-      'project-2.jpg',
-      'Bathroom demolition with hand tools',
+      'project-2.webp',
+      'Bathroom demolition with hand tools - Utrecht',
     )
-    const project3Image = await uploadImage(payload, 'project-3.jpg', 'Interior wall removal')
+    const project3Image = await uploadImage(
+      payload,
+      'project-3.webp',
+      'Office strip-out - Rotterdam',
+    )
+    // Note: project-4.webp, project-5.webp, and project-6.webp don't exist in the folder
+    // We'll use existing images for these
+    const project4Image = await uploadImage(
+      payload,
+      'project-1.webp',
+      'Property clearing - Eindhoven',
+    )
+    const project5Image = await uploadImage(
+      payload,
+      'project-2.webp',
+      'Apartment renovation - The Hague',
+    )
+    const project6Image = await uploadImage(payload, 'project-3.webp', 'Retail space stripping')
+    // Service images
     const serviceManualImage = await uploadImage(
       payload,
-      'service-manual.jpg',
+      'service-manual.webp',
       'Manual demolition with hammer',
     )
     const serviceInteriorImage = await uploadImage(
       payload,
-      'service-interior.jpg',
+      'interior-demolishion.webp',
       'Interior strip-out work',
     )
     const serviceSelectiveImage = await uploadImage(
       payload,
-      'service-selective.jpg',
+      'service-selective.webp',
       'Selective demolition preserving structure',
+    )
+    // Note: service-asbestos.webp doesn't exist, skip it
+    const serviceAsbestosImage = null
+    // Note: service-kitchen-bathroom.webp exists
+    const serviceKitchenBathroomImage = await uploadImage(
+      payload,
+      'service-kitchen-bathroom.webp',
+      'Kitchen and bathroom demolition',
+    )
+    // Note: service-property-clearing.webp doesn't exist, use interior image instead
+    const servicePropertyClearingImage = await uploadImage(
+      payload,
+      'interior-demolishion.webp',
+      'Property clearing',
+    )
+    // About image
+    const aboutTeamImage = await uploadImage(
+      payload,
+      'about-team.webp',
+      'TitanBreakers professional team',
     )
 
     console.log('✅ Images uploaded')
@@ -249,6 +292,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2024-06-15',
+        image: project1Image,
       },
       {
         nl: {
@@ -265,6 +309,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2024-03-20',
+        image: project2Image,
       },
       {
         nl: {
@@ -281,6 +326,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2023-11-10',
+        image: project3Image,
       },
       {
         nl: {
@@ -297,6 +343,7 @@ async function seedAllTranslations() {
         },
         featured: true,
         completed: '2023-09-05',
+        image: project1Image,
       },
       {
         nl: {
@@ -334,15 +381,22 @@ async function seedAllTranslations() {
 
     for (const project of projectsData) {
       // Create with Dutch content (default locale)
+      const projectData: any = {
+        title: project.nl.title,
+        description: project.nl.description,
+        category: project.nl.category,
+        featured: project.featured,
+        completed: project.completed,
+      }
+
+      // Add image if available
+      if (project.image) {
+        projectData.image = project.image.id
+      }
+
       const created = await payload.create({
         collection: 'projects',
-        data: {
-          title: project.nl.title,
-          description: project.nl.description,
-          category: project.nl.category,
-          featured: project.featured,
-          completed: project.completed,
-        },
+        data: projectData,
       })
 
       // Add English translation
@@ -366,39 +420,47 @@ async function seedAllTranslations() {
 
     const homePageGlobal = await payload.findGlobal({ slug: 'home-page' })
     if (homePageGlobal) {
+      // Prepare hero data with optional background image
+      const heroDataNl: any = {
+        title: 'HANDMATIG',
+        subtitle: 'SLOOPWERK',
+        description:
+          'TitanBrekers is uw specialist in vakkundige sloopwerkzaamheden met hamer en handgereedschap. Perfect voor binnensloop waar precisie en zorg voor het pand voorop staan.',
+        ctaButtons: [
+          { text: 'Gratis Offerte', style: 'primary' },
+          { text: 'Bekijk Projecten', style: 'secondary' },
+        ],
+        stats: [
+          { number: '25+', label: 'Jaar Ervaring' },
+          { number: '1000+', label: 'Woningen' },
+          { number: '100%', label: 'Handwerk' },
+        ],
+        features: [
+          { icon: 'Clock', title: 'Snelle Respons', description: 'Binnen 24 uur reactie' },
+          {
+            icon: 'Shield',
+            title: 'Volledig Verzekerd',
+            description: 'Tot €2 miljoen dekking',
+          },
+          {
+            icon: 'Hammer',
+            title: 'Vakmanschap',
+            description: 'Werken met precisie',
+          },
+        ],
+      }
+
+      // Add hero background image if available
+      if (heroImage) {
+        heroDataNl.backgroundImage = heroImage.id
+      }
+
       // Dutch content (default)
       await payload.updateGlobal({
         slug: 'home-page',
         locale: 'nl',
         data: {
-          hero: {
-            title: 'HANDMATIG',
-            subtitle: 'SLOOPWERK',
-            description:
-              'TitanBrekers is uw specialist in vakkundige sloopwerkzaamheden met hamer en handgereedschap. Perfect voor binnensloop waar precisie en zorg voor het pand voorop staan.',
-            ctaButtons: [
-              { text: 'Gratis Offerte', style: 'primary' },
-              { text: 'Bekijk Projecten', style: 'secondary' },
-            ],
-            stats: [
-              { number: '25+', label: 'Jaar Ervaring' },
-              { number: '1000+', label: 'Woningen' },
-              { number: '100%', label: 'Handwerk' },
-            ],
-            features: [
-              { icon: 'Clock', title: 'Snelle Respons', description: 'Binnen 24 uur reactie' },
-              {
-                icon: 'Shield',
-                title: 'Volledig Verzekerd',
-                description: 'Tot €2 miljoen dekking',
-              },
-              {
-                icon: 'Hammer',
-                title: 'Vakmanschap',
-                description: 'Werken met precisie',
-              },
-            ],
-          },
+          hero: heroDataNl,
           aboutPreview: {
             title: 'OVER TITANBREKERS',
             description:
@@ -414,31 +476,39 @@ async function seedAllTranslations() {
       })
       console.log('  ✓ Updated Home Page Global (Dutch)')
 
+      // Prepare hero data for English with optional background image
+      const heroDataEn: any = {
+        title: 'MANUAL',
+        subtitle: 'DEMOLITION',
+        description:
+          'TitanBrekers is your specialist in skilled demolition work with hammer and hand tools. Perfect for indoor demolition where precision and care for the building come first.',
+        ctaButtons: [
+          { text: 'Free Quote', style: 'primary' },
+          { text: 'View Projects', style: 'secondary' },
+        ],
+        stats: [
+          { number: '25+', label: 'Years Experience' },
+          { number: '1000+', label: 'Homes' },
+          { number: '100%', label: 'Handwork' },
+        ],
+        features: [
+          { icon: 'Clock', title: 'Fast Response', description: 'Response within 24 hours' },
+          { icon: 'Shield', title: 'Fully Insured', description: 'Up to €2 million coverage' },
+          { icon: 'Hammer', title: 'Craftsmanship', description: 'Working with precision' },
+        ],
+      }
+
+      // Add hero background image if available
+      if (heroImage) {
+        heroDataEn.backgroundImage = heroImage.id
+      }
+
       // English content
       await payload.updateGlobal({
         slug: 'home-page',
         locale: 'en',
         data: {
-          hero: {
-            title: 'MANUAL',
-            subtitle: 'DEMOLITION',
-            description:
-              'TitanBrekers is your specialist in skilled demolition work with hammer and hand tools. Perfect for indoor demolition where precision and care for the building come first.',
-            ctaButtons: [
-              { text: 'Free Quote', style: 'primary' },
-              { text: 'View Projects', style: 'secondary' },
-            ],
-            stats: [
-              { number: '25+', label: 'Years Experience' },
-              { number: '1000+', label: 'Homes' },
-              { number: '100%', label: 'Handwork' },
-            ],
-            features: [
-              { icon: 'Clock', title: 'Fast Response', description: 'Response within 24 hours' },
-              { icon: 'Shield', title: 'Fully Insured', description: 'Up to €2 million coverage' },
-              { icon: 'Hammer', title: 'Craftsmanship', description: 'Working with precision' },
-            ],
-          },
+          hero: heroDataEn,
           aboutPreview: {
             title: 'ABOUT TITANBREKERS',
             description:
@@ -499,15 +569,22 @@ async function seedAllTranslations() {
     const aboutPageGlobal = await payload.findGlobal({ slug: 'about-page' })
     if (aboutPageGlobal) {
       // Dutch content (default)
+      const aboutHeroDataNl: any = {
+        title: 'WIE ZIJN WIJ',
+        description:
+          'Al meer dan 25 jaar is TitanBrekers dé specialist in handmatig sloopwerk voor woningen en bedrijfspanden. Met hamer en beitel, passie en vakmanschap maken wij ruimte voor uw renovatie.',
+      }
+
+      // Add hero background image if available
+      if (aboutTeamImage) {
+        aboutHeroDataNl.backgroundImage = aboutTeamImage.id
+      }
+
       await payload.updateGlobal({
         slug: 'about-page',
         locale: 'nl',
         data: {
-          hero: {
-            title: 'WIE ZIJN WIJ',
-            description:
-              'Al meer dan 25 jaar is TitanBrekers dé specialist in handmatig sloopwerk voor woningen en bedrijfspanden. Met hamer en beitel, passie en vakmanschap maken wij ruimte voor uw renovatie.',
-          },
+          hero: aboutHeroDataNl,
           story: {
             title: 'ONS VERHAAL',
             paragraphs: [
@@ -578,15 +655,22 @@ async function seedAllTranslations() {
       console.log('  ✓ Updated About Page Global (Dutch)')
 
       // English content
+      const aboutHeroDataEn: any = {
+        title: 'WHO WE ARE',
+        description:
+          'For more than 25 years, TitanBrekers has been the specialist in manual demolition work for homes and commercial properties. With hammer and chisel, passion and craftsmanship, we make room for your renovation.',
+      }
+
+      // Add hero background image if available
+      if (aboutTeamImage) {
+        aboutHeroDataEn.backgroundImage = aboutTeamImage.id
+      }
+
       await payload.updateGlobal({
         slug: 'about-page',
         locale: 'en',
         data: {
-          hero: {
-            title: 'WHO WE ARE',
-            description:
-              'For more than 25 years, TitanBrekers has been the specialist in manual demolition work for homes and commercial properties. With hammer and chisel, passion and craftsmanship, we make room for your renovation.',
-          },
+          hero: aboutHeroDataEn,
           story: {
             title: 'OUR STORY',
             paragraphs: [

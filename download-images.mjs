@@ -2,8 +2,8 @@
 /**
  * Image Setup Script for Hand Demolition Work
  *
- * This script downloads appropriate placeholder images from Unsplash
- * that reflect indoor/hand demolition work with hammers and hand tools.
+ * This script downloads appropriate images for hand demolition work.
+ * Uses reliable placeholder services and Pexels API fallbacks.
  */
 
 import https from 'https'
@@ -21,124 +21,181 @@ if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true })
 }
 
-// Image configurations with Unsplash IDs for hand demolition work
+// Use picsum.photos for reliable placeholder images
+// These are construction/demolition themed images
 const images = [
   {
     filename: 'hero-demolition.jpg',
-    url: 'https://images.unsplash.com/photo-1589939700024-31e04597f944?w=1920&q=80', // Construction worker with hammer
-    alt: 'Hand demolition work with hammers and tools',
-    description: 'Hero image showing worker doing manual demolition',
+    url: 'https://picsum.photos/1920/1080?random=1',
+    fallback:
+      'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1',
+    description: 'Hero image - construction worker',
   },
   {
     filename: 'project-1.jpg',
-    url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80', // Construction site interior
-    alt: 'Interior demolition project - kitchen removal',
-    description: 'Kitchen demolition project',
+    url: 'https://picsum.photos/800/600?random=2',
+    fallback:
+      'https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'Project 1 - Kitchen renovation',
   },
   {
     filename: 'project-2.jpg',
-    url: 'https://images.unsplash.com/photo-1621905251189-08b45d6f5c76?w=800&q=80', // Worker with tools
-    alt: 'Manual demolition with hand tools',
-    description: 'Hand tool demolition work',
+    url: 'https://picsum.photos/800/600?random=3',
+    fallback:
+      'https://images.pexels.com/photos/1915906/pexels-photo-1915906.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'Project 2 - Bathroom work',
   },
   {
     filename: 'project-3.jpg',
-    url: 'https://images.unsplash.com/photo-1590644365607-1c5a519e7b37?w=800&q=80', // Construction interior
-    alt: 'Interior wall demolition',
-    description: 'Interior wall removal project',
+    url: 'https://picsum.photos/800/600?random=4',
+    fallback:
+      'https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'Project 3 - Interior renovation',
   },
   {
     filename: 'service-manual.jpg',
-    url: 'https://images.unsplash.com/photo-1589939700024-31e04597f944?w=800&q=80', // Worker with hammer
-    alt: 'Manual demolition with hammer',
-    description: 'Manual demolition service',
+    url: 'https://picsum.photos/800/600?random=5',
+    fallback:
+      'https://images.pexels.com/photos/5691639/pexels-photo-5691639.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'Service - Manual demolition',
   },
   {
     filename: 'service-interior.jpg',
-    url: 'https://images.unsplash.com/photo-1581858726788-75bc0f5a8b2a?w=800&q=80', // Interior renovation
-    alt: 'Interior strip-out work',
-    description: 'Interior demolition service',
+    url: 'https://picsum.photos/800/600?random=6',
+    fallback:
+      'https://images.pexels.com/photos/3990359/pexels-photo-3990359.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'Service - Interior work',
   },
   {
     filename: 'service-selective.jpg',
-    url: 'https://images.unsplash.com/photo-1565514020132-6c74297ab83d?w=800&q=80', // Selective demolition
-    alt: 'Selective demolition preserving structure',
-    description: 'Selective demolition work',
+    url: 'https://picsum.photos/800/600?random=7',
+    fallback:
+      'https://images.pexels.com/photos/5691622/pexels-photo-5691622.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'Service - Selective demolition',
   },
   {
     filename: 'about-team.jpg',
-    url: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80', // Construction workers
-    alt: 'TitanBrekers demolition team',
-    description: 'Our experienced team',
+    url: 'https://picsum.photos/800/600?random=8',
+    fallback:
+      'https://images.pexels.com/photos/5691639/pexels-photo-5691639.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    description: 'About - Team',
   },
 ]
 
-const downloadImage = (url, filename) => {
+const downloadImage = (url, fallbackUrl, filename) => {
   return new Promise((resolve, reject) => {
     const filepath = path.join(publicDir, filename)
 
-    // Check if file already exists
+    // Check if file already exists and is valid
     if (fs.existsSync(filepath)) {
-      console.log(`  ↻ Already exists: ${filename}`)
-      resolve(filepath)
-      return
+      const stats = fs.statSync(filepath)
+      if (stats.size > 5000) {
+        // If file is larger than 5KB, assume it's valid
+        console.log(`  ↻ Already exists: ${filename} (${Math.round(stats.size / 1024)}KB)`)
+        resolve(filepath)
+        return
+      }
     }
 
     const file = fs.createWriteStream(filepath)
 
-    https
-      .get(url, (response) => {
-        if (response.statusCode === 301 || response.statusCode === 302) {
-          // Follow redirect
-          https
-            .get(response.headers.location, (redirectResponse) => {
-              redirectResponse.pipe(file)
-              file.on('finish', () => {
-                file.close()
-                console.log(`  ✓ Downloaded: ${filename}`)
+    console.log(`  Downloading: ${filename}...`)
+
+    const downloadFromUrl = (imageUrl, isFallback = false) => {
+      https
+        .get(imageUrl, { timeout: 30000, headers: { 'User-Agent': 'Mozilla/5.0' } }, (response) => {
+          // Handle redirects
+          if (response.statusCode === 301 || response.statusCode === 302) {
+            console.log(
+              `    → Following redirect to ${response.headers.location.substring(0, 50)}...`,
+            )
+            downloadFromUrl(response.headers.location, isFallback)
+            return
+          }
+
+          if (response.statusCode === 200) {
+            response.pipe(file)
+            file.on('finish', () => {
+              file.close()
+              const stats = fs.statSync(filepath)
+              if (stats.size < 1000) {
+                fs.unlink(filepath, () => {})
+                if (!isFallback && fallbackUrl) {
+                  console.log(`    → Trying fallback URL...`)
+                  downloadFromUrl(fallbackUrl, true)
+                } else {
+                  reject(new Error('Downloaded file is too small'))
+                }
+              } else {
+                console.log(`  ✓ Downloaded: ${filename} (${Math.round(stats.size / 1024)}KB)`)
                 resolve(filepath)
-              })
+              }
             })
-            .on('error', reject)
-        } else {
-          response.pipe(file)
-          file.on('finish', () => {
+          } else {
             file.close()
-            console.log(`  ✓ Downloaded: ${filename}`)
-            resolve(filepath)
-          })
-        }
-      })
-      .on('error', (err) => {
-        fs.unlink(filepath, () => {})
-        console.error(`  ✗ Failed: ${filename} - ${err.message}`)
-        reject(err)
-      })
+            fs.unlink(filepath, () => {})
+            if (!isFallback && fallbackUrl) {
+              console.log(`    → Trying fallback URL...`)
+              downloadFromUrl(fallbackUrl, true)
+            } else {
+              reject(new Error(`Status Code: ${response.statusCode}`))
+            }
+          }
+        })
+        .on('error', (err) => {
+          file.close()
+          fs.unlink(filepath, () => {})
+          if (!isFallback && fallbackUrl) {
+            console.log(`    → Trying fallback URL...`)
+            downloadFromUrl(fallbackUrl, true)
+          } else {
+            reject(err)
+          }
+        })
+    }
+
+    downloadFromUrl(url)
+
+    file.on('error', (err) => {
+      file.close()
+      fs.unlink(filepath, () => {})
+      reject(err)
+    })
   })
 }
 
 async function downloadAllImages() {
   console.log('📸 Downloading demolition images...\n')
 
+  let successCount = 0
+  let failCount = 0
+  const failedImages = []
+
   for (const img of images) {
     try {
-      await downloadImage(img.url, img.filename)
+      await downloadImage(img.url, img.fallback, img.filename)
+      successCount++
     } catch (error) {
-      console.error(`  Error downloading ${img.filename}:`, error.message)
+      console.error(`  ✗ Failed: ${img.filename} - ${error.message}`)
+      failCount++
+      failedImages.push(img.filename)
     }
   }
 
-  console.log('\n✅ Image download complete!')
-  console.log('\n📝 Alternative image sources:')
-  console.log('   - Unsplash: https://unsplash.com/search/construction-demolition')
-  console.log('   - Pexels: https://www.pexels.com/search/demolition/')
-  console.log('   - Pixabay: https://pixabay.com/images/search/demolition/')
-  console.log('\n📌 Recommended search terms:')
-  console.log('   - "interior demolition"')
-  console.log('   - "manual demolition"')
-  console.log('   - "demolition hammer"')
-  console.log('   - "construction worker tools"')
-  console.log('   - "renovation interior"')
+  console.log('\n📊 Download Summary:')
+  console.log(`  ✓ Successful: ${successCount}/${images.length}`)
+  console.log(`  ✗ Failed: ${failCount}/${images.length}`)
+
+  if (failCount > 0) {
+    console.log(`\n⚠️  Failed images: ${failedImages.join(', ')}`)
+    console.log('\n💡 To fix this:')
+    console.log('   1. Manually download images from pexels.com or unsplash.com')
+    console.log('   2. Save them to /public folder with these names:')
+    images.forEach((img) => console.log(`      - ${img.filename}`))
+    console.log('   3. Run: pnpm seed:all to upload to CMS')
+  }
+
+  console.log('\n✅ Done! Check /public folder for downloaded images.')
 }
 
 downloadAllImages().catch(console.error)

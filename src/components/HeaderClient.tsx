@@ -12,11 +12,12 @@ interface HeaderClientProps {
 }
 
 // Path mappings for translated URLs
-const pathMappings: Record<Locale, Record<string, string>> = {
+const pathMappings: Partial<Record<Locale, Record<string, string>>> = {
   nl: {
     home: '/',
     services: '/diensten',
     projects: '/projecten',
+    blog: '/nieuws',
     about: '/over-ons',
     contact: '/contact',
   },
@@ -24,6 +25,7 @@ const pathMappings: Record<Locale, Record<string, string>> = {
     home: '/',
     services: '/services',
     projects: '/projects',
+    blog: '/blog',
     about: '/about',
     contact: '/contact',
   },
@@ -52,12 +54,16 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
   }, [pathname])
 
   const t = translations[locale]
-  const paths = pathMappings[locale]
+  const paths = pathMappings[locale] || pathMappings['nl']!
 
   const navLinks = [
     { name: t.nav.home, path: paths.home },
     { name: t.nav.services, path: paths.services },
     { name: t.nav.projects, path: paths.projects },
+    {
+      name: (t.nav as any).blog || (locale === 'nl' ? 'Nieuws' : 'Blog'),
+      path: paths.blog || (locale === 'nl' ? '/nieuws' : '/blog'),
+    },
     { name: t.nav.about, path: paths.about },
     { name: t.nav.contact, path: paths.contact },
   ]

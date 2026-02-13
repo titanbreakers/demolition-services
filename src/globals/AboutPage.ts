@@ -22,6 +22,16 @@ export const AboutPage: GlobalConfig = {
             'Al meer dan 25 jaar is TitanBrekers dé specialist in professioneel sloopwerk. Met passie, vakmanschap en moderne apparatuur maken wij ruimte voor de toekomst.',
           localized: true,
         },
+        {
+          name: 'backgroundImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Hero Background Image',
+          admin: {
+            description:
+              'Background image for the hero section (e.g., team photo or work environment)',
+          },
+        },
       ],
     },
     {
