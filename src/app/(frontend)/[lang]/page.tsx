@@ -10,9 +10,28 @@ import Header from '@/components/Header'
 
 export const dynamic = 'force-dynamic'
 
+// Supported locales
+const supportedLocales = [
+  'nl',
+  'en',
+  'fr',
+  'de',
+  'it',
+  'es',
+  'sv',
+  'fi',
+  'pl',
+  'ar',
+  'zh',
+  'ja',
+  'pt',
+  'tr',
+  'ru',
+]
+
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params
-  const locale = lang === 'en' ? 'en' : 'nl'
+  const locale = supportedLocales.includes(lang) ? lang : 'nl'
 
   let homePageData: any = null
   let services: any[] = []

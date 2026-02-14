@@ -1,89 +1,85 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import type { Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface AboutPreviewProps {
   data?: any
 }
 
 const AboutPreview = ({ data }: AboutPreviewProps) => {
-  const [locale, setLocale] = useState<Locale>('nl')
   const pathname = usePathname()
+  const { t, locale } = useTranslation()
 
   useEffect(() => {
     const pathParts = pathname.split('/').filter(Boolean)
-    const urlLocale = pathParts[0] as Locale
+    const urlLocale = pathParts[0]
 
-    if (
-      urlLocale &&
-      [
-        'nl',
-        'en',
-        'fr',
-        'de',
-        'it',
-        'es',
-        'sv',
-        'fi',
-        'pl',
-        'ar',
-        'zh',
-        'ja',
-        'pt',
-        'tr',
-        'ru',
-      ].includes(urlLocale)
-    ) {
-      setLocale(urlLocale)
-    } else {
-      const storedLang = localStorage.getItem('locale') as Locale
-      if (storedLang) {
-        setLocale(storedLang)
-      }
+    const supportedLocales = [
+      'nl',
+      'en',
+      'fr',
+      'de',
+      'it',
+      'es',
+      'sv',
+      'fi',
+      'pl',
+      'ar',
+      'zh',
+      'ja',
+      'pt',
+      'tr',
+      'ru',
+    ]
+
+    if (urlLocale && supportedLocales.includes(urlLocale)) {
+      localStorage.setItem('locale', urlLocale)
     }
   }, [pathname])
 
   const isEnglish = locale === 'en'
 
-  const title = data?.title || (isEnglish ? 'ABOUT TITANBREAKERS' : 'OVER TITAANBREKERS')
+  const title =
+    data?.title || (isEnglish ? 'ABOUT TITANBREAKERS' : t.about?.title || 'OVER TITAANBREKERS')
   const description =
     data?.description ||
     (isEnglish
       ? 'With more than 25 years of experience, titanbreakers has grown into one of the most respected demolition companies in the Netherlands. We combine craftsmanship with modern techniques for every type of demolition and dismantling project.'
-      : 'Met meer dan 25 jaar ervaring is titaanbrekers uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Wij combineren vakmanschap met moderne technieken voor elk type sloop- en demontageproject.')
+      : t.about?.description ||
+        'Met meer dan 25 jaar ervaring is titaanbrekers uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Wij combineren vakmanschap met moderne technieken voor elk type sloop- en demontageproject.')
 
   const highlights = data?.highlights || [
     {
       text: isEnglish
         ? 'VCA** certified and fully insured'
-        : 'VCA** gecertificeerd en volledig verzekerd',
+        : t.about?.certifications || 'VCA** gecertificeerd en volledig verzekerd',
     },
     {
       text: isEnglish
         ? 'Modern equipment and experienced professionals'
-        : 'Modern machinepark en ervaren vakmensen',
+        : t.about?.equipment || 'Modern machinepark en ervaren vakmensen',
     },
     {
       text: isEnglish
         ? '98% recycling of all demolition waste'
-        : '98% recycling van alle sloopafval',
+        : t.about?.recycling || '98% recycling van alle sloopafval',
     },
     {
       text: isEnglish
         ? 'National coverage with local service'
-        : 'Landelijke dekking met lokale service',
+        : t.about?.coverage || 'Landelijke dekking met lokale service',
     },
   ]
 
   const stats = [
-    { number: '25+', label: isEnglish ? 'Years Active' : 'Jaar Actief' },
-    { number: '500+', label: isEnglish ? 'Projects' : 'Projecten' },
-    { number: '50+', label: isEnglish ? 'Employees' : 'Medewerkers' },
-    { number: '98%', label: isEnglish ? 'Recycling' : 'Recycling' },
+    { number: '25+', label: isEnglish ? 'Years Active' : t.about?.yearsActive || 'Jaar Actief' },
+    { number: '500+', label: isEnglish ? 'Projects' : t.about?.projects || 'Projecten' },
+    { number: '50+', label: isEnglish ? 'Employees' : t.about?.employees || 'Medewerkers' },
+    { number: '98%', label: isEnglish ? 'Recycling' : t.about?.recyclingStat || 'Recycling' },
   ]
 
   return (
@@ -97,7 +93,7 @@ const AboutPreview = ({ data }: AboutPreviewProps) => {
           <div>
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 px-4 py-2 mb-6">
               <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                {isEnglish ? 'About TitanBrekers' : 'Over TitanBrekers'}
+                {isEnglish ? 'About TitanBreakers' : t.about?.titleShort || 'Over TitanBrekers'}
               </span>
             </div>
             <h2 className="font-display text-4xl md:text-5xl mb-6">
@@ -117,7 +113,7 @@ const AboutPreview = ({ data }: AboutPreviewProps) => {
             </div>
 
             <Link href="/over-ons" className="btn-power inline-flex items-center gap-2">
-              {isEnglish ? 'More About Us' : 'Meer Over Ons'}
+              {isEnglish ? 'More About Us' : t.about?.moreAbout || 'Meer Over Ons'}
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

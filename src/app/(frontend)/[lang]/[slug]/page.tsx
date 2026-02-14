@@ -22,19 +22,141 @@ type Args = {
   }>
 }
 
+const pathToSlugMap: Record<string, Record<string, string>> = {
+  nl: {
+    diensten: 'diensten',
+    projecten: 'projecten',
+    nieuws: 'nieuws',
+    'over-ons': 'over-ons',
+    contact: 'contact',
+    home: 'home',
+  },
+  en: {
+    services: 'diensten',
+    projects: 'projecten',
+    blog: 'nieuws',
+    about: 'over-ons',
+    contact: 'contact',
+    home: 'home',
+  },
+  fr: {
+    services: 'diensten',
+    projets: 'projecten',
+    actualites: 'nieuws',
+    'a-propos': 'over-ons',
+    contact: 'contact',
+    home: 'home',
+  },
+  de: {
+    leistungen: 'diensten',
+    projekte: 'projecten',
+    neuigkeiten: 'nieuws',
+    'ueber-uns': 'over-ons',
+    kontakt: 'contact',
+    home: 'home',
+  },
+  it: {
+    servizi: 'diensten',
+    progetti: 'projecten',
+    notizie: 'nieuws',
+    'chi-siamo': 'over-ons',
+    contatti: 'contact',
+    home: 'home',
+  },
+  es: {
+    servicios: 'diensten',
+    proyectos: 'projecten',
+    noticias: 'nieuws',
+    nosotros: 'over-ons',
+    contacto: 'contact',
+    home: 'home',
+  },
+  sv: {
+    tjanster: 'diensten',
+    projekt: 'projecten',
+    nyheter: 'nieuws',
+    'om-oss': 'over-ons',
+    kontakt: 'contact',
+    home: 'home',
+  },
+  fi: {
+    palvelut: 'diensten',
+    projektit: 'projecten',
+    uutiset: 'nieuws',
+    meista: 'over-ons',
+    yhteys: 'contact',
+    home: 'home',
+  },
+  pl: {
+    uslugi: 'diensten',
+    projekty: 'projecten',
+    aktualnosci: 'nieuws',
+    'o-nas': 'over-ons',
+    kontakt: 'contact',
+    home: 'home',
+  },
+  ar: {
+    alkhdm: 'diensten',
+    mahdt: 'projecten',
+    akhbar: 'nieuws',
+    ana: 'over-ons',
+    tatsel: 'contact',
+    home: 'home',
+  },
+  zh: {
+    fuwu: 'diensten',
+    xiangmu: 'projecten',
+    xinwen: 'nieuws',
+    guanyu: 'over-ons',
+    lianxi: 'contact',
+    home: 'home',
+  },
+  ja: {
+    saabisu: 'diensten',
+    purojekuto: 'projecten',
+    nyuusu: 'nieuws',
+    kaishame: 'over-ons',
+    renrakus: 'contact',
+    home: 'home',
+  },
+  pt: {
+    servicos: 'diensten',
+    projetos: 'projecten',
+    noticias: 'nieuws',
+    sobre: 'over-ons',
+    contacto: 'contact',
+    home: 'home',
+  },
+  tr: {
+    hizmetler: 'diensten',
+    projeler: 'projecten',
+    haberler: 'nieuws',
+    hakkimizda: 'over-ons',
+    iletisim: 'contact',
+    home: 'home',
+  },
+  ru: {
+    uslugi: 'diensten',
+    proekty: 'projecten',
+    novosti: 'nieuws',
+    'o-nas': 'over-ons',
+    kontakt: 'contact',
+    home: 'home',
+  },
+}
+
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { lang, slug = 'home' } = await paramsPromise
-  const locale = lang === 'en' ? 'en' : 'nl'
 
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  const internalSlug = pathToSlugMap[lang]?.[decodedSlug] || decodedSlug
   const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
 
   page = await queryPageBySlug({
-    slug: decodedSlug,
-    locale: locale as any,
+    slug: internalSlug,
+    locale: lang,
   })
 
   // Remove this code once your website is seeded
@@ -68,17 +190,17 @@ export default async function Page({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { lang, slug = 'home' } = await paramsPromise
-  const locale = lang === 'en' ? 'en' : 'nl'
   const decodedSlug = decodeURIComponent(slug)
+  const internalSlug = pathToSlugMap[lang]?.[decodedSlug] || decodedSlug
   const page = await queryPageBySlug({
-    slug: decodedSlug,
-    locale: locale as any,
+    slug: internalSlug,
+    locale: lang,
   })
 
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug, locale }: { slug: string; locale: any }) => {
+const queryPageBySlug = cache(async ({ slug, locale }: { slug: string; locale: string }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -89,7 +211,7 @@ const queryPageBySlug = cache(async ({ slug, locale }: { slug: string; locale: a
     limit: 1,
     pagination: false,
     overrideAccess: draft,
-    locale,
+    locale: locale as any,
     where: {
       slug: {
         equals: slug,

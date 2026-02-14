@@ -5,42 +5,20 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, Phone } from 'lucide-react'
 import LanguageSwitcher from './LanguageSwitcher'
-import { translations, type Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface HeaderClientProps {
   siteSettings?: any
 }
 
-// Path mappings for translated URLs
-const pathMappings: Partial<Record<Locale, Record<string, string>>> = {
-  nl: {
-    home: '/',
-    services: '/diensten',
-    projects: '/projecten',
-    blog: '/nieuws',
-    about: '/over-ons',
-    contact: '/contact',
-  },
-  en: {
-    home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
-  },
-}
-
 export default function HeaderClient({ siteSettings }: HeaderClientProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [locale, setLocale] = useState<Locale>('nl')
   const pathname = usePathname()
+  const { t, locale, setLocale } = useTranslation()
 
   useEffect(() => {
-    // Get locale from URL path
     const pathParts = pathname.split('/').filter(Boolean)
-    const urlLocale = pathParts[0] as Locale
-
+    const urlLocale = pathParts[0]
     const supportedLocales = [
       'nl',
       'en',
@@ -58,42 +36,38 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
       'tr',
       'ru',
     ]
-
     if (urlLocale && supportedLocales.includes(urlLocale)) {
-      setLocale(urlLocale)
       localStorage.setItem('locale', urlLocale)
-    } else {
-      // Fallback to localStorage or default
-      const storedLang = localStorage.getItem('locale') as Locale
-      if (storedLang && supportedLocales.includes(storedLang)) {
-        setLocale(storedLang)
+      // Sync URL locale with translation context
+      if (urlLocale !== locale) {
+        setLocale(urlLocale)
       }
     }
-  }, [pathname])
+  }, [pathname, locale, setLocale])
 
-  const t = translations[locale as keyof typeof translations] as any
-  const paths = pathMappings[locale] || pathMappings['nl']!
+  const paths = t.paths || {}
 
-  // Get company name from translations based on locale
-  const companyName = t?.company?.name || (locale === 'en' ? 'titanbreakers' : 'titaanbrekers')
-  const isEnglish = locale === 'en'
+  const companyName = t.company?.name || 'titaanbrekers'
+
+  const getPathForLocale = (pathKey: keyof typeof paths): string => {
+    const path = paths[pathKey]
+    if (!path) return '/'
+    if (path === '/') return `/${locale}`
+    return `/${locale}${path}`
+  }
 
   const navLinks = [
-    { name: t.nav.home, path: paths.home },
-    { name: t.nav.services, path: paths.services },
-    { name: t.nav.projects, path: paths.projects },
-    {
-      name: (t.nav as any).blog || (locale === 'nl' ? 'Nieuws' : 'Blog'),
-      path: paths.blog || (locale === 'nl' ? '/nieuws' : '/blog'),
-    },
-    { name: t.nav.about, path: paths.about },
-    { name: t.nav.contact, path: paths.contact },
+    { name: t.nav?.home || 'Home', path: getPathForLocale('home') },
+    { name: t.nav?.services || 'Services', path: getPathForLocale('services') },
+    { name: t.nav?.projects || 'Projects', path: getPathForLocale('projects') },
+    { name: t.nav?.blog || 'Blog', path: getPathForLocale('blog') },
+    { name: t.nav?.about || 'About', path: getPathForLocale('about') },
+    { name: t.nav?.contact || 'Contact', path: getPathForLocale('contact') },
   ]
 
   const logoLetter = 'T'
   const phone = '06-12345678'
 
-  // Check if current path matches (accounting for locale prefix)
   const isActive = (path: string) => {
     const currentPath = pathname.replace(`/${locale}`, '') || '/'
     const linkPath = path.replace(`/${locale}`, '') || '/'
@@ -130,7 +104,7 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
-                key={link.path}
+                key={link.name}
                 href={link.path}
                 className={`font-medium uppercase tracking-wider text-sm transition-colors hover:text-primary ${
                   isActive(link.path) ? 'text-primary' : 'text-foreground'
@@ -151,8 +125,11 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
               <Phone className="w-5 h-5" />
               <span className="whitespace-nowrap">{phone}</span>
             </a>
-            <Link href={paths.contact} className="btn-power text-sm py-3 px-6 whitespace-nowrap">
-              {t.cta.quote}
+            <Link
+              href={getPathForLocale('contact')}
+              className="btn-power text-sm py-3 px-6 whitespace-nowrap"
+            >
+              {t.cta?.freeQuote || 'Gratis Offerte'}
             </Link>
           </div>
 
@@ -173,7 +150,7 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
           <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
-                key={link.path}
+                key={link.name}
                 href={link.path}
                 onClick={() => setIsMenuOpen(false)}
                 className={`font-medium uppercase tracking-wider text-lg transition-colors hover:text-primary ${
@@ -184,7 +161,7 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
               </Link>
             ))}
             <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
-              <span className="text-sm text-muted-foreground">{t.mobile.language}</span>
+              <span className="text-sm text-muted-foreground">{t.mobile?.language || 'Taal'}</span>
               <LanguageSwitcher />
             </div>
             <a href={`tel:${phone}`} className="flex items-center gap-2 text-primary font-semibold">
@@ -192,11 +169,11 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
               <span>{phone}</span>
             </a>
             <Link
-              href={paths.contact}
+              href={getPathForLocale('contact')}
               className="btn-power text-center"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t.cta.quote}
+              {t.cta?.freeQuote || 'Gratis Offerte'}
             </Link>
           </nav>
         </div>

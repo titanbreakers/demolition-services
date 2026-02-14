@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   Building2,
@@ -14,23 +13,14 @@ import {
   Shield,
 } from 'lucide-react'
 import type { Service } from '@/payload-types'
-import { translations, type Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ServicesProps {
   services?: Service[]
 }
 
 const Services: React.FC<ServicesProps> = ({ services = [] }) => {
-  const [locale, setLocale] = useState<Locale>('nl')
-
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
-
-  const t = translations[locale]
+  const { t, locale } = useTranslation()
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -62,7 +52,7 @@ const Services: React.FC<ServicesProps> = ({ services = [] }) => {
         <div className="max-w-2xl mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 px-3 py-2 mb-4 sm:px-4 sm:mb-6">
             <span className="text-xs sm:text-sm font-medium text-primary uppercase tracking-wider">
-              {locale === 'en' ? 'Our Services' : 'Onze Diensten'}
+              {t.sections?.ourServices || (locale === 'en' ? 'Our Services' : 'Onze Diensten')}
             </span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4">
@@ -77,9 +67,10 @@ const Services: React.FC<ServicesProps> = ({ services = [] }) => {
             )}
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg">
-            {locale === 'en'
-              ? 'From small strip-outs to complete building demolition - we have the expertise and equipment for every project.'
-              : 'Van kleine stripwerken tot complete gebouwsloop - wij hebben de expertise en het materieel voor elk project.'}
+            {t.services?.description ||
+              (locale === 'en'
+                ? 'From small strip-outs to complete building demolition - we have the expertise and equipment for every project.'
+                : 'Van kleine stripwerken tot complete gebouwsloop - wij hebben de expertise en het materieel voor elk project.')}
           </p>
         </div>
 
@@ -113,8 +104,12 @@ const Services: React.FC<ServicesProps> = ({ services = [] }) => {
 
         {/* CTA */}
         <div className="mt-12 sm:mt-16 text-center">
-          <Link href="/diensten" className="btn-power inline-flex items-center gap-2">
-            {locale === 'en' ? 'View All Services' : 'Alle Diensten Bekijken'}
+          <Link
+            href={locale === 'en' ? '/services' : '/diensten'}
+            className="btn-power inline-flex items-center gap-2"
+          >
+            {t.cta?.viewAllServices ||
+              (locale === 'en' ? 'View All Services' : 'Alle Diensten Bekijken')}
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

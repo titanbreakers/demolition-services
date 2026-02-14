@@ -40,7 +40,6 @@ async function createAdminUser() {
       data: {
         email: 'admin@titanbreakers.nl',
         password: 'TitanBreakers2024!',
-        roles: ['admin'],
         name: 'Admin User',
       },
     })

@@ -5,7 +5,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CTA from '@/components/CTA'
 import { CheckCircle, Users, Target, Heart, Shield } from 'lucide-react'
-import type { Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface OverOnsClientProps {
   pageData?: any
@@ -22,148 +22,116 @@ const getIconComponent = (iconName: string) => {
 }
 
 export default function OverOnsClient({ pageData }: OverOnsClientProps) {
-  const [locale, setLocale] = useState<Locale>('nl')
-
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
-
-  const isEnglish = locale === 'en'
+  const { t, locale } = useTranslation()
 
   // Use CMS data or fallback with translations
   const hero = pageData?.hero || {
-    title: isEnglish ? 'WHO WE ARE' : 'WIE ZIJN WIJ',
-    description: isEnglish
-      ? 'For more than 25 years, TitanBrekers has been the specialist in professional demolition work. With passion, craftsmanship, and modern equipment, we make room for the future.'
-      : 'Al meer dan 25 jaar is TitanBrekers dé specialist in professioneel sloopwerk. Met passie, vakmanschap en moderne apparatuur maken wij ruimte voor de toekomst.',
+    title: t.about?.title || 'WIE ZIJN WIJ',
+    description:
+      t.about?.description ||
+      'Al meer dan 25 jaar is TitanBrekers dé specialist in professioneel sloopwerk. Met passie, vakmanschap en moderne apparatuur maken wij ruimte voor de toekomst.',
   }
 
   const story = pageData?.story || {
-    title: isEnglish ? 'OUR STORY' : 'ONS VERHAAL',
-    paragraphs: isEnglish
-      ? [
-          {
-            text: 'TitanBrekers was founded in 1999 by two experienced demolition workers with a clear mission: to deliver professional demolition work with attention to safety, quality, and the environment.',
-          },
-          {
-            text: 'What started as a small family business has grown into one of the most respected demolition companies in the Netherlands. With more than 50 employees, a modern fleet of equipment, and all necessary certifications, we tackle every project - big or small.',
-          },
-          {
-            text: 'Our strength lies in our team. Experienced professionals who are proud of their work and always strive for the best result. Together with our clients, we find solutions for the most complex demolition projects.',
-          },
-        ]
-      : [
-          {
-            text: 'TitanBrekers werd in 1999 opgericht door twee ervaren slopers met een duidelijke missie: professioneel sloopwerk leveren met oog voor veiligheid, kwaliteit en milieu.',
-          },
-          {
-            text: 'Wat begon als een klein familiebedrijf is uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Met meer dan 50 medewerkers, een modern machinepark en alle benodigde certificeringen pakken wij elk project aan - groot of klein.',
-          },
-          {
-            text: 'Onze kracht zit in ons team. Ervaren vakmensen die trots zijn op hun werk en altijd streven naar het beste resultaat. Samen met onze opdrachtgevers vinden wij oplossingen voor de meest complexe sloopprojecten.',
-          },
-        ],
+    title: t.about?.storyTitle || 'ONS VERHAAL',
+    paragraphs: [
+      {
+        text:
+          t.about?.story1 ||
+          'TitanBrekers werd in 1999 opgericht door twee ervaren slopers met een duidelijke missie: professioneel sloopwerk leveren met oog voor veiligheid, kwaliteit en milieu.',
+      },
+      {
+        text:
+          t.about?.story2 ||
+          'Wat begon als een klein familiebedrijf is uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Met meer dan 50 medewerkers, een modern machinepark en alle benodigde certificeringen pakken wij elk project aan - groot of klein.',
+      },
+      {
+        text:
+          t.about?.story3 ||
+          'Onze kracht zit in ons team. Ervaren vakmensen die trots zijn op hun werk en altijd streven naar het beste resultaat. Samen met onze opdrachtgevers vinden wij oplossingen voor de meest complexe sloopprojecten.',
+      },
+    ],
   }
 
   const stats = pageData?.stats || [
-    { number: '25+', label: isEnglish ? 'Years Experience' : 'Jaar Ervaring' },
-    { number: '500+', label: isEnglish ? 'Projects' : 'Projecten' },
-    { number: '50+', label: isEnglish ? 'Employees' : 'Medewerkers' },
-    { number: '98%', label: isEnglish ? 'Recycling' : 'Recycling' },
+    { number: '25+', label: t.about?.years || 'Jaar Ervaring' },
+    { number: '500+', label: t.about?.projects || 'Projecten' },
+    { number: '50+', label: t.about?.employees || 'Medewerkers' },
+    { number: '98%', label: t.about?.recycling || 'Recycling' },
   ]
 
   const values = pageData?.values || [
     {
       icon: 'Shield',
-      title: isEnglish ? 'Safety' : 'Veiligheid',
-      description: isEnglish
-        ? 'Safety always comes first. We work according to VCA** and maintain the highest safety standards on all our projects.'
-        : 'Veiligheid staat altijd voorop. Wij werken volgens VCA** en hanteren de hoogste veiligheidsnormen op al onze projecten.',
+      title: t.about?.safety || 'Veiligheid',
+      description:
+        t.about?.safetyDesc ||
+        'Veiligheid staat altijd voorop. Wij werken volgens VCA** en hanteren de hoogste veiligheidsnormen op al onze projecten.',
     },
     {
       icon: 'Target',
-      title: isEnglish ? 'Quality' : 'Kwaliteit',
-      description: isEnglish
-        ? 'We deliver quality work, on time and within budget. Our clients can count on professional execution.'
-        : 'Wij leveren kwaliteitswerk, op tijd en binnen budget. Onze klanten kunnen rekenen op professionele uitvoering.',
+      title: t.about?.quality || 'Kwaliteit',
+      description:
+        t.about?.qualityDesc ||
+        'Wij leveren kwaliteitswerk, op tijd en binnen budget. Onze klanten kunnen rekenen op professionele uitvoering.',
     },
     {
       icon: 'Heart',
-      title: isEnglish ? 'Sustainability' : 'Duurzaamheid',
-      description: isEnglish
-        ? 'With 98% recycling of demolition waste, we contribute to a circular economy and a cleaner future.'
-        : 'Met 98% recycling van sloopafval dragen wij bij aan een circulaire economie en een schonere toekomst.',
+      title: t.about?.sustainability || 'Duurzaamheid',
+      description:
+        t.about?.sustainabilityDesc ||
+        'Met 98% recycling van sloopafval dragen wij bij aan een circulaire economie en een schonere toekomst.',
     },
     {
       icon: 'Users',
-      title: isEnglish ? 'Craftsmanship' : 'Vakmanschap',
-      description: isEnglish
-        ? 'Our team consists of experienced professionals who are proud of their work and always strive for the best result.'
-        : 'Ons team bestaat uit ervaren vakmensen die trots zijn op hun werk en altijd streven naar het beste resultaat.',
+      title: t.about?.craftsmanship || 'Vakmanschap',
+      description:
+        t.about?.craftsmanshipDesc ||
+        'Ons team bestaat uit ervaren vakmensen die trots zijn op hun werk en altijd streven naar het beste resultaat.',
     },
   ]
 
   const timeline = pageData?.timeline || [
     {
       year: '1999',
-      title: isEnglish ? 'Foundation' : 'Oprichting',
-      description: isEnglish
-        ? 'TitanBrekers founded in Rotterdam'
-        : 'TitanBrekers wordt opgericht in Rotterdam',
+      title: t.about?.foundation || 'Oprichting',
+      description: t.about?.foundationDesc || 'TitanBrekers wordt opgericht in Rotterdam',
     },
     {
       year: '2005',
-      title: isEnglish ? 'VCA Certification' : 'VCA Certificering',
-      description: isEnglish ? 'Achieved VCA** certification' : 'Behalen van VCA** certificering',
+      title: t.about?.vca || 'VCA Certificering',
+      description: t.about?.vcaDesc || 'Behalen van VCA** certificering',
     },
     {
       year: '2010',
-      title: isEnglish ? 'SC-530 Recognition' : 'SC-530 Erkenning',
-      description: isEnglish
-        ? 'Recognition for asbestos removal'
-        : 'Erkenning voor asbestverwijdering',
+      title: t.about?.sc530 || 'SC-530 Erkenning',
+      description: t.about?.sc530Desc || 'Erkenning voor asbestverwijdering',
     },
     {
       year: '2015',
-      title: isEnglish ? 'National Coverage' : 'Landelijke Dekking',
-      description: isEnglish
-        ? 'Expansion throughout the Netherlands'
-        : 'Uitbreiding naar heel Nederland',
+      title: t.about?.national || 'Landelijke Dekking',
+      description: t.about?.nationalDesc || 'Uitbreiding naar heel Nederland',
     },
     {
       year: '2020',
-      title: isEnglish ? '50 Employees' : '50 Medewerkers',
-      description: isEnglish ? 'Growth to 50+ professionals' : 'Groei naar 50+ vakmensen',
+      title: t.about?.employees50 || '50 Medewerkers',
+      description: t.about?.employees50Desc || 'Groei naar 50+ vakmensen',
     },
     {
       year: '2024',
-      title: isEnglish ? '500+ Projects' : '500+ Projecten',
-      description: isEnglish
-        ? 'Milestone of 500 successful projects'
-        : 'Mijlpaal van 500 succesvolle projecten',
+      title: t.about?.projects500 || '500+ Projecten',
+      description: t.about?.projects500Desc || 'Mijlpaal van 500 succesvolle projecten',
     },
   ]
 
-  const certifications = isEnglish
-    ? [
-        'VCA** Certified',
-        'SC-530 Asbestos Removal',
-        'ISO 9001 Quality Management',
-        'ISO 14001 Environmental Management',
-        'Recognized Training Company',
-        'Member Demolition Companies Association',
-      ]
-    : [
-        'VCA** Gecertificeerd',
-        'SC-530 Asbestverwijdering',
-        'ISO 9001 Kwaliteitsmanagement',
-        'ISO 14001 Milieumanagement',
-        'Erkend Leerbedrijf',
-        'Lid Vereniging Sloopbedrijven',
-      ]
+  const certifications = [
+    t.about?.vcaCert || 'VCA** Gecertificeerd',
+    t.about?.sc530Cert || 'SC-530 Asbestverwijdering',
+    t.about?.iso9001 || 'ISO 9001 Kwaliteitsmanagement',
+    t.about?.iso14001 || 'ISO 14001 Milieumanagement',
+    t.about?.training || 'Erkend Leerbedrijf',
+    t.about?.association || 'Lid Vereniging Sloopbedrijven',
+  ]
 
   return (
     <div className="min-h-screen bg-background">
@@ -193,7 +161,7 @@ export default function OverOnsClient({ pageData }: OverOnsClientProps) {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 px-4 py-2 mb-6">
               <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                {isEnglish ? 'About Us' : 'Over Ons'}
+                {locale === 'en' ? 'About Us' : 'Over Ons'}
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl mb-4">
@@ -244,11 +212,11 @@ export default function OverOnsClient({ pageData }: OverOnsClientProps) {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="font-display text-4xl mb-4 text-foreground">
-              {isEnglish ? 'OUR ' : 'ONZE '}
-              <span className="text-gradient">{isEnglish ? 'VALUES' : 'WAARDEN'}</span>
+              {locale === 'en' ? 'OUR ' : 'ONZE '}
+              <span className="text-gradient">{locale === 'en' ? 'VALUES' : 'WAARDEN'}</span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              {isEnglish
+              {locale === 'en'
                 ? 'These core values form the foundation of everything we do.'
                 : 'Deze kernwaarden vormen de basis van alles wat wij doen.'}
             </p>
@@ -276,8 +244,8 @@ export default function OverOnsClient({ pageData }: OverOnsClientProps) {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="font-display text-4xl mb-4 text-foreground">
-              {isEnglish ? 'OUR ' : 'ONZE '}
-              <span className="text-gradient">{isEnglish ? 'HISTORY' : 'GESCHIEDENIS'}</span>
+              {locale === 'en' ? 'OUR ' : 'ONZE '}
+              <span className="text-gradient">{locale === 'en' ? 'HISTORY' : 'GESCHIEDENIS'}</span>
             </h2>
           </div>
 
@@ -308,11 +276,13 @@ export default function OverOnsClient({ pageData }: OverOnsClientProps) {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="font-display text-4xl mb-4 text-foreground">
-              {isEnglish ? 'CERTIFICATIONS & ' : 'CERTIFICERINGEN & '}
-              <span className="text-gradient">{isEnglish ? 'RECOGNITIONS' : 'ERKENNINGEN'}</span>
+              {locale === 'en' ? 'CERTIFICATIONS & ' : 'CERTIFICERINGEN & '}
+              <span className="text-gradient">
+                {locale === 'en' ? 'RECOGNITIONS' : 'ERKENNINGEN'}
+              </span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              {isEnglish
+              {locale === 'en'
                 ? 'We meet the highest standards in safety, quality, and environment.'
                 : 'Wij voldoen aan de hoogste eisen op het gebied van veiligheid, kwaliteit en milieu.'}
             </p>

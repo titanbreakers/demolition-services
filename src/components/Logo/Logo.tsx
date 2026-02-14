@@ -1,7 +1,6 @@
 import clsx from 'clsx'
-import React, { useState, useEffect } from 'react'
-import type { Locale } from '@/utilities/translations'
-import { translations } from '@/utilities/translations'
+import React from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface Props {
   className?: string
@@ -11,17 +10,9 @@ interface Props {
 
 export const Logo = (props: Props) => {
   const { className } = props
-  const [locale, setLocale] = useState<Locale>('nl')
+  const { t, locale } = useTranslation()
 
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
-
-  const t = translations[locale as keyof typeof translations] as any
-  const companyName = t?.company?.name || 'titaanbrekers'
+  const companyName = t?.company?.name || (locale === 'en' ? 'titanbreakers' : 'titaanbrekers')
 
   return (
     <div className={clsx('flex items-center gap-2', className)}>

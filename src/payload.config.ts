@@ -18,6 +18,7 @@ import { AboutPage } from './globals/AboutPage'
 import { ServicesPage } from './globals/ServicesPage'
 import { ContactPage } from './globals/ContactPage'
 import { HomePage } from './globals/HomePage'
+import { Translations } from './globals/Translations'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -69,7 +70,16 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, Services, Projects],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, SiteSettings, HomePage, AboutPage, ServicesPage, ContactPage],
+  globals: [
+    Header,
+    Footer,
+    SiteSettings,
+    HomePage,
+    AboutPage,
+    ServicesPage,
+    ContactPage,
+    Translations,
+  ],
   localization: {
     locales: [
       {
@@ -79,6 +89,58 @@ export default buildConfig({
       {
         code: 'en',
         label: 'English',
+      },
+      {
+        code: 'fr',
+        label: 'Français',
+      },
+      {
+        code: 'de',
+        label: 'Deutsch',
+      },
+      {
+        code: 'it',
+        label: 'Italiano',
+      },
+      {
+        code: 'es',
+        label: 'Español',
+      },
+      {
+        code: 'sv',
+        label: 'Svenska',
+      },
+      {
+        code: 'fi',
+        label: 'Suomi',
+      },
+      {
+        code: 'pl',
+        label: 'Polski',
+      },
+      {
+        code: 'ar',
+        label: 'العربية',
+      },
+      {
+        code: 'zh',
+        label: '中文',
+      },
+      {
+        code: 'ja',
+        label: '日本語',
+      },
+      {
+        code: 'pt',
+        label: 'Português',
+      },
+      {
+        code: 'tr',
+        label: 'Türkçe',
+      },
+      {
+        code: 'ru',
+        label: 'Русский',
       },
     ],
     defaultLocale: 'nl',

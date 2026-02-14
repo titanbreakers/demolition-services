@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Shield, Clock, Award, Recycle } from 'lucide-react'
-import type { Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface HeroData {
   title: string
@@ -34,18 +33,9 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
-  const [locale, setLocale] = useState<Locale>('nl')
-
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
-
+  const { t, locale } = useTranslation()
   const isEnglish = locale === 'en'
 
-  // Fallback data based on locale
   const fallbackData = {
     backgroundImage: {
       url: '/hero-demolition.jpg',
@@ -56,60 +46,51 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
     description: data?.description?.trim()
       ? data.description
       : isEnglish
-        ? 'titanbreakers is your reliable partner for professional demolition work. With more than 25 years of experience, we make room for your future.'
+        ? 'TitanBreakers is your reliable partner for professional demolition work. With more than 25 years of experience, we make room for your future.'
         : 'titaanbrekers is uw betrouwbare partner voor professioneel sloop- en demontagewerk. Met meer dan 25 jaar ervaring maken wij ruimte voor uw toekomst.',
     ctaButtons:
       data?.ctaButtons && data.ctaButtons.length > 0 && data.ctaButtons[0]?.text
         ? data.ctaButtons
         : [
-          {
-            text: isEnglish ? 'Free Quote' : 'Gratis Offerte',
-            url: '/contact',
-            style: 'primary',
-          },
-          {
-            text: isEnglish ? 'View Projects' : 'Bekijk Projecten',
-            url: '/projecten',
-            style: 'secondary',
-          },
-        ],
+            {
+              text: t.cta?.freeQuote || 'Gratis Offerte',
+              url: '/contact',
+              style: 'primary',
+            },
+            {
+              text: t.cta?.viewProjects || 'Bekijk Projecten',
+              url: isEnglish ? '/projects' : '/projecten',
+              style: 'secondary',
+            },
+          ],
     stats:
       data?.stats && data.stats.length > 0
         ? data.stats
         : [
-          { number: '25+', label: isEnglish ? 'Years Experience' : 'Jaar Ervaring' },
-          { number: '500+', label: isEnglish ? 'Projects' : 'Projecten' },
-          { number: '100%', label: isEnglish ? 'Safe' : 'Veilig' },
-        ],
+            { number: '25+', label: t.hero?.stats?.years || 'Jaar Ervaring' },
+            { number: '500+', label: t.hero?.stats?.projects || 'Projecten' },
+            { number: '100%', label: t.hero?.stats?.safety || 'Veilig' },
+          ],
     features:
       data?.features && data.features.length > 0 && data.features[0]?.title
         ? data.features
         : [
-          {
-            icon: 'Award',
-            title: isEnglish ? 'VCA** Certified' : 'VCA** Gecertificeerd',
-            description: isEnglish
-              ? 'Fully certified & insured'
-              : 'Volledig gecertificeerd & verzekerd',
-          },
-          {
-            icon: 'Shield',
-            title: isEnglish ? 'Specialist' : 'Specialist',
-            description: isEnglish ? 'Manual demolition work' : 'Handmatige sloopwerk',
-          },
-          {
-            icon: 'Recycle',
-            title: isEnglish ? '98% Recycling' : '98% Recyclen',
-            description: isEnglish
-              ? 'Waste separation & recycling'
-              : 'Afvalscheiding & recycling',
-          },
-          {
-            icon: 'Clock',
-            title: isEnglish ? 'No Nuisance' : 'Geen Overlast',
-            description: isEnglish ? 'Working without disturbance' : 'Werken zonder overlast',
-          },
-        ],
+            {
+              icon: 'Award',
+              title: t.hero?.features?.certified || 'VCA Gecertificeerd',
+              description: t.hero?.features?.certifiedDesc || 'Volledig gecertificeerd & verzekerd',
+            },
+            {
+              icon: 'Shield',
+              title: t.hero?.features?.insured || 'Verzekerd',
+              description: t.hero?.features?.insuredDesc || 'Volledig verzekerd',
+            },
+            {
+              icon: 'Recycle',
+              title: t.hero?.features?.fastResponse || 'Snelle Respons',
+              description: t.hero?.features?.fastResponseDesc || 'Binnen 24 uur',
+            },
+          ],
   }
 
   const heroData: HeroData = {

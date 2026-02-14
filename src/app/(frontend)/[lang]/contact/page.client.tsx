@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
-import type { Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ContactClientProps {
   pageData?: any
@@ -12,7 +12,7 @@ interface ContactClientProps {
 }
 
 export default function ContactClient({ pageData, siteSettings }: ContactClientProps) {
-  const [locale, setLocale] = useState<Locale>('nl')
+  const { t, locale } = useTranslation()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,23 +22,14 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
-
-  const isEnglish = locale === 'en'
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     await new Promise((resolve) => setTimeout(resolve, 1500))
     alert(
-      isEnglish
-        ? 'Message sent! We will contact you within 24 hours.'
-        : 'Bericht verzonden! Wij nemen binnen 24 uur contact met u op.',
+      locale === 'en'
+        ? t.contact?.messageSent || 'Message sent! We will contact you within 24 hours.'
+        : t.contact?.messageSent || 'Bericht verzonden! Wij nemen binnen 24 uur contact met u op.',
     )
     setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
     setIsSubmitting(false)
@@ -51,30 +42,36 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
   }
 
   const hero = pageData?.hero || {
-    title: isEnglish ? 'GET IN TOUCH' : 'NEEM CONTACT OP',
-    description: isEnglish
-      ? 'Do you have a demolition or dismantling project? Feel free to contact us for a quote or advice. We respond within 24 hours.'
-      : 'Heeft u een sloop- of demontageproject? Neem vrijblijvend contact met ons op voor een offerte of advies. Wij reageren binnen 24 uur.',
+    title: t.contact?.title || (locale === 'en' ? 'GET INUCH' : 'NEEM CONTACT OP'),
+    description:
+      t.contact?.description ||
+      (locale === 'en'
+        ? 'Do you have a demolition or dismantling project? Feel free to contact us for a quote or advice. We respond within 24 hours.'
+        : 'Heeft u een sloop- of demontageproject? Neem vrijblijvend contact met ons op voor een offerte of advies. Wij reageren binnen 24 uur.'),
   }
 
   const contact = siteSettings?.contact || {
-    phone: '06-12345678',
-    email: 'info@titanbrekers.nl',
-    address: isEnglish
-      ? 'Industrieweg 45\n1234 AB Rotterdam'
-      : 'Industrieweg 45\n1234 AB Rotterdam',
-    hours: isEnglish
-      ? 'Monday - Friday: 07:00 - 18:00\nSaturday: By appointment'
-      : 'Maandag - Vrijdag: 07:00 - 18:00\nZaterdag: Op afspraak',
+    phone: t.contact?.phone || '06-12345678',
+    email: locale === 'en' ? 'info@titanbreakers.nl' : 'info@titaanbrekers.nl',
+    address: t.contact?.address || 'Industrieweg 45\n1234 AB Rotterdam',
+    hours:
+      locale === 'en'
+        ? t.contact?.hours || 'Monday - Friday: 07:00 - 18:00'
+        : t.contact?.hours || 'Maandag - Vrijdag: 07:00 - 18:00',
   }
 
   const formTitle =
-    pageData?.formSettings?.title || (isEnglish ? 'SEND A MESSAGE' : 'STUUR EEN BERICHT')
+    pageData?.formSettings?.title ||
+    t.contact?.formTitle ||
+    (locale === 'en' ? 'SEND A MESSAGE' : 'STUUR EEN BERICHT')
   const subjects = pageData?.formSettings?.subjects || [
-    { value: 'offerte', label: isEnglish ? 'Request Quote' : 'Offerte aanvragen' },
-    { value: 'informatie', label: isEnglish ? 'Request Information' : 'Informatie aanvragen' },
-    { value: 'samenwerking', label: isEnglish ? 'Partnership' : 'Samenwerking' },
-    { value: 'anders', label: isEnglish ? 'Other' : 'Anders' },
+    { value: 'offerte', label: locale === 'en' ? 'Request Quote' : 'Offerte aanvragen' },
+    {
+      value: 'informatie',
+      label: locale === 'en' ? 'Request Information' : 'Informatie aanvragen',
+    },
+    { value: 'samenwerking', label: locale === 'en' ? 'Partnership' : 'Samenwerking' },
+    { value: 'anders', label: locale === 'en' ? 'Other' : 'Anders' },
   ]
 
   const certifications = siteSettings?.certifications?.map((c: any) => c.name) || [
@@ -94,7 +91,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 px-4 py-2 mb-6">
               <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                {isEnglish ? 'Contact' : 'Contact'}
+                {locale === 'en' ? 'Contact' : 'Contact'}
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl mb-4">
@@ -113,7 +110,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
             {/* Contact Info */}
             <div className="lg:col-span-1">
               <h2 className="font-display text-3xl mb-8 text-foreground">
-                {isEnglish ? 'CONTACT DETAILS' : 'CONTACTGEGEVENS'}
+                {locale === 'en' ? 'CONTACT DETAILS' : 'CONTACTGEGEVENS'}
               </h2>
 
               <div className="space-y-6">
@@ -123,7 +120,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      {isEnglish ? 'Address' : 'Adres'}
+                      {locale === 'en' ? 'Address' : 'Adres'}
                     </h3>
                     <p className="text-muted-foreground whitespace-pre-line">{contact.address}</p>
                   </div>
@@ -135,7 +132,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      {isEnglish ? 'Phone' : 'Telefoon'}
+                      {locale === 'en' ? 'Phone' : 'Telefoon'}
                     </h3>
                     <a
                       href={`tel:${contact.phone}`}
@@ -152,7 +149,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      {isEnglish ? 'Email' : 'E-mail'}
+                      {locale === 'en' ? 'Email' : 'E-mail'}
                     </h3>
                     <a
                       href={`mailto:${contact.email}`}
@@ -169,7 +166,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      {isEnglish ? 'Opening Hours' : 'Openingstijden'}
+                      {locale === 'en' ? 'Opening Hours' : 'Openingstijden'}
                     </h3>
                     <p className="text-muted-foreground whitespace-pre-line">{contact.hours}</p>
                   </div>
@@ -179,7 +176,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
               {/* Certifications */}
               <div className="mt-10">
                 <h3 className="font-display text-xl mb-4 text-foreground">
-                  {isEnglish ? 'CERTIFICATIONS' : 'CERTIFICERINGEN'}
+                  {locale === 'en' ? 'CERTIFICATIONS' : 'CERTIFICERINGEN'}
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {certifications.map((cert: string) => (
@@ -203,7 +200,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         htmlFor="name"
                         className="block text-sm font-medium text-foreground mb-2"
                       >
-                        {isEnglish ? 'Name *' : 'Naam *'}
+                        {locale === 'en' ? 'Name *' : 'Naam *'}
                       </label>
                       <input
                         type="text"
@@ -213,7 +210,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
-                        placeholder={isEnglish ? 'Your name' : 'Uw naam'}
+                        placeholder={locale === 'en' ? 'Your name' : 'Uw naam'}
                       />
                     </div>
                     <div>
@@ -221,7 +218,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         htmlFor="email"
                         className="block text-sm font-medium text-foreground mb-2"
                       >
-                        {isEnglish ? 'Email *' : 'E-mail *'}
+                        {locale === 'en' ? 'Email *' : 'E-mail *'}
                       </label>
                       <input
                         type="email"
@@ -231,7 +228,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
-                        placeholder={isEnglish ? 'your@email.com' : 'uw@email.nl'}
+                        placeholder={locale === 'en' ? 'your@email.com' : 'uw@email.nl'}
                       />
                     </div>
                   </div>
@@ -242,7 +239,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         htmlFor="phone"
                         className="block text-sm font-medium text-foreground mb-2"
                       >
-                        {isEnglish ? 'Phone Number' : 'Telefoonnummer'}
+                        {locale === 'en' ? 'Phone Number' : 'Telefoonnummer'}
                       </label>
                       <input
                         type="tel"
@@ -259,7 +256,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         htmlFor="subject"
                         className="block text-sm font-medium text-foreground mb-2"
                       >
-                        {isEnglish ? 'Subject *' : 'Onderwerp *'}
+                        {locale === 'en' ? 'Subject *' : 'Onderwerp *'}
                       </label>
                       <select
                         id="subject"
@@ -270,7 +267,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                         className="w-full px-4 py-3 bg-background border border-border text-foreground focus:border-primary focus:outline-none transition-colors"
                       >
                         <option value="">
-                          {isEnglish ? 'Select subject' : 'Selecteer onderwerp'}
+                          {locale === 'en' ? 'Select subject' : 'Selecteer onderwerp'}
                         </option>
                         {subjects.map((subj: any) => (
                           <option key={subj.value} value={subj.value}>
@@ -286,7 +283,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                       htmlFor="message"
                       className="block text-sm font-medium text-foreground mb-2"
                     >
-                      {isEnglish ? 'Message *' : 'Bericht *'}
+                      {locale === 'en' ? 'Message *' : 'Bericht *'}
                     </label>
                     <textarea
                       id="message"
@@ -297,7 +294,7 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                       rows={6}
                       className="w-full px-4 py-3 bg-background border border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors resize-none"
                       placeholder={
-                        isEnglish
+                        locale === 'en'
                           ? 'Describe your project or question...'
                           : 'Beschrijf uw project of vraag...'
                       }
@@ -310,14 +307,14 @@ export default function ContactClient({ pageData, siteSettings }: ContactClientP
                     className="btn-power w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
-                      isEnglish ? (
+                      locale === 'en' ? (
                         'Sending...'
                       ) : (
                         'Verzenden...'
                       )
                     ) : (
                       <>
-                        {isEnglish ? 'Send Message' : 'Bericht Verzenden'}
+                        {locale === 'en' ? 'Send Message' : 'Bericht Verzenden'}
                         <Send className="w-5 h-5" />
                       </>
                     )}

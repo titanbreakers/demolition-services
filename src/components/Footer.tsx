@@ -2,58 +2,40 @@
 
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import type { Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const Footer = () => {
-  const [locale, setLocale] = useState<Locale>('nl')
+  const { t, locale } = useTranslation()
 
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
-
-  const isEnglish = locale === 'en'
-
-  const translations = {
-    companyName: isEnglish ? 'titanbreakers' : 'titaanbrekers',
-    tagline: isEnglish
-      ? 'Professional demolition work with power and precision. Your partner in demolition and dismantling for over 25 years.'
-      : 'Professioneel sloopwerk met kracht en precisie. Al meer dan 25 jaar uw partner in sloop en demontage.',
-    navigation: isEnglish ? 'Navigation' : 'Navigatie',
-    navLinks: isEnglish
-      ? ['Home', 'Services', 'Projects', 'About Us', 'Contact']
-      : ['Home', 'Diensten', 'Projecten', 'Over Ons', 'Contact'],
-    services: isEnglish
-      ? [
-          'Building Demolition',
-          'Industrial Dismantling',
-          'Asbestos Removal',
-          'Recycling',
-          'Groundwork',
-        ]
-      : ['Gebouwen Sloop', 'Industriële Demontage', 'Asbest Sanering', 'Recycling', 'Grondwerk'],
-    contact: isEnglish ? 'Contact' : 'Contact',
-    address: isEnglish
-      ? 'Industrialweg 45\n1234 AB Rotterdam'
-      : 'Industrieweg 45\n1234 AB Rotterdam',
-    phone: '06-12345678',
-    email: isEnglish ? 'info@titanbreakers.nl' : 'info@titaanbrekers.nl',
-    hours: isEnglish ? 'Mon-Fri: 07:00 - 18:00' : 'Ma-Vr: 07:00 - 18:00',
-    copyright: isEnglish
-      ? '© 2024 titanbreakers. All rights reserved.'
-      : '© 2024 titaanbrekers. Alle rechten voorbehouden.',
-    privacy: isEnglish ? 'Privacy Policy' : 'Privacy Policy',
-    terms: isEnglish ? 'Terms & Conditions' : 'Algemene Voorwaarden',
+  const paths = t.paths || {
+    home: '/',
+    services: '/services',
+    projects: '/projects',
+    blog: '/blog',
+    about: '/about',
+    contact: '/contact',
   }
 
-  const getNavUrl = (item: string): string => {
-    if (item === 'Home') return '/'
-    const itemLower = item.toLowerCase().replace(/ /g, '-')
-    return `/${itemLower}`
+  const getLocalizedPath = (path: string | undefined, fallback: string) => {
+    const safePath = path || fallback
+    if (safePath === '/') return `/${locale}`
+    return `/${locale}${safePath}`
   }
+
+  const navLinks = [
+    { name: t.nav?.home || 'Home', path: getLocalizedPath(paths.home, '/') },
+    { name: t.nav?.services || 'Services', path: getLocalizedPath(paths.services, '/services') },
+    { name: t.nav?.projects || 'Projects', path: getLocalizedPath(paths.projects, '/projects') },
+    { name: t.nav?.about || 'About', path: getLocalizedPath(paths.about, '/about') },
+    { name: t.nav?.contact || 'Contact', path: getLocalizedPath(paths.contact, '/contact') },
+  ]
+
+  const services = [
+    t.services?.manual || 'Handmatige Sloop',
+    t.services?.interior || 'Interieur Sloop',
+    t.services?.asbestos || 'Asbest Sanering',
+    t.services?.selective || 'Selectieve Sloop',
+  ]
 
   return (
     <footer className="bg-card border-t border-border">
@@ -69,33 +51,25 @@ const Footer = () => {
                 <span className="font-display text-2xl text-primary-foreground font-bold">T</span>
               </div>
               <span className="font-display text-2xl tracking-wider text-foreground">
-                {translations.companyName === 'titaanbrekers' ? (
-                  <>
-                    <span>titaan</span>
-                    <span className="text-primary">brekers</span>
-                  </>
-                ) : (
-                  <>
-                    <span>titan</span>
-                    <span className="text-primary">breakers</span>
-                  </>
-                )}
+                <span>{t.company?.name || 'titaanbreakers'}</span>
               </span>
             </div>
-            <p className="text-muted-foreground mb-6">{translations.tagline}</p>
+            <p className="text-muted-foreground mb-6">{t.company?.tagline || ''}</p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display text-xl mb-6 text-foreground">{translations.navigation}</h4>
+            <h4 className="font-display text-xl mb-6 text-foreground">
+              {t.footer?.navigation || 'Navigation'}
+            </h4>
             <ul className="space-y-3">
-              {translations.navLinks.map((item) => (
-                <li key={item}>
+              {navLinks.map((item) => (
+                <li key={item.name}>
                   <Link
-                    href={getNavUrl(item)}
+                    href={item.path}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -105,10 +79,10 @@ const Footer = () => {
           {/* Services */}
           <div>
             <h4 className="font-display text-xl mb-6 text-foreground">
-              {isEnglish ? 'Services' : 'Diensten'}
+              {t.footer?.services || 'Services'}
             </h4>
             <ul className="space-y-3">
-              {translations.services.map((service) => (
+              {services.map((service) => (
                 <li key={service}>
                   <span className="text-muted-foreground">{service}</span>
                 </li>
@@ -118,35 +92,39 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display text-xl mb-6 text-foreground">{translations.contact}</h4>
+            <h4 className="font-display text-xl mb-6 text-foreground">
+              {t.footer?.contact || 'Contact'}
+            </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <span className="text-muted-foreground whitespace-pre-line">
-                  {translations.address}
+                  {t.footer?.address || 'Industrieweg 45\n1234 AB Rotterdam'}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
                 <a
-                  href={`tel:+31${translations.phone.replace(/-/g, '')}`}
+                  href="tel:+31612345678"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  {translations.phone}
+                  {t.footer?.phone || '06-12345678'}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
                 <a
-                  href={`mailto:${translations.email}`}
+                  href={`mailto:${t.footer?.email || 'info@titaanbrekers.nl'}`}
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  {translations.email}
+                  {t.footer?.email || 'info@titaanbrekers.nl'}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">{translations.hours}</span>
+                <span className="text-muted-foreground">
+                  {t.footer?.hours?.weekday || 'Ma-Vr: 07:00 - 18:00'}
+                </span>
               </li>
             </ul>
           </div>
@@ -157,19 +135,21 @@ const Footer = () => {
       <div className="border-t border-border">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-muted-foreground text-sm">{translations.copyright}</p>
+            <p className="text-muted-foreground text-sm">
+              {t.footer?.copyright || '© 2024. Alle rechten voorbehouden.'}
+            </p>
             <div className="flex gap-6 text-sm">
               <Link
-                href="/privacy"
+                href={getLocalizedPath(paths.about, '/about') + '/privacy'}
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                {translations.privacy}
+                {t.footer?.privacy || 'Privacy'}
               </Link>
               <Link
-                href="/voorwaarden"
+                href={getLocalizedPath(paths.about, '/about') + '/voorwaarden'}
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                {translations.terms}
+                {t.footer?.terms || 'Voorwaarden'}
               </Link>
             </div>
           </div>

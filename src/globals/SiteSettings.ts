@@ -48,7 +48,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'email',
           type: 'email',
-          defaultValue: 'info@titanbrekers.nl',
+          defaultValue: 'info@titaanbrekers.nl',
         },
         {
           name: 'address',

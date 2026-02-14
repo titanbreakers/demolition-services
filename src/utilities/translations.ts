@@ -13,6 +13,14 @@ export const translations = {
       about: 'Over Ons',
       contact: 'Contact',
     },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
     cta: {
       quote: 'Offerte Aanvragen',
       freeQuote: 'Gratis Offerte',
@@ -79,7 +87,7 @@ export const translations = {
   },
   en: {
     company: {
-      name: 'titanbreakers',
+      name: 'TitanBreakers',
       tagline:
         'Professional demolition work with power and precision. Your partner in demolition and dismantling for over 25 years.',
     },
@@ -90,6 +98,14 @@ export const translations = {
       blog: 'Blog',
       about: 'About Us',
       contact: 'Contact',
+    },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
     },
     cta: {
       quote: 'Request Quote',
@@ -123,7 +139,7 @@ export const translations = {
       ourServices: 'Our Services',
       ourProjects: 'Our Projects',
       aboutUs: 'About Us',
-      aboutTitan: 'About titanbreakers',
+      aboutTitan: 'About TitanBreakers',
       moreAbout: 'More About Us',
       activeYears: 'Years Active',
       contact: 'Contact',
@@ -140,7 +156,7 @@ export const translations = {
       phone: '06-12345678',
       email: 'info@titanbreakers.nl',
       hours: 'Mon-Fri: 07:00 - 18:00',
-      copyright: '© 2024 titanbreakers. All rights reserved.',
+      copyright: '© 2024 TitanBreakers. All rights reserved.',
       privacy: 'Privacy Policy',
       terms: 'Terms & Conditions',
     },
@@ -168,6 +184,14 @@ export const translations = {
       blog: 'Actualités',
       about: 'À Propos',
       contact: 'Contact',
+    },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
     },
     cta: {
       quote: 'Demander un Devis',
@@ -247,8 +271,15 @@ export const translations = {
       about: 'Über Uns',
       contact: 'Kontakt',
     },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
     cta: {
-      quote: 'Angebot Anfordern',
       freeQuote: 'Kostenloses Angebot',
       viewProjects: 'Projekte Ansehen',
       moreInfo: 'Mehr Info',
@@ -324,6 +355,14 @@ export const translations = {
       blog: 'Notizie',
       about: 'Chi Siamo',
       contact: 'Contatti',
+    },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
     },
     cta: {
       quote: 'Richiedi Preventivo',
@@ -403,6 +442,14 @@ export const translations = {
       about: 'Nosotros',
       contact: 'Contacto',
     },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
     cta: {
       quote: 'Solicitar Presupuesto',
       freeQuote: 'Presupuesto Gratis',
@@ -480,6 +527,14 @@ export const translations = {
       blog: 'Nyheter',
       about: 'Om Oss',
       contact: 'Kontakt',
+    },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
     },
     cta: {
       quote: 'Begär Offert',
@@ -559,6 +614,14 @@ export const translations = {
       about: 'Meistä',
       contact: 'Yhteystiedot',
     },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
     cta: {
       quote: 'Pyydä Tarjous',
       freeQuote: 'Ilmainen Tarjous',
@@ -637,6 +700,14 @@ export const translations = {
       about: 'O Nas',
       contact: 'Kontakt',
     },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
     cta: {
       quote: 'Poproś o Wycenę',
       freeQuote: 'Darmowa Wycena',
@@ -714,6 +785,14 @@ export const translations = {
       about: 'من نحن',
       contact: 'اتصل بنا',
     },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
     cta: {
       quote: 'اطلب عرض سعر',
       freeQuote: 'عرض سعر مجاني',
@@ -790,6 +869,14 @@ export const translations = {
       blog: '新闻',
       about: '关于我们',
       contact: '联系我们',
+    },
+    paths: {
+      home: '/',
+      services: '/服务',
+      projects: '/项目',
+      blog: '/新闻',
+      about: '/关于我们',
+      contact: '/联系我们',
     },
     cta: {
       quote: '请求报价',
@@ -869,6 +956,14 @@ export const translations = {
       about: '会社概要',
       contact: 'お問い合わせ',
     },
+    paths: {
+      home: '/',
+      services: '/サービス',
+      projects: '/プロジェクト',
+      blog: '/ニュース',
+      about: '/会社概要',
+      contact: '/お問い合わせ',
+    },
     cta: {
       quote: '見積もりを依頼',
       freeQuote: '無料見積もり',
@@ -946,6 +1041,14 @@ export const translations = {
       blog: 'Notícias',
       about: 'Sobre Nós',
       contact: 'Contato',
+    },
+    paths: {
+      home: '/',
+      services: '/servicos',
+      projects: '/projetos',
+      blog: '/noticias',
+      about: '/sobre-nos',
+      contact: '/contato',
     },
     cta: {
       quote: 'Solicitar Orçamento',
@@ -1025,6 +1128,14 @@ export const translations = {
       about: 'Hakkımızda',
       contact: 'İletişim',
     },
+    paths: {
+      home: '/',
+      services: '/hizmetler',
+      projects: '/projeler',
+      blog: '/haberler',
+      about: '/hakkimizda',
+      contact: '/iletisim',
+    },
     cta: {
       quote: 'Teklif İste',
       freeQuote: 'Ücretsiz Teklif',
@@ -1102,6 +1213,14 @@ export const translations = {
       blog: 'Новости',
       about: 'О Нас',
       contact: 'Контакты',
+    },
+    paths: {
+      home: '/',
+      services: '/uslugi',
+      projects: '/proekty',
+      blog: '/novosti',
+      about: '/o-nas',
+      contact: '/kontakty',
     },
     cta: {
       quote: 'Запросить КП',

@@ -6,406 +6,1887 @@ import dotenv from 'dotenv'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Load environment variables FIRST
 dotenv.config({ path: path.join(__dirname, '..', '.env') })
 
-// Dynamically import config after env is loaded
 const { default: config } = await import(path.join(__dirname, '..', 'src', 'payload.config.ts'))
 
-async function seedEnglishTranslations() {
-  console.log('🌱 Adding English translations...')
+const allTranslations = {
+  nl: {
+    nav: {
+      home: 'Home',
+      services: 'Diensten',
+      projects: 'Projecten',
+      blog: 'Nieuws',
+      about: 'Over Ons',
+      contact: 'Contact',
+    },
+    paths: {
+      home: '/',
+      services: '/diensten',
+      projects: '/projecten',
+      blog: '/nieuws',
+      about: '/over-ons',
+      contact: '/contact',
+    },
+    cta: {
+      freeQuote: 'Gratis Offerte',
+      viewProjects: 'Bekijk Projecten',
+      viewAllServices: 'Alle Diensten Bekijken',
+      viewAllProjects: 'Alle Projecten Bekijken',
+      sendMessage: 'Verstuur Bericht',
+    },
+    hero: {
+      stats: {
+        years: 'Jaar Ervaring',
+        projects: 'Projecten',
+        homes: 'Woningen',
+        safety: 'Veilig',
+      },
+      features: {
+        fastResponse: 'Snelle Respons',
+        fastResponseDesc: 'Binnen 24 uur reactie',
+        insured: 'Volledig Verzekerd',
+        insuredDesc: 'Tot €2 miljoen dekking',
+        certified: 'VCA Gecertificeerd',
+        certifiedDesc: 'Hoogste veiligheidsnormen',
+      },
+    },
+    sections: {
+      ourServices: 'Onze Diensten',
+      ourProjects: 'Onze Projecten',
+      aboutUs: 'Over Ons',
+      moreAbout: 'Meer Over Ons',
+      contact: 'Contact',
+      latestNews: 'Laatste Nieuws',
+      readMore: 'Lees Meer',
+    },
+    footer: {
+      services: 'Diensten',
+      contact: 'Contact',
+      navigation: 'Navigatie',
+      privacy: 'Privacybeleid',
+      terms: 'Algemene Voorwaarden',
+      copyright: '© 2024 titaanbrekers. Alle rechten voorbehouden.',
+    },
+    company: {
+      name: 'titaanbrekers',
+      tagline:
+        'Professioneel sloopwerk met kracht en precisie. Al meer dan 25 jaar uw partner in sloop en demontage.',
+    },
+    form: {
+      name: 'Naam',
+      email: 'E-mail',
+      phone: 'Telefoon',
+      subject: 'Onderwerp',
+      message: 'Bericht',
+      submit: 'Versturen',
+      sending: 'Versturen...',
+      success: 'Bericht verzonden!',
+      error: 'Er ging iets mis. Probeer het opnieuw.',
+    },
+    contact: {
+      getInTouch: 'Neem Contact Op',
+      getInTouchDesc:
+        'Heeft u een sloop- of demontageproject? Neem vrijblijvend contact met ons op voor een offerte of advies. Wij reageren binnen 24 uur.',
+      sendMessage: 'Stuur een Bericht',
+      subjects: {
+        quote: 'Offerte aanvragen',
+        info: 'Informatie aanvragen',
+        collaboration: 'Samenwerking',
+        other: 'Anders',
+      },
+    },
+    services: {
+      title: 'Onze Specialisaties',
+      description:
+        'Van keukenstripping tot complete woningontruiming - wij voeren alle sloopwerkzaamheden handmatig uit met hamer en beitel. Perfect voor renovaties waar machines niet kunnen komen.',
+      manual: 'Handmatige Sloop',
+      manualDesc:
+        'Vakkundige sloopwerkzaamheden met hamers en handgereedschap. Perfect voor binnensloop waar machines niet kunnen komen.',
+      interior: 'Interieur Sloop',
+      interiorDesc:
+        'Strip-out van woonhuizen, kantoren en winkels. Van complete keukens tot badkamers.',
+      selective: 'Selectieve Sloop',
+      selectiveDesc: 'Gecertificeerde selectieve sloop van specifieke delen van een pand.',
+      asbestos: 'Asbest Sanering',
+      asbestosDesc: 'Gecertificeerde verwijdering van asbesthoudende materialen volgens SC-530.',
+      kitchenBathroom: 'Keuken & Badkamer Sloop',
+      kitchenBathroomDesc: 'Specialistische sloop van keukens, badkamers en sanitaire ruimtes.',
+      propertyClearing: 'Woning Ontruiming',
+      propertyClearingDesc:
+        'Complete ontruiming en sloop van woningen, appartementen en bedrijfspanden.',
+    },
+    about: {
+      title: 'Wie Zijn Wij',
+      description:
+        'Al meer dan 25 jaar is titaanbrekers dé specialist in handmatig sloopwerk voor woningen en bedrijfspanden. Met hamer en beitel, passie en vakmanschap maken wij ruimte voor uw renovatie.',
+      story: {
+        title: 'Ons Verhaal',
+        paragraphs: [
+          'titaanbrekers is in 1998 opgericht als klein familiebedrijf in Rotterdam. Wat begon als een klusjesman met een hamer is uitgegroeid tot een toonaangevend sloopbedrijf gespecialiseerd in handmatig binnensloopwerk.',
+          'Onze kracht zit in ons team van ervaren slopers die allemaal meester zijn in het werken met hamer, beitel en andere handgereedschap.',
+        ],
+      },
+      values: {
+        safety: 'Veiligheid',
+        safetyDesc:
+          'Veiligheid staat voorop. Wij werken netjes en veilig in uw bestaande pand zonder buren te hinderen.',
+        precision: 'Precisie',
+        precisionDesc:
+          'Met de hand slopen wij alleen wat nodig is. Bestaande constructies en leidingen sparen wij altijd.',
+        cleanWork: 'Netjes Werken',
+        cleanWorkDesc: 'Wij leveren altijd netjes op, zonder schade aan wat moet blijven staan.',
+        craftsmanship: 'Vakmanschap',
+        craftsmanshipDesc: 'Onze slopers hebben jarenlange ervaring in handmatig sloopwerk.',
+      },
+      stats: {
+        years: 'Jaar Ervaring',
+        homes: 'Woningen',
+        craftsmen: 'Vakmensen',
+        recycling: 'Recycling',
+      },
+    },
+    blog: {
+      title: 'Nieuws & Blog',
+      latestNews: 'Laatste Nieuws',
+      readMore: 'Lees Meer',
+    },
+  },
+  en: {
+    nav: {
+      home: 'Home',
+      services: 'Services',
+      projects: 'Projects',
+      blog: 'Blog',
+      about: 'About Us',
+      contact: 'Contact',
+    },
+    paths: {
+      home: '/',
+      services: '/services',
+      projects: '/projects',
+      blog: '/blog',
+      about: '/about',
+      contact: '/contact',
+    },
+    cta: {
+      freeQuote: 'Free Quote',
+      viewProjects: 'View Projects',
+      viewAllServices: 'View All Services',
+      viewAllProjects: 'View All Projects',
+      sendMessage: 'Send Message',
+    },
+    hero: {
+      stats: {
+        years: 'Years Experience',
+        projects: 'Projects',
+        homes: 'Homes',
+        safety: 'Safe',
+      },
+      features: {
+        fastResponse: 'Fast Response',
+        fastResponseDesc: 'Response within 24 hours',
+        insured: 'Fully Insured',
+        insuredDesc: 'Up to €2 million coverage',
+        certified: 'VCA Certified',
+        certifiedDesc: 'Highest safety standards',
+      },
+    },
+    sections: {
+      ourServices: 'Our Services',
+      ourProjects: 'Our Projects',
+      aboutUs: 'About Us',
+      moreAbout: 'More About Us',
+      contact: 'Contact',
+      latestNews: 'Latest News',
+      readMore: 'Read More',
+    },
+    footer: {
+      services: 'Services',
+      contact: 'Contact',
+      navigation: 'Navigation',
+      privacy: 'Privacy Policy',
+      terms: 'Terms & Conditions',
+      copyright: '© 2024 TitanBreakers. All rights reserved.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Professional demolition work with power and precision. Your partner in demolition and dismantling for over 25 years.',
+    },
+    form: {
+      name: 'Name',
+      email: 'Email',
+      phone: 'Phone',
+      subject: 'Subject',
+      message: 'Message',
+      submit: 'Submit',
+      sending: 'Sending...',
+      success: 'Message sent!',
+      error: 'Something went wrong. Please try again.',
+    },
+    contact: {
+      getInTouch: 'Get In Touch',
+      getInTouchDesc:
+        'Do you have a demolition or dismantling project? Feel free to contact us for a quote or advice. We respond within 24 hours.',
+      sendMessage: 'Send a Message',
+      subjects: {
+        quote: 'Request Quote',
+        info: 'Request Information',
+        collaboration: 'Partnership',
+        other: 'Other',
+      },
+    },
+    services: {
+      title: 'Our Specialties',
+      description:
+        'From kitchen stripping to complete property clearing - we carry out all demolition work manually with hammer and chisel. Perfect for renovations where machinery cannot access.',
+      manual: 'Manual Demolition',
+      manualDesc:
+        'Skilled demolition work with hammers and hand tools. Perfect for indoor demolition where machinery cannot access.',
+      interior: 'Interior Demolition',
+      interiorDesc:
+        'Strip-out of homes, offices, and retail spaces. From complete kitchens to bathrooms.',
+      selective: 'Selective Demolition',
+      selectiveDesc: 'Certified selective demolition of specific parts of a building.',
+      asbestos: 'Asbestos Removal',
+      asbestosDesc:
+        'Certified removal of asbestos-containing materials according to SC-530 standards.',
+      kitchenBathroom: 'Kitchen & Bathroom Demolition',
+      kitchenBathroomDesc: 'Specialized demolition of kitchens, bathrooms, and sanitary spaces.',
+      propertyClearing: 'Property Clearing',
+      propertyClearingDesc:
+        'Complete clearing and demolition of homes, apartments, and commercial properties.',
+    },
+    about: {
+      title: 'Who We Are',
+      description:
+        'For more than 25 years, TitanBreakers has been the specialist in manual demolition work for homes and commercial properties. With hammer and chisel, passion and craftsmanship, we make room for your renovation.',
+      story: {
+        title: 'Our Story',
+        paragraphs: [
+          'TitanBreakers was founded in 1998 as a small family business in Rotterdam. What started as a handyman with a hammer has grown into a leading demolition company specialized in manual indoor demolition work.',
+          'Our strength lies in our team of experienced demolition workers who are all masters at working with hammer, chisel, and other hand tools.',
+        ],
+      },
+      values: {
+        safety: 'Safety',
+        safetyDesc:
+          'Safety comes first. We work neatly and safely in your existing building without disturbing neighbors.',
+        precision: 'Precision',
+        precisionDesc:
+          'By hand we demolish only what is necessary. We always spare existing structures and pipes.',
+        cleanWork: 'Clean Work',
+        cleanWorkDesc: 'We always deliver cleanly, without damage to what should remain standing.',
+        craftsmanship: 'Craftsmanship',
+        craftsmanshipDesc:
+          'Our demolition workers have years of experience in manual demolition work.',
+      },
+      stats: {
+        years: 'Years Experience',
+        homes: 'Homes',
+        craftsmen: 'Craftsmen',
+        recycling: 'Recycling',
+      },
+    },
+    blog: {
+      title: 'News & Blog',
+      latestNews: 'Latest News',
+      readMore: 'Read More',
+    },
+  },
+  fr: {
+    nav: {
+      home: 'Accueil',
+      services: 'Services',
+      projects: 'Projets',
+      blog: 'Actualités',
+      about: 'À Propos',
+      contact: 'Contact',
+    },
+    paths: {
+      home: '/',
+      services: '/services',
+      projects: '/projets',
+      blog: '/actualites',
+      about: '/a-propos',
+      contact: '/contact',
+    },
+    cta: {
+      freeQuote: 'Devis Gratuit',
+      viewProjects: 'Voir les Projets',
+      viewAllServices: 'Voir Tous les Services',
+      viewAllProjects: 'Voir Tous les Projets',
+      sendMessage: 'Envoyer',
+    },
+    hero: {
+      stats: { years: "Années d'Expérience", projects: 'Projets', homes: 'Maisons', safety: 'Sûr' },
+      features: {
+        fastResponse: 'Réponse Rapide',
+        fastResponseDesc: 'Réponse sous 24h',
+        insured: 'Assuré',
+        insuredDesc: "Jusqu'à 2 millions €",
+        certified: 'Certifié VCA',
+        certifiedDesc: 'Normes de sécurité les plus élevées',
+      },
+    },
+    sections: {
+      ourServices: 'Nos Services',
+      ourProjects: 'Nos Projets',
+      aboutUs: 'À Propos',
+      moreAbout: 'En Savoir Plus',
+      contact: 'Contact',
+      latestNews: 'Dernières Nouvelles',
+      readMore: 'Lire Plus',
+    },
+    footer: {
+      services: 'Services',
+      contact: 'Contact',
+      navigation: 'Navigation',
+      privacy: 'Politique de Confidentialité',
+      terms: 'Conditions Générales',
+      copyright: '© 2024 TitanBreakers. Tous droits réservés.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Démolition professionnelle avec puissance et précision. Votre partenaire depuis plus de 25 ans.',
+    },
+    form: {
+      name: 'Nom',
+      email: 'Email',
+      phone: 'Téléphone',
+      subject: 'Sujet',
+      message: 'Message',
+      submit: 'Envoyer',
+      sending: 'Envoi...',
+      success: 'Message envoyé!',
+      error: 'Une erreur est survenue.',
+    },
+    contact: {
+      getInTouch: 'Contactez-nous',
+      getInTouchDesc: "Vous avez un projet? N'hésitez pas à nous contacter pour un devis.",
+      sendMessage: 'Envoyer un Message',
+      subjects: {
+        quote: 'Demande de devis',
+        info: "Demande d'info",
+        collaboration: 'Partenariat',
+        other: 'Autre',
+      },
+    },
+    services: {
+      title: 'Nos Spécialités',
+      description: 'Du stripping de cuisine au déblayage complet - nous faisons tout manuellement.',
+      manual: 'Démolition Manuelle',
+      manualDesc: 'Travaux de démolition qualifiés avec marteau et outils.',
+      interior: 'Démolition Intérieure',
+      interiorDesc: 'Strip-out de maisons, bureaux et commerces.',
+      selective: 'Démolition Sélective',
+      selectiveDesc: 'Démolition certifiée de parties spécifiques.',
+      asbestos: 'Désamiantage',
+      asbestosDesc: 'Retrait certifié selon SC-530.',
+      kitchenBathroom: 'Démolition Cuisine & Salle de Bain',
+      kitchenBathroomDesc: 'Démolition spécialisée de cuisines et salles de bain.',
+      propertyClearing: 'Déblayage',
+      propertyClearingDesc: 'Déblayage complet de biens immobiliers.',
+    },
+    about: {
+      title: 'Qui Sommes-Nous',
+      description: "Plus de 25 ans d'expertise en démolition manuelle.",
+      story: {
+        title: 'Notre Histoire',
+        paragraphs: [
+          'Fondée en 1998 à Rotterdam.',
+          'Une équipe expérimentée de démolisseurs experts.',
+        ],
+      },
+      values: {
+        safety: 'Sécurité',
+        safetyDesc: 'La sécurité avant tout.',
+        precision: 'Précision',
+        precisionDesc: 'Démolition uniquement de ce qui est nécessaire.',
+        cleanWork: 'Travail Propre',
+        cleanWorkDesc: 'Livraison toujours propre.',
+        craftsmanship: 'Savoir-Faire',
+        craftsmanshipDesc: "Des années d'expérience.",
+      },
+      stats: {
+        years: "Années d'Expérience",
+        homes: 'Maisons',
+        craftsmen: 'Artisans',
+        recycling: 'Recyclage',
+      },
+    },
+    blog: { title: 'Actualités', latestNews: 'Dernières Nouvelles', readMore: 'Lire Plus' },
+  },
+  de: {
+    nav: {
+      home: 'Home',
+      services: 'Leistungen',
+      projects: 'Projekte',
+      blog: 'Neuigkeiten',
+      about: 'Über Uns',
+      contact: 'Kontakt',
+    },
+    paths: {
+      home: '/',
+      services: '/leistungen',
+      projects: '/projekte',
+      blog: '/neuigkeiten',
+      about: '/ueber-uns',
+      contact: '/kontakt',
+    },
+    cta: {
+      freeQuote: 'Kostenloses Angebot',
+      viewProjects: 'Projekte Ansehen',
+      viewAllServices: 'Alle Leistungen',
+      viewAllProjects: 'Alle Projekte',
+      sendMessage: 'Nachricht Senden',
+    },
+    hero: {
+      stats: { years: 'Jahre Erfahrung', projects: 'Projekte', homes: 'Häuser', safety: 'Sicher' },
+      features: {
+        fastResponse: 'Schnelle Antwort',
+        fastResponseDesc: 'Antwort innerhalb von 24 Stunden',
+        insured: 'Versichert',
+        insuredDesc: 'Bis zu 2 Mio. €',
+        certified: 'VCA Zertifiziert',
+        certifiedDesc: 'Höchste Sicherheitsstandards',
+      },
+    },
+    sections: {
+      ourServices: 'Unsere Leistungen',
+      ourProjects: 'Unsere Projekte',
+      aboutUs: 'Über Uns',
+      moreAbout: 'Mehr Über Uns',
+      contact: 'Kontakt',
+      latestNews: 'Aktuelles',
+      readMore: 'Mehr Lesen',
+    },
+    footer: {
+      services: 'Leistungen',
+      contact: 'Kontakt',
+      navigation: 'Navigation',
+      privacy: 'Datenschutz',
+      terms: 'AGB',
+      copyright: '© 2024 TitanBreakers. Alle Rechte vorbehalten.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Professionelle Abbrucharbeit mit Kraft und Präzision. Ihr Partner seit über 25 Jahren.',
+    },
+    form: {
+      name: 'Name',
+      email: 'E-Mail',
+      phone: 'Telefon',
+      subject: 'Betreff',
+      message: 'Nachricht',
+      submit: 'Absenden',
+      sending: 'Wird gesendet...',
+      success: 'Nachricht gesendet!',
+      error: 'Etwas ist schief gelaufen.',
+    },
+    contact: {
+      getInTouch: 'Kontaktieren Sie Uns',
+      getInTouchDesc: 'Haben Sie ein Projekt? Kontaktieren Sie uns für ein Angebot.',
+      sendMessage: 'Nachricht Senden',
+      subjects: {
+        quote: 'Angebotsanfrage',
+        info: 'Information',
+        collaboration: 'Zusammenarbeit',
+        other: 'Sonstiges',
+      },
+    },
+    services: {
+      title: 'Unsere Spezialitäten',
+      description: 'Von Küchenstripping bis zur kompletten Räumung - alles manuell.',
+      manual: 'Manueller Abbruch',
+      manualDesc: 'Qualifizierte Abbrucharbeiten mit Hammer und Werkzeug.',
+      interior: 'Innenabbruch',
+      interiorDesc: 'Strip-out von Häusern, Büros und Geschäften.',
+      selective: 'Selektiver Abbruch',
+      selectiveDesc: 'Zertifizierter selektiver Abbruch.',
+      asbestos: 'Asbestsanierung',
+      asbestosDesc: 'Zertifizierte Asbestentfernung nach SC-530.',
+      kitchenBathroom: 'Küche & Badezimmer',
+      kitchenBathroomDesc: 'Spezialisierter Abbruch von Küchen und Bädern.',
+      propertyClearing: 'Räumung',
+      propertyClearingDesc: 'Komplette Räumung von Immobilien.',
+    },
+    about: {
+      title: 'Wer Wir Sind',
+      description: 'Über 25 Jahre Erfahrung im manuellen Abbruch.',
+      story: {
+        title: 'Unsere Geschichte',
+        paragraphs: ['Gegründet 1998 in Rotterdam.', 'Ein Team erfahrener Experten.'],
+      },
+      values: {
+        safety: 'Sicherheit',
+        safetyDesc: 'Sicherheit steht an erster Stelle.',
+        precision: 'Präzision',
+        precisionDesc: 'Wir entfernen nur das Nötige.',
+        cleanWork: 'Saubere Arbeit',
+        cleanWorkDesc: 'Wir liefern immer sauber ab.',
+        craftsmanship: 'Handwerk',
+        craftsmanshipDesc: 'Jahrelange Erfahrung.',
+      },
+      stats: {
+        years: 'Jahre Erfahrung',
+        homes: 'Häuser',
+        craftsmen: 'Fachleute',
+        recycling: 'Recycling',
+      },
+    },
+    blog: { title: 'Neuigkeiten', latestNews: 'Aktuelles', readMore: 'Mehr Lesen' },
+  },
+  it: {
+    nav: {
+      home: 'Home',
+      services: 'Servizi',
+      projects: 'Progetti',
+      blog: 'News',
+      about: 'Chi Siamo',
+      contact: 'Contatti',
+    },
+    paths: {
+      home: '/',
+      services: '/servizi',
+      projects: '/progetti',
+      blog: '/notizie',
+      about: '/chi-siamo',
+      contact: '/contatti',
+    },
+    cta: {
+      freeQuote: 'Preventivo Gratuito',
+      viewProjects: 'Vedi Progetti',
+      viewAllServices: 'Tutti i Servizi',
+      viewAllProjects: 'Tutti i Progetti',
+      sendMessage: 'Invia Messaggio',
+    },
+    hero: {
+      stats: { years: 'Anni di Esperienza', projects: 'Progetti', homes: 'Case', safety: 'Sicuro' },
+      features: {
+        fastResponse: 'Risposta Veloce',
+        fastResponseDesc: 'Risposta entro 24 ore',
+        insured: 'Assicurato',
+        insuredDesc: 'Fino a 2 milioni €',
+        certified: 'Certificato VCA',
+        certifiedDesc: 'Standard di sicurezza più alti',
+      },
+    },
+    sections: {
+      ourServices: 'I Nostri Servizi',
+      ourProjects: 'I Nostri Progetti',
+      aboutUs: 'Chi Siamo',
+      moreAbout: 'Scopri di Più',
+      contact: 'Contatti',
+      latestNews: 'Ultime Notizie',
+      readMore: 'Leggi Altro',
+    },
+    footer: {
+      services: 'Servizi',
+      contact: 'Contatti',
+      navigation: 'Navigazione',
+      privacy: 'Privacy',
+      terms: 'Condizioni',
+      copyright: '© 2024 TitanBreakers. Tutti i diritti riservati.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Lavori di demolizione professionali con potenza e precisione. Il vostro partner da oltre 25 anni.',
+    },
+    form: {
+      name: 'Nome',
+      email: 'Email',
+      phone: 'Telefono',
+      subject: 'Oggetto',
+      message: 'Messaggio',
+      submit: 'Invia',
+      sending: 'Invio...',
+      success: 'Messaggio inviato!',
+      error: 'Qualcosa è andato storto.',
+    },
+    contact: {
+      getInTouch: 'Contattaci',
+      getInTouchDesc: 'Hai un progetto? Contattaci per un preventivo.',
+      sendMessage: 'Invia un Messaggio',
+      subjects: {
+        quote: 'Richiesta Preventivo',
+        info: 'Richiesta Info',
+        collaboration: 'Collaborazione',
+        other: 'Altro',
+      },
+    },
+    services: {
+      title: 'Le Nostre Specialità',
+      description: 'Dallo stripping di cucine alla rimozione completa - tutto manualmente.',
+      manual: 'Demolizione Manuale',
+      manualDesc: 'Lavori di demolizione qualificati con martello e attrezzi.',
+      interior: 'Demolizione Interna',
+      interiorDesc: 'Strip-out di case, uffici e negozi.',
+      selective: 'Demolizione Selettiva',
+      selectiveDesc: 'Demolizione certificata di parti specifiche.',
+      asbestos: 'Rimozione Amianto',
+      asbestosDesc: 'Rimozione certificata secondo SC-530.',
+      kitchenBathroom: 'Cucina & Bagno',
+      kitchenBathroomDesc: 'Demolizione specializzata di cucine e bagni.',
+      propertyClearing: 'Sgombero',
+      propertyClearingDesc: 'Sgombero completo di immobili.',
+    },
+    about: {
+      title: 'Chi Siamo',
+      description: 'Oltre 25 anni di esperienza in demolizione manuale.',
+      story: {
+        title: 'La Nostra Storia',
+        paragraphs: ['Fondata nel 1998 a Rotterdam.', 'Un team di esperti esperti.'],
+      },
+      values: {
+        safety: 'Sicurezza',
+        safetyDesc: 'La sicurezza prima di tutto.',
+        precision: 'Precisione',
+        precisionDesc: 'Rimuoviamo solo il necessario.',
+        cleanWork: 'Lavoro Pulito',
+        cleanWorkDesc: 'Consegniamo sempre pulito.',
+        craftsmanship: 'Maestria',
+        craftsmanshipDesc: 'Anni di esperienza.',
+      },
+      stats: {
+        years: 'Anni di Esperienza',
+        homes: 'Case',
+        craftsmen: 'Maestri',
+        recycling: 'Riciclaggio',
+      },
+    },
+    blog: { title: 'News', latestNews: 'Ultime Notizie', readMore: 'Leggi Altro' },
+  },
+  es: {
+    nav: {
+      home: 'Home',
+      services: 'Servicios',
+      projects: 'Proyectos',
+      blog: 'Noticias',
+      about: 'Nosotros',
+      contact: 'Contacto',
+    },
+    paths: {
+      home: '/',
+      services: '/servicios',
+      projects: '/proyectos',
+      blog: '/noticias',
+      about: '/nosotros',
+      contact: '/contacto',
+    },
+    cta: {
+      freeQuote: 'Presupuesto Gratis',
+      viewProjects: 'Ver Proyectos',
+      viewAllServices: 'Todos los Servicios',
+      viewAllProjects: 'Todos los Proyectos',
+      sendMessage: 'Enviar Mensaje',
+    },
+    hero: {
+      stats: {
+        years: 'Años de Experiencia',
+        projects: 'Proyectos',
+        homes: 'Casas',
+        safety: 'Seguro',
+      },
+      features: {
+        fastResponse: 'Respuesta Rápida',
+        fastResponseDesc: 'Respuesta en 24 horas',
+        insured: 'Asegurado',
+        insuredDesc: 'Hasta 2 millones €',
+        certified: 'Certificado VCA',
+        certifiedDesc: 'Los más altos estándares de seguridad',
+      },
+    },
+    sections: {
+      ourServices: 'Nuestros Servicios',
+      ourProjects: 'Nuestros Proyectos',
+      aboutUs: 'Nosotros',
+      moreAbout: 'Más Sobre Nosotros',
+      contact: 'Contacto',
+      latestNews: 'Últimas Noticias',
+      readMore: 'Leer Más',
+    },
+    footer: {
+      services: 'Servicios',
+      contact: 'Contacto',
+      navigation: 'Navegación',
+      privacy: 'Privacidad',
+      terms: 'Términos',
+      copyright: '© 2024 TitanBreakers. Todos los derechos reservados.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Trabajos de demolición profesionales con potencia y precisión. Su socio desde hace más de 25 años.',
+    },
+    form: {
+      name: 'Nombre',
+      email: 'Email',
+      phone: 'Teléfono',
+      subject: 'Asunto',
+      message: 'Mensaje',
+      submit: 'Enviar',
+      sending: 'Enviando...',
+      success: '¡Mensaje enviado!',
+      error: 'Algo salió mal.',
+    },
+    contact: {
+      getInTouch: 'Contáctenos',
+      getInTouchDesc: '¿Tiene un proyecto? Contáctenos para un presupuesto.',
+      sendMessage: 'Enviar un Mensaje',
+      subjects: {
+        quote: 'Solicitar Presupuesto',
+        info: 'Solicitar Info',
+        collaboration: 'Colaboración',
+        other: 'Otro',
+      },
+    },
+    services: {
+      title: 'Nuestras Especialidades',
+      description: 'Desde stripping de cocinas hasta despeje completo - todo manualmente.',
+      manual: 'Demolición Manual',
+      manualDesc: 'Trabajos de demolición cualificados con martillo y herramientas.',
+      interior: 'Demolición Interior',
+      interiorDesc: 'Strip-out de casas, oficinas y tiendas.',
+      selective: 'Demolición Selectiva',
+      selectiveDesc: 'Demolición certificada de partes específicas.',
+      asbestos: 'Desamiantado',
+      asbestosDes: 'Retirada certificada según SC-530.',
+      kitchenBathroom: 'Cocina & Baño',
+      kitchenBathroomDesc: 'Demolición especializada de cocinas y baños.',
+      propertyClearing: 'Despeje',
+      propertyClearingDesc: 'Despeje completo de propiedades.',
+    },
+    about: {
+      title: 'Quiénes Somos',
+      description: 'Más de 25 años de experiencia en demolición manual.',
+      story: {
+        title: 'Nuestra Historia',
+        paragraphs: ['Fundada en 1998 en Róterdam.', 'Un equipo de expertos experimentados.'],
+      },
+      values: {
+        safety: 'Seguridad',
+        safetyDesc: 'La seguridad es lo primero.',
+        precision: 'Precisión',
+        precisionDesc: 'Solo demolemos lo necesario.',
+        cleanWork: 'Trabajo Limpio',
+        cleanWorkDesc: 'Siempre entregamos limpio.',
+        craftsmanship: 'Artesanía',
+        craftsmanshipDesc: 'Años de experiencia.',
+      },
+      stats: {
+        years: 'Años de Experiencia',
+        homes: 'Casas',
+        craftsmen: 'Maestros',
+        recycling: 'Reciclaje',
+      },
+    },
+    blog: { title: 'Noticias', latestNews: 'Últimas Noticias', readMore: 'Leer Más' },
+  },
+  sv: {
+    nav: {
+      home: 'Hem',
+      services: 'Tjänster',
+      projects: 'Projekt',
+      blog: 'Nyheter',
+      about: 'Om Oss',
+      contact: 'Kontakt',
+    },
+    paths: {
+      home: '/',
+      services: '/tjanster',
+      projects: '/projekt',
+      blog: '/nyheter',
+      about: '/om-oss',
+      contact: '/kontakt',
+    },
+    cta: {
+      freeQuote: 'Gratis Offert',
+      viewProjects: 'Se Projekt',
+      viewAllServices: 'Alla Tjänster',
+      viewAllProjects: 'Alla Projekt',
+      sendMessage: 'Skicka Meddelande',
+    },
+    hero: {
+      stats: { years: 'Års Erfarenhet', projects: 'Projekt', homes: 'Hus', safety: 'Säker' },
+      features: {
+        fastResponse: 'Snabb Respons',
+        fastResponseDesc: 'Svar inom 24 timmar',
+        insured: 'Försäkrad',
+        insuredDesc: 'Upp till 2 miljoner €',
+        certified: 'VCA Certifierad',
+        certifiedDesc: 'Högsta säkerhetsstandarder',
+      },
+    },
+    sections: {
+      ourServices: 'Våra Tjänster',
+      ourProjects: 'Våra Projekt',
+      aboutUs: 'Om Oss',
+      moreAbout: 'Mer Om Oss',
+      contact: 'Kontakt',
+      latestNews: 'Senaste Nytt',
+      readMore: 'Läs Mer',
+    },
+    footer: {
+      services: 'Tjänster',
+      contact: 'Kontakt',
+      navigation: 'Navigation',
+      privacy: 'Integritet',
+      terms: 'Villkor',
+      copyright: '© 2024 TitanBreakers. Alla rättigheter reserverade.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline: 'Professionella rivningsarbeten med kraft och precision. Er partner i över 25 år.',
+    },
+    form: {
+      name: 'Namn',
+      email: 'E-post',
+      phone: 'Telefon',
+      subject: 'Ämne',
+      message: 'Meddelande',
+      submit: 'Skicka',
+      sending: 'Skickar...',
+      success: 'Meddelande skickat!',
+      error: 'Något gick fel.',
+    },
+    contact: {
+      getInTouch: 'Kontakta Oss',
+      getInTouchDesc: 'Har du ett projekt? Kontakta oss för en offert.',
+      sendMessage: 'Skicka ett Meddelande',
+      subjects: {
+        quote: 'Begär Offert',
+        info: 'Begär Info',
+        collaboration: 'Samarbete',
+        other: 'Annat',
+      },
+    },
+    services: {
+      title: 'Våra Specialiteter',
+      description: 'Från köksstripping till fullständig rensning - allt manuellt.',
+      manual: 'Manuell Rivning',
+      manualDesc: 'Kvalificerade rivningsarbeten med hammare och verktyg.',
+      interior: 'Invändig Rivning',
+      interiorDesc: 'Strip-out av hus, kontor och butiker.',
+      selective: 'Selektiv Rivning',
+      selectiveDesc: 'Certifierad selektiv rivning av specifika delar.',
+      asbestos: 'Asbestsanering',
+      asbestosDesc: 'Certifierad asbestsanering enligt SC-530.',
+      kitchenBathroom: 'Kök & Badrum',
+      kitchenBathroomDesc: 'Specialiserad rivning av kök och badrum.',
+      propertyClearing: 'Rensning',
+      propertyClearingDesc: 'Fullständig rensning av fastigheter.',
+    },
+    about: {
+      title: 'Vilka Vi Är',
+      description: 'Över 25 års erfarenhet av manuell rivning.',
+      story: {
+        title: 'Vår Historia',
+        paragraphs: ['Grundades 1998 i Rotterdam.', 'Ett team av erfarna experter.'],
+      },
+      values: {
+        safety: 'Säkerhet',
+        safetyDesc: 'Säkerheten kommer först.',
+        precision: 'Precision',
+        precisionDesc: 'Vi river bara det som behövs.',
+        cleanWork: 'Rent Arbete',
+        cleanWorkDesc: 'Vi levererar alltid rent.',
+        craftsmanship: 'Hantverk',
+        craftsmanshipDesc: 'År av erfarenhet.',
+      },
+      stats: {
+        years: 'Års Erfarenhet',
+        homes: 'Hus',
+        craftsmen: 'Hantverkare',
+        recycling: 'Återvinning',
+      },
+    },
+    blog: { title: 'Nyheter', latestNews: 'Senaste Nytt', readMore: 'Läs Mer' },
+  },
+  fi: {
+    nav: {
+      home: 'Etusivu',
+      services: 'Palvelut',
+      projects: 'Projektit',
+      blog: 'Uutiset',
+      about: 'Meistä',
+      contact: 'Yhteys',
+    },
+    paths: {
+      home: '/',
+      services: '/palvelut',
+      projects: '/projektit',
+      blog: '/uutiset',
+      about: '/meista',
+      contact: '/yhteystiedot',
+    },
+    cta: {
+      freeQuote: 'Ilmainen Tarjous',
+      viewProjects: 'Näe Projektit',
+      viewAllServices: 'Kaikki Palvelut',
+      viewAllProjects: 'Kaikki Projektit',
+      sendMessage: 'Lähetä Viesti',
+    },
+    hero: {
+      stats: {
+        years: 'Vuoden Kokemus',
+        projects: 'Projektit',
+        homes: 'Kodit',
+        safety: 'Turvallinen',
+      },
+      features: {
+        fastResponse: 'Nopea Vastaus',
+        fastResponseDesc: 'Vastaus 24 tunnissa',
+        insured: 'Vakuutettu',
+        insuredDesc: 'Jopa 2 miljoonaa €',
+        certified: 'VCA Sertifioitu',
+        certifiedDesc: 'Korkeimmat turvallisuusstandardit',
+      },
+    },
+    sections: {
+      ourServices: 'Palvelumme',
+      ourProjects: 'Projektimme',
+      aboutUs: 'Meistä',
+      moreAbout: 'Lue Lisää',
+      contact: 'Yhteys',
+      latestNews: 'Uusimmat Uutiset',
+      readMore: 'Lue Lisää',
+    },
+    footer: {
+      services: 'Palvelut',
+      contact: 'Yhteys',
+      navigation: 'Navigaatio',
+      privacy: 'Tietosuoja',
+      terms: 'Ehdot',
+      copyright: '© 2024 TitanBreakers. Kaikki oikeudet pidätetään.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline: 'Ammattimaiset purkutyöt voimalla ja tarkkuudella. Kumppanisi yli 25 vuoden ajan.',
+    },
+    form: {
+      name: 'Nimi',
+      email: 'Sähköposti',
+      phone: 'Puhelin',
+      subject: 'Aihe',
+      message: 'Viesti',
+      submit: 'Lähetä',
+      sending: 'Lähetetään...',
+      success: 'Viesti lähetetty!',
+      error: 'Jotain meni pieleen.',
+    },
+    contact: {
+      getInTouch: 'Ota Yhteyttä',
+      getInTouchDesc: 'Onko sinulla projekti? Ota meihin yhteyttä tarjouksen saamiseksi.',
+      sendMessage: 'Lähetä Viesti',
+      subjects: {
+        quote: 'Pyydä Tarjous',
+        info: 'Pyydä Tietoa',
+        collaboration: 'Yhteistyö',
+        other: 'Muu',
+      },
+    },
+    services: {
+      title: 'Erikoisalat',
+      description: 'Keittiön purkamisesta täydelliseen tyhjennykseen - kaikki käsin.',
+      manual: 'Käsityöpurkaminen',
+      manualDesc: 'Pätevät purkutyöt vasaralla ja työkaluilla.',
+      interior: 'Sisäpurkaminen',
+      interiorDesc: 'Strip-out kodeista, toimistoista ja liikkeistä.',
+      selective: 'Valikoiva Purkaminen',
+      selectiveDesc: 'Sertifioitu valikoiva purkaminen.',
+      asbestos: 'Asbestin Poisto',
+      asbestosDesc: 'Sertifioitu asbestin poisto SC-530:n mukaisesti.',
+      kitchenBathroom: 'Keittiö & Kylpyhuone',
+      kitchenBathroomDesc: 'Erikoistunut keittiöiden ja kylpyhuoneiden purkaminen.',
+      propertyClearing: 'Tyhjennys',
+      propertyClearingDesc: 'Täydellinen kiinteistöjen tyhjennys.',
+    },
+    about: {
+      title: 'Keitä Me Olemme',
+      description: 'Yli 25 vuoden kokemus käsityöpurkamisesta.',
+      story: {
+        title: 'Tarinamme',
+        paragraphs: ['Perustettu 1998 Rotterdamissa.', 'Tiimi kokeneita asiantuntijoita.'],
+      },
+      values: {
+        safety: 'Turvallisuus',
+        safetyDesc: 'Turvallisuus on etusijalla.',
+        precision: 'Tarkkuus',
+        precisionDesc: 'Puramme vain tarvittavan.',
+        cleanWork: 'Siistin Työ',
+        cleanWorkDesc: 'Toimitamme aina siististi.',
+        craftsmanship: 'Käsityötaito',
+        craftsmanshipDesc: 'Vuosien kokemus.',
+      },
+      stats: {
+        years: 'Vuoden Kokemus',
+        homes: 'Kodit',
+        craftsmen: 'Käsityöläiset',
+        recycling: 'Kierrätys',
+      },
+    },
+    blog: { title: 'Uutiset', latestNews: 'Uusimmat Uutiset', readMore: 'Lue Lisää' },
+  },
+  pl: {
+    nav: {
+      home: 'Home',
+      services: 'Usługi',
+      projects: 'Projekty',
+      blog: 'Aktualności',
+      about: 'O Nas',
+      contact: 'Kontakt',
+    },
+    paths: {
+      home: '/',
+      services: '/uslugi',
+      projects: '/projekty',
+      blog: '/aktualnosci',
+      about: '/o-nas',
+      contact: '/kontakt',
+    },
+    cta: {
+      freeQuote: 'Darmowa Wycena',
+      viewProjects: 'Zobacz Projekty',
+      viewAllServices: 'Wszystkie Usługi',
+      viewAllProjects: 'Wszystkie Projekty',
+      sendMessage: 'Wyślij Wiadomość',
+    },
+    hero: {
+      stats: {
+        years: 'Lat Doświadczenia',
+        projects: 'Projekty',
+        homes: 'Domy',
+        safety: 'Bezpiecznie',
+      },
+      features: {
+        fastResponse: 'Szybka Odpowiedź',
+        fastResponseDesc: 'Odpowiedź w ciągu 24 godzin',
+        insured: 'Ubezpieczony',
+        insuredDesc: 'Do 2 mln €',
+        certified: 'Certyfikowany VCA',
+        certifiedDesc: 'Najwyższe standardy bezpieczeństwa',
+      },
+    },
+    sections: {
+      ourServices: 'Nasze Usługi',
+      ourProjects: 'Nasze Projekty',
+      aboutUs: 'O Nas',
+      moreAbout: 'Dowiedz się Więcej',
+      contact: 'Kontakt',
+      latestNews: 'Najnowsze Wiadomości',
+      readMore: 'Czytaj Więcej',
+    },
+    footer: {
+      services: 'Usługi',
+      contact: 'Kontakt',
+      navigation: 'Nawigacja',
+      privacy: 'Polityka Prywatności',
+      terms: 'Regulamin',
+      copyright: '© 2024 TitanBreakers. Wszelkie prawa zastrzeżone.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline: 'Profesjonalne prace rozbiórkowe z mocą i precyzją. Twój partner od ponad 25 lat.',
+    },
+    form: {
+      name: 'Imię',
+      email: 'Email',
+      phone: 'Telefon',
+      subject: 'Temat',
+      message: 'Wiadomość',
+      submit: 'Wyślij',
+      sending: 'Wysyłanie...',
+      success: 'Wiadomość wysłana!',
+      error: 'Coś poszło nie tak.',
+    },
+    contact: {
+      getInTouch: 'Skontaktuj Się',
+      getInTouchDesc: 'Masz projekt? Skontaktuj się z nami po wycenę.',
+      sendMessage: 'Wyślij Wiadomość',
+      subjects: {
+        quote: 'Poproś o Wycenę',
+        info: 'Poproś o Info',
+        collaboration: 'Współpraca',
+        other: 'Inne',
+      },
+    },
+    services: {
+      title: 'Nasze Specjalności',
+      description: 'Od rozbiórki kuchni do pełnego oczyszczenia - wszystko ręcznie.',
+      manual: 'Rozbiórka Ręczna',
+      manualDesc: 'Wykwaliﬁkowane prace rozbiórkowe z młotkiem i narzędziami.',
+      interior: 'Rozbiórka Wewnętrzna',
+      interiorDesc: 'Strip-out domów, biur i sklepów.',
+      selective: 'Rozbiórka Selektywna',
+      selectiveDesc: 'Certyfikowana rozbiórka selektywna.',
+      asbestos: 'Usuwanie Azbestu',
+      asbestosDesc: 'Certyfikowane usuwanie azbestu według SC-530.',
+      kitchenBathroom: 'Kuchnia & Łazienka',
+      kitchenBathroomDesc: 'Specjalistyczna rozbiórka kuchni i łazienek.',
+      propertyClearing: 'Oczyszczanie',
+      propertyClearingDesc: 'Pełne oczyszczanie nieruchomości.',
+    },
+    about: {
+      title: 'Kim Jesteśmy',
+      description: 'Ponad 25 lat doświadczenia w ręcznej rozbiórce.',
+      story: {
+        title: 'Nasza Historia',
+        paragraphs: ['Założona w 1998 roku w Rotterdamie.', 'Zespół doświadczonych ekspertów.'],
+      },
+      values: {
+        safety: 'Bezpieczeństwo',
+        safetyDesc: 'Bezpieczeństwo jest najważniejsze.',
+        precision: 'Precyzja',
+        precisionDesc: 'Rozbieramy tylko to, co potrzebne.',
+        cleanWork: 'Czysta Praca',
+        cleanWorkDesc: 'Zawsze dostarczamy czysto.',
+        craftsmanship: 'Rzemiosło',
+        craftsmanshipDesc: 'Lata doświadczenia.',
+      },
+      stats: {
+        years: 'Lat Doświadczenia',
+        homes: 'Domy',
+        craftsmen: 'Rzemieślnicy',
+        recycling: 'Recykling',
+      },
+    },
+    blog: { title: 'Aktualności', latestNews: 'Najnowsze Wiadomości', readMore: 'Czytaj Więcej' },
+  },
+  ar: {
+    nav: {
+      home: 'الرئيسية',
+      services: 'الخدمات',
+      projects: 'المشاريع',
+      blog: 'الأخبار',
+      about: 'من نحن',
+      contact: 'اتصل بنا',
+    },
+    paths: {
+      home: '/',
+      services: '/الخدمات',
+      projects: '/المشاريع',
+      blog: '/الأخبار',
+      about: '/من-نحن',
+      contact: '/اتصل-بنا',
+    },
+    cta: {
+      freeQuote: 'عرض مجاني',
+      viewProjects: 'شاهد المشاريع',
+      viewAllServices: 'كل الخدمات',
+      viewAllProjects: 'كل المشاريع',
+      sendMessage: 'إرسال رسالة',
+    },
+    hero: {
+      stats: { years: 'سنوات الخبرة', projects: 'المشاريع', homes: 'المنازل', safety: 'آمن' },
+      features: {
+        fastResponse: 'استجابة سريعة',
+        fastResponseDesc: 'الرد خلال 24 ساعة',
+        insured: 'مؤمن',
+        insuredDesc: 'حتى 2 مليون يورو',
+        certified: 'معتمد VCA',
+        certifiedDesc: 'أعلى معايير السلامة',
+      },
+    },
+    sections: {
+      ourServices: 'خدماتنا',
+      ourProjects: 'مشاريعنا',
+      aboutUs: 'من نحن',
+      moreAbout: 'المزيد عنا',
+      contact: 'اتصل بنا',
+      latestNews: 'أحدث الأخبار',
+      readMore: 'اقرأ المزيد',
+    },
+    footer: {
+      services: 'الخدمات',
+      contact: 'اتصل بنا',
+      navigation: 'التنقل',
+      privacy: 'الخصوصية',
+      terms: 'الشروط',
+      copyright: '© 2024 TitanBreakers. جميع الحقوق محفوظة.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline: 'أعمال الهدم المهنية بالقوة والدقة. شريكك منذ أكثر من 25 عامًا.',
+    },
+    form: {
+      name: 'الاسم',
+      email: 'البريد الإلكتروني',
+      phone: 'الهاتف',
+      subject: 'الموضوع',
+      message: 'الرسالة',
+      submit: 'إرسال',
+      sending: 'جاري الإرسال...',
+      success: 'تم الإرسال!',
+      error: 'حدث خطأ.',
+    },
+    contact: {
+      getInTouch: 'اتصل بنا',
+      getInTouchDesc: 'لديك مشروع؟ تواصل معنا للحصول على عرض سعر.',
+      sendMessage: 'إرسال رسالة',
+      subjects: {
+        quote: 'طلب عرض سعر',
+        info: 'طلب معلومات',
+        collaboration: 'تعاون',
+        other: 'أخرى',
+      },
+    },
+    services: {
+      title: 'تخصصتنا',
+      description: 'من stripping المطابخ إلى التنظيف الكامل - كل شيء يدويًا.',
+      manual: 'الهدم اليدوي',
+      manualDesc: 'أعمال هدم ماهرة بالمطرقة والأدوات.',
+      interior: 'الهدم الداخلي',
+      interiorDesc: 'strip-out للمنازل والمكاتب والمحلات.',
+      selective: 'الهدم الانتقائي',
+      selectiveDesc: 'هدم انتقائي معتمد.',
+      asbestos: 'إزالة الأسبستos',
+      asbestosDesc: 'إزالة الأسبستوس المعتمدة وفقًا لـ SC-530.',
+      kitchenBathroom: 'المطبخ والحمام',
+      kitchenBathroomDesc: 'هدم متخصص للمطابخ والحمامات.',
+      propertyClearing: 'التنظيف',
+      propertyClearingDesc: 'تنظيف كامل للممتلكات.',
+    },
+    about: {
+      title: 'من نحن',
+      description: 'أكثر من 25 عامًا من الخبرة في الهدم اليدوي.',
+      story: {
+        title: 'قصتنا',
+        paragraphs: ['تأسست عام 1998 في روتردام.', 'فريق من الخبراء ذوي الخبرة.'],
+      },
+      values: {
+        safety: 'السلامة',
+        safetyDesc: 'السلامة أولاً.',
+        precision: 'الدقة',
+        precisionDesc: 'نهدم فقط ما هو ضروري.',
+        cleanWork: 'العمل النظيف',
+        cleanWorkDesc: 'نقدم دائمًا بشكل نظيف.',
+        craftsmanship: 'الحرفية',
+        craftsmanshipDesc: 'سنوات من الخبرة.',
+      },
+      stats: {
+        years: 'سنوات الخبرة',
+        homes: 'المنازل',
+        craftsmen: 'حرفيون',
+        recycling: 'إعادة التدوير',
+      },
+    },
+    blog: { title: 'الأخبار', latestNews: 'أحدث الأخبار', readMore: 'اقرأ المزيد' },
+  },
+  zh: {
+    nav: {
+      home: '首页',
+      services: '服务',
+      projects: '项目',
+      blog: '新闻',
+      about: '关于我们',
+      contact: '联系我们',
+    },
+    paths: {
+      home: '/',
+      services: '/服务',
+      projects: '/项目',
+      blog: '/新闻',
+      about: '/关于我们',
+      contact: '/联系我们',
+    },
+    cta: {
+      freeQuote: '免费报价',
+      viewProjects: '查看项目',
+      viewAllServices: '所有服务',
+      viewAllProjects: '所有项目',
+      sendMessage: '发送消息',
+    },
+    hero: {
+      stats: { years: '年经验', projects: '项目', homes: '房屋', safety: '安全' },
+      features: {
+        fastResponse: '快速响应',
+        fastResponseDesc: '24小时内回复',
+        insured: '已投保',
+        insuredDesc: '高达200万欧元',
+        certified: 'VCA认证',
+        certifiedDesc: '最高安全标准',
+      },
+    },
+    sections: {
+      ourServices: '我们的服务',
+      ourProjects: '我们的项目',
+      aboutUs: '关于我们',
+      moreAbout: '了解更多',
+      contact: '联系我们',
+      latestNews: '最新新闻',
+      readMore: '阅读更多',
+    },
+    footer: {
+      services: '服务',
+      contact: '联系',
+      navigation: '导航',
+      privacy: '隐私政策',
+      terms: '条款',
+      copyright: '© 2024 TitanBreakers. 保留所有权利。',
+    },
+    company: { name: 'TitanBreakers', tagline: '专业拆迁工作，力量与精准。您的合作伙伴超过25年。' },
+    form: {
+      name: '姓名',
+      email: '邮箱',
+      phone: '电话',
+      subject: '主题',
+      message: '消息',
+      submit: '发送',
+      sending: '发送中...',
+      success: '消息已发送！',
+      error: '出了点问题。',
+    },
+    contact: {
+      getInTouch: '联系我们',
+      getInTouchDesc: '您有项目？联系我们获取报价。',
+      sendMessage: '发送消息',
+      subjects: { quote: '询价', info: '咨询信息', collaboration: '合作', other: '其他' },
+    },
+    services: {
+      title: '我们的专业',
+      description: '从厨房拆除到完全清理 - 全部手动完成。',
+      manual: '人工拆除',
+      manualDesc: '使用锤子和工具进行熟练的拆除工作。',
+      interior: '内部拆除',
+      interiorDesc: '房屋、办公室和商店的strip-out。',
+      selective: '选择性拆除',
+      selectiveDesc: '经认证的针对性拆除。',
+      asbestos: '石棉清除',
+      asbestosDesc: '根据SC-530进行经认证的石棉清除。',
+      kitchenBathroom: '厨房和浴室',
+      kitchenBathroomDesc: '专业的厨房和浴室拆除。',
+      propertyClearing: '清理',
+      propertyClearingDesc: '物业完全清理。',
+    },
+    about: {
+      title: '关于我们',
+      description: '超过25年的人工拆除经验。',
+      story: { title: '我们的故事', paragraphs: ['1998年鹿特丹成立。', '经验丰富的专家团队。'] },
+      values: {
+        safety: '安全',
+        safetyDesc: '安全第一。',
+        precision: '精准',
+        precisionDesc: '只拆除必要的部分。',
+        cleanWork: '清洁工作',
+        cleanWorkDesc: ' 항상 청결하게 납품합니다.',
+        craftsmanship: '工艺',
+        craftsmanshipDesc: '多年的经验。',
+      },
+      stats: { years: '年经验', homes: '房屋', craftsmen: '工匠', recycling: '回收' },
+    },
+    blog: { title: '新闻', latestNews: '最新新闻', readMore: '阅读更多' },
+  },
+  ja: {
+    nav: {
+      home: 'ホーム',
+      services: 'サービス',
+      projects: 'プロジェクト',
+      blog: 'ニュース',
+      about: '私たちについて',
+      contact: 'お問い合わせ',
+    },
+    paths: {
+      home: '/',
+      services: '/サービス',
+      projects: '/プロジェクト',
+      blog: '/ニュース',
+      about: '/会社概要',
+      contact: '/お問い合わせ',
+    },
+    cta: {
+      freeQuote: '無料見積',
+      viewProjects: 'プロジェクトを見る',
+      viewAllServices: 'すべてのサービス',
+      viewAllProjects: 'すべてのプロジェクト',
+      sendMessage: 'メッセージを送る',
+    },
+    hero: {
+      stats: { years: '年の経験', projects: 'プロジェクト', homes: '家', safety: '安全' },
+      features: {
+        fastResponse: '迅速な対応',
+        fastResponseDesc: '24時間以内に対応',
+        insured: '保険あり',
+        insuredDesc: '200万ユーロまで',
+        certified: 'VCA認定',
+        certifiedDesc: '最高安全基準',
+      },
+    },
+    sections: {
+      ourServices: '我们的サービス',
+      ourProjects: '私たちのプロジェクト',
+      aboutUs: '私たちについて',
+      moreAbout: 'について詳しく',
+      contact: 'お問い合わせ',
+      latestNews: '最新ニュース',
+      readMore: 'もっと読む',
+    },
+    footer: {
+      services: 'サービス',
+      contact: 'お問い合わせ',
+      navigation: 'ナビゲーション',
+      privacy: 'プライバシーポリシー',
+      terms: '利用規約',
+      copyright: '© 2024 TitanBreakers. All rights reserved.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline: 'プロフェッショナルな解体工事、力と精度。25年以上のパートナー。',
+    },
+    form: {
+      name: '名前',
+      email: 'メール',
+      phone: '電話',
+      subject: '件名',
+      message: 'メッセージ',
+      submit: '送信',
+      sending: '送信中...',
+      success: '送信されました！',
+      error: 'エラーが発生しました。',
+    },
+    contact: {
+      getInTouch: 'お問い合わせ',
+      getInTouchDesc: 'プロジェクトがありますか？見積もりを依頼してください。',
+      sendMessage: 'メッセージを送る',
+      subjects: {
+        quote: '見積もりを依頼',
+        info: '情報を依頼',
+        collaboration: '協力',
+        other: 'その他',
+      },
+    },
+    services: {
+      title: '専門分野',
+      description: 'キッチンストッピングから完全なクリーニングまで - すべて手作業。',
+      manual: '手動解体',
+      manualDesc: 'ハンマーと工具による熟練の解体工事。',
+      interior: '内部解体',
+      interiorDesc: '住宅、店舗のstrip-out。',
+      selective: '選択的解体',
+      selectiveDesc: '認定された選択的解体。',
+      asbestos: 'アスベスト除去',
+      asbestosDesc: 'SC-530認定のアスベスト除去。',
+      kitchenBathroom: 'キッチン・バスルーム',
+      kitchenBathroomDesc: 'キッチンとバスルームの専門解体。',
+      propertyClearing: '片付け',
+      propertyClearingDesc: '物件の完全片付け。',
+    },
+    about: {
+      title: '私たちについて',
+      description: '25年以上の手動解体の経験。',
+      story: {
+        title: '私たちのストーリー',
+        paragraphs: ['1998年ロッテルダムで設立。', '経験豊富な専門家のチーム。'],
+      },
+      values: {
+        safety: '安全',
+        safetyDesc: '安全が最優先。',
+        precision: '精度',
+        precisionDesc: '必要なものだけを解体。',
+        cleanWork: 'クリーンな作業',
+        cleanWorkDesc: '常にきれいに配達。',
+        craftsmanship: '職人技',
+        craftsmanshipDesc: '長年の経験。',
+      },
+      stats: { years: '年の経験', homes: '家', craftsmen: '職人', recycling: 'リサイクル' },
+    },
+    blog: { title: 'ニュース', latestNews: '最新ニュース', readMore: 'もっと読む' },
+  },
+  pt: {
+    nav: {
+      home: 'Home',
+      services: 'Serviços',
+      projects: 'Projetos',
+      blog: 'Notícias',
+      about: 'Sobre',
+      contact: 'Contato',
+    },
+    paths: {
+      home: '/',
+      services: '/servicos',
+      projects: '/projetos',
+      blog: '/noticias',
+      about: '/sobre-nos',
+      contact: '/contato',
+    },
+    cta: {
+      freeQuote: 'Orçamento Grátis',
+      viewProjects: 'Ver Projetos',
+      viewAllServices: 'Todos os Serviços',
+      viewAllProjects: 'Todos os Projetos',
+      sendMessage: 'Enviar Mensagem',
+    },
+    hero: {
+      stats: {
+        years: 'Anos de Experiência',
+        projects: 'Projetos',
+        homes: 'Casas',
+        safety: 'Seguro',
+      },
+      features: {
+        fastResponse: 'Resposta Rápida',
+        fastResponseDesc: 'Resposta em 24 horas',
+        insured: 'Segurado',
+        insuredDesc: 'Até 2 milhões €',
+        certified: 'Certificado VCA',
+        certifiedDesc: 'Mais altos padrões de segurança',
+      },
+    },
+    sections: {
+      ourServices: 'Nossos Serviços',
+      ourProjects: 'Nossos Projetos',
+      aboutUs: 'Sobre Nós',
+      moreAbout: 'Saiba Mais',
+      contact: 'Contato',
+      latestNews: 'Últimas Notícias',
+      readMore: 'Ler Mais',
+    },
+    footer: {
+      services: 'Serviços',
+      contact: 'Contato',
+      navigation: 'Navegação',
+      privacy: 'Privacidade',
+      terms: 'Termos',
+      copyright: '© 2024 TitanBreakers. Todos os direitos reservados.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Trabalhos de demolição profissionais com poder e precisão. Seu parceiro há mais de 25 anos.',
+    },
+    form: {
+      name: 'Nome',
+      email: 'Email',
+      phone: 'Telefone',
+      subject: 'Assunto',
+      message: 'Mensagem',
+      submit: 'Enviar',
+      sending: 'Enviando...',
+      success: 'Mensagem enviada!',
+      error: 'Algo deu errado.',
+    },
+    contact: {
+      getInTouch: 'Fale Conosco',
+      getInTouchDesc: 'Tem um projeto? Fale conosco para um orçamento.',
+      sendMessage: 'Enviar Mensagem',
+      subjects: {
+        quote: 'Solicitar Orçamento',
+        info: 'Solicitar Info',
+        collaboration: 'Colaboração',
+        other: 'Outro',
+      },
+    },
+    services: {
+      title: 'Nossas Especialidades',
+      description: 'From kitchen stripping to complete clearing - tudo manualmente.',
+      manual: 'Demolição Manual',
+      manualDesc: 'Trabalhos de demolição qualificados com martelo e ferramentas.',
+      interior: 'Demolição Interior',
+      interiorDesc: 'Strip-out de casas, escritórios e lojas.',
+      selective: 'Demolição Seletiva',
+      selectiveDesc: 'Demolição seletiva certificada.',
+      asbestos: 'Remoção de Amianto',
+      asbestosDesc: 'Remoção certificada de amianto segundo SC-530.',
+      kitchenBathroom: 'Cozinha & Banheiro',
+      kitchenBathroomDesc: 'Demolição especializada de cozinhas e banheiros.',
+      propertyClearing: 'Limpeza',
+      propertyClearingDesc: 'Limpeza completa de propriedades.',
+    },
+    about: {
+      title: 'Quem Somos',
+      description: 'Mais de 25 anos de experiência em demolição manual.',
+      story: {
+        title: 'Nossa História',
+        paragraphs: ['Fundada em 1998 em Roterdã.', 'Uma equipe de especialistas experientes.'],
+      },
+      values: {
+        safety: 'Segurança',
+        safetyDesc: 'Segurança em primeiro lugar.',
+        precision: 'Precisão',
+        precisionDesc: 'Demolimos apenas o necessário.',
+        cleanWork: 'Trabalho Limpo',
+        cleanWorkDesc: 'Sempre entregamos limpo.',
+        craftsmanship: 'Artesanato',
+        craftsmanshipDesc: 'Anos de experiência.',
+      },
+      stats: {
+        years: 'Anos de Experiência',
+        homes: 'Casas',
+        craftsmen: 'Artesãos',
+        recycling: 'Reciclagem',
+      },
+    },
+    blog: { title: 'Notícias', latestNews: 'Últimas Notícias', readMore: 'Ler Mais' },
+  },
+  tr: {
+    nav: {
+      home: 'Ana Sayfa',
+      services: 'Hizmetler',
+      projects: 'Projeler',
+      blog: 'Haberler',
+      about: 'Hakkımızda',
+      contact: 'İletişim',
+    },
+    paths: {
+      home: '/',
+      services: '/hizmetler',
+      projects: '/projeler',
+      blog: '/haberler',
+      about: '/hakkimizda',
+      contact: '/iletisim',
+    },
+    cta: {
+      freeQuote: 'Ücretsiz Teklif',
+      viewProjects: 'Projeleri Gör',
+      viewAllServices: 'Tüm Hizmetler',
+      viewAllProjects: 'Tüm Projeler',
+      sendMessage: 'Mesaj Gönder',
+    },
+    hero: {
+      stats: { years: 'Yıl Deneyim', projects: 'Projeler', homes: 'Evler', safety: 'Güvenli' },
+      features: {
+        fastResponse: 'Hızlı Yanıt',
+        fastResponseDesc: '24 saat içinde yanıt',
+        insured: 'Sigortalı',
+        insuredDesc: "2 milyon €'ya kadar",
+        certified: 'VCA Sertifikalı',
+        certifiedDesc: 'En yüksek güvenlik standartları',
+      },
+    },
+    sections: {
+      ourServices: 'Hizmetlerimiz',
+      ourProjects: 'Projelerimiz',
+      aboutUs: 'Hakkımızda',
+      moreAbout: 'Daha Fazla',
+      contact: 'İletişim',
+      latestNews: 'Son Haberler',
+      readMore: 'Devamını Oku',
+    },
+    footer: {
+      services: 'Hizmetler',
+      contact: 'İletişim',
+      navigation: 'Navigasyon',
+      privacy: 'Gizlilik',
+      terms: 'Şartlar',
+      copyright: '© 2024 TitanBreakers. Tüm hakları saklıdır.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline: 'Güç ve hassasiyetle profesyonel yıkım işleri. 25 yılı aşkın süredir ortağınız.',
+    },
+    form: {
+      name: 'İsim',
+      email: 'E-posta',
+      phone: 'Telefon',
+      subject: 'Konu',
+      message: 'Mesaj',
+      submit: 'Gönder',
+      sending: 'Gönderiliyor...',
+      success: 'Mesaj gönderildi!',
+      error: 'Bir şeyler yanlış gitti.',
+    },
+    contact: {
+      getInTouch: 'Bizimle İletişime Geçin',
+      getInTouchDesc: 'Bir projeniz mi var? Teklif almak için bizimle iletişime geçin.',
+      sendMessage: 'Mesaj Gönder',
+      subjects: {
+        quote: 'Teklif İste',
+        info: 'Bilgi İste',
+        collaboration: 'İşbirliği',
+        other: 'Diğer',
+      },
+    },
+    services: {
+      title: 'Uzmanlıklarımız',
+      description: 'Mutfak sökmeden tam temizliğe - her şey manuel.',
+      manual: 'Manuel Yıkım',
+      manualDesc: 'Çekiç ve aletlerle vasıflı yıkım işleri.',
+      interior: 'İç Yıkım',
+      interiorDesc: 'Ev, ofis ve dükkanların sökümü.',
+      selective: 'Seçici Yıkım',
+      selectiveDesc: 'Sertifikalı seçici yıkım.',
+      asbestos: 'Asbest Temizleme',
+      asbestosDesc: "SC-530'a göre sertifikalı asbest temizleme.",
+      kitchenBathroom: 'Mutfak & Banyo',
+      kitchenBathroomDesc: 'Mutfak ve banyoların uzman yıkımı.',
+      propertyClearing: 'Temizlik',
+      propertyClearingDesc: 'Mülklerin tam temizliği.',
+    },
+    about: {
+      title: 'Biz Kimiz',
+      description: '25 yılı aşkın manuel yıkım deneyimi.',
+      story: {
+        title: 'Hikayemiz',
+        paragraphs: ["1998'de Rotterdam'da kuruldu.", 'Deneyimli uzmanlardan oluşan bir ekip.'],
+      },
+      values: {
+        safety: 'Güvenlik',
+        safetyDesc: 'Güvenlik her şeyden önce gelir.',
+        precision: 'Hassasiyet',
+        precisionDesc: 'Sadece gerekli olanı yıkıyoruz.',
+        cleanWork: 'Temiz İş',
+        cleanWorkDesc: 'Her zaman temiz teslim ediyoruz.',
+        craftsmanship: 'Zanaat',
+        craftsmanshipDesc: 'Yılların deneyimi.',
+      },
+      stats: {
+        years: 'Yıl Deneyim',
+        homes: 'Evler',
+        craftsmen: 'Zanaatkarlar',
+        recycling: 'Geri Dönüşüm',
+      },
+    },
+    blog: { title: 'Haberler', latestNews: 'Son Haberler', readMore: 'Devamını Oku' },
+  },
+  ru: {
+    nav: {
+      home: 'Главная',
+      services: 'Услуги',
+      projects: 'Проекты',
+      blog: 'Новости',
+      about: 'О Нас',
+      contact: 'Контакты',
+    },
+    paths: {
+      home: '/',
+      services: '/uslugi',
+      projects: '/proekty',
+      blog: '/novosti',
+      about: '/o-nas',
+      contact: '/kontakty',
+    },
+    cta: {
+      freeQuote: 'Бесплатная Смета',
+      viewProjects: 'Посмотреть Проекты',
+      viewAllServices: 'Все Услуги',
+      viewAllProjects: 'Все Проекты',
+      sendMessage: 'Отправить Сообщение',
+    },
+    hero: {
+      stats: { years: 'Лет Опыта', projects: 'Проектов', homes: 'Домов', safety: 'Безопасно' },
+      features: {
+        fastResponse: 'Быстрый Ответ',
+        fastResponseDesc: 'Ответ в течение 24 часов',
+        insured: 'Застрахован',
+        insuredDesc: 'До 2 млн €',
+        certified: 'Сертифицирован VCA',
+        certifiedDesc: 'Высшие стандарты безопасности',
+      },
+    },
+    sections: {
+      ourServices: 'Наши Услуги',
+      ourProjects: 'Наши Проекты',
+      aboutUs: 'О Нас',
+      moreAbout: 'Узнайте Больше',
+      contact: 'Контакты',
+      latestNews: 'Последние Новости',
+      readMore: 'Читать Далее',
+    },
+    footer: {
+      services: 'Услуги',
+      contact: 'Контакты',
+      navigation: 'Навигация',
+      privacy: 'Конфиденциальность',
+      terms: 'Условия',
+      copyright: '© 2024 TitanBreakers. Все права защищены.',
+    },
+    company: {
+      name: 'TitanBreakers',
+      tagline:
+        'Профессиональные демонтажные работы с силой и точностью. Ваш партнёр уже более 25 лет.',
+    },
+    form: {
+      name: 'Имя',
+      email: 'Email',
+      phone: 'Телефон',
+      subject: 'Тема',
+      message: 'Сообщение',
+      submit: 'Отправить',
+      sending: 'Отправка...',
+      success: 'Сообщение отправлено!',
+      error: 'Что-то пошло не так.',
+    },
+    contact: {
+      getInTouch: 'Свяжитесь с Нами',
+      getInTouchDesc: 'У вас есть проект? Свяжитесь с нами для получения сметы.',
+      sendMessage: 'Отправить Сообщение',
+      subjects: {
+        quote: 'Запросить Смету',
+        info: 'Запросить Информацию',
+        collaboration: 'Сотрудничество',
+        other: 'Другое',
+      },
+    },
+    services: {
+      title: 'Наши Специализации',
+      description: 'От демонтажа кухни до полной очистки - всё вручную.',
+      manual: 'Ручной Демонтаж',
+      manualDesc: 'Квалифицированные демонтажные работы с молотком и инструментами.',
+      interior: 'Внутренний Демонтаж',
+      interiorDesc: 'Демонтаж домов, офисов и магазинов.',
+      selective: 'Селективный Демонтаж',
+      selectiveDesc: 'Сертифицированный селективный демонтаж.',
+      asbestos: 'Удаление Асбеста',
+      asbestosDesc: 'Сертифицированное удаление асбеста по SC-530.',
+      kitchenBathroom: 'Кухня и Ванная',
+      kitchenBathroomDesc: 'Специализированный демонтаж кухонь и ванных.',
+      propertyClearing: 'Очистка',
+      propertyClearingDesc: 'Полная очистка объектов.',
+    },
+    about: {
+      title: 'Кто Мы',
+      description: 'Более 25 лет опыта в ручном демонтаже.',
+      story: {
+        title: 'Наша История',
+        paragraphs: ['Основана в 1998 году в Роттердаме.', 'Команда опытных специалистов.'],
+      },
+      values: {
+        safety: 'Безопасность',
+        safetyDesc: 'Безопасность превыше всего.',
+        precision: 'Точность',
+        precisionDesc: 'Демонтируем только необходимое.',
+        cleanWork: 'Чистая Работа',
+        cleanWorkDesc: 'Всегда сдаём чисто.',
+        craftsmanship: 'Мастерство',
+        craftsmanshipDesc: 'Годы опыта.',
+      },
+      stats: { years: 'Лет Опыта', homes: 'Домов', craftsmen: 'Мастера', recycling: 'Переработка' },
+    },
+    blog: { title: 'Новости', latestNews: 'Последние Новости', readMore: 'Читать Далее' },
+  },
+}
+
+async function seedTranslations() {
+  console.log('🌱 Seeding translations...')
 
   const payload = await getPayload({ config })
 
   try {
-    // English translations for Services
-    const servicesTranslations = {
-      'Gebouwen Sloop': {
-        title: 'Building Demolition',
-        description:
-          'Complete demolition of homes, offices, and commercial buildings. From historic properties to modern office buildings - we ensure safe and efficient demolition.',
-      },
-      'Industriële Demontage': {
-        title: 'Industrial Dismantling',
-        description:
-          'Specialized dismantling of factories, warehouses, and industrial installations. We have experience with complex industrial environments.',
-      },
-      'Asbest Sanering': {
-        title: 'Asbestos Removal',
-        description:
-          'Certified removal of asbestos-containing materials according to SC-530 standards. Safe for people and environment, fully compliant with all legal requirements.',
-      },
-      'Recycling & Afvoer': {
-        title: 'Recycling & Disposal',
-        description:
-          'Sustainable processing and recycling of demolition waste. We separate and process all materials in an environmentally friendly way with a recycling rate of 98%.',
-      },
-      Grondwerk: {
-        title: 'Earthworks',
-        description:
-          'Excavation, leveling, and site preparation. From small plots to large construction sites - we prepare your ground for new construction.',
-      },
-      'Interieur Sloop': {
-        title: 'Interior Demolition',
-        description:
-          'Strip-out work and selective demolition of interiors. Perfect for renovation projects and redevelopment of existing buildings.',
-      },
-    }
+    const translationsArray = Object.entries(allTranslations).map(([locale, strings]) => ({
+      locale,
+      strings,
+    }))
 
-    // Update Services with English translations
-    console.log('🔄 Updating Services...')
-    for (const [dutchTitle, englishData] of Object.entries(servicesTranslations)) {
-      const existingService = await payload.find({
-        collection: 'services',
-        where: {
-          title: {
-            equals: dutchTitle,
-          },
-        },
-        limit: 1,
-      })
-
-      if (existingService.docs.length > 0) {
-        await payload.update({
-          collection: 'services',
-          id: existingService.docs[0].id,
-          locale: 'en',
-          data: englishData,
-        })
-        console.log(`  ✓ Updated: ${dutchTitle} → ${englishData.title}`)
-      }
-    }
-
-    // English translations for Projects
-    const projectsTranslations = {
-      'Oude Fabriek Rotterdam': {
-        title: 'Old Factory Rotterdam',
-        description:
-          'Complete dismantling of a former steel factory of 15,000m² including asbestos removal and earthworks.',
+    await payload.updateGlobal({
+      slug: 'translations',
+      data: {
+        translations: translationsArray as any,
       },
-      'Kantoorcomplex Zuidas': {
-        title: 'Office Complex Zuidas',
-        description:
-          'Controlled demolition of a 12-story office building in an urban area with minimal disruption.',
-      },
-      'Winkelcentrum Renovatie': {
-        title: 'Shopping Center Renovation',
-        description:
-          'Selective strip-out of 15,000m² retail space for redevelopment into a mixed-use complex.',
-      },
-      'Haventerrein Demontage': {
-        title: 'Port Area Dismantling',
-        description:
-          'Dismantling of port cranes, silos, and storage warehouses on a former port site.',
-      },
-      'Woningbouwproject Den Haag': {
-        title: 'Housing Project The Hague',
-        description:
-          'Demolition of outdated apartment blocks to make room for 200 new sustainable homes.',
-      },
-      'Ziekenhuis Renovatie': {
-        title: 'Hospital Renovation',
-        description:
-          'Phased strip-out of hospital wings during operational occupancy of the building.',
-      },
-    }
-
-    // Update Projects with English translations
-    console.log('🔄 Updating Projects...')
-    for (const [dutchTitle, englishData] of Object.entries(projectsTranslations)) {
-      const existingProject = await payload.find({
-        collection: 'projects',
-        where: {
-          title: {
-            equals: dutchTitle,
-          },
-        },
-        limit: 1,
-      })
-
-      if (existingProject.docs.length > 0) {
-        await payload.update({
-          collection: 'projects',
-          id: existingProject.docs[0].id,
-          locale: 'en',
-          data: englishData,
-        })
-        console.log(`  ✓ Updated: ${dutchTitle} → ${englishData.title}`)
-      }
-    }
-
-    // English translations for Blog Posts
-    const blogPostsTranslations = {
-      'Nieuwe VCA Certificering Behaald': {
-        title: 'New VCA Certification Achieved',
-      },
-      'Duurzaam Slopen: 98% Recycling': {
-        title: 'Sustainable Demolition: 98% Recycling',
-      },
-      'Project Spotlight: Kantoorcomplex Zuidas': {
-        title: 'Project Spotlight: Office Complex Zuidas',
-      },
-    }
-
-    // Update Blog Posts with English translations
-    console.log('🔄 Updating Blog Posts...')
-    for (const [dutchTitle, englishData] of Object.entries(blogPostsTranslations)) {
-      const existingPost = await payload.find({
-        collection: 'posts',
-        where: {
-          title: {
-            equals: dutchTitle,
-          },
-        },
-        limit: 1,
-      })
-
-      if (existingPost.docs.length > 0) {
-        try {
-          await payload.update({
-            collection: 'posts',
-            id: existingPost.docs[0].id,
-            locale: 'en',
-            data: {
-              title: englishData.title,
-            },
-            context: {
-              skipRevalidation: true,
-            },
-          })
-          console.log(`  ✓ Updated: ${dutchTitle} → ${englishData.title}`)
-        } catch (error: any) {
-          if (error.message?.includes('static generation store missing')) {
-            console.log(
-              `  ⚠️ Skipped revalidation for: ${dutchTitle} (updated but revalidation failed - this is normal in scripts)`,
-            )
-          } else {
-            throw error
-          }
-        }
-      }
-    }
-
-    // Update Pages (Home page)
-    console.log('🔄 Updating Pages...')
-    const existingHomePage = await payload.find({
-      collection: 'pages',
-      where: {
-        slug: {
-          equals: 'home',
-        },
-      },
-      limit: 1,
+      context: { disableRevalidate: true },
     })
 
-    if (existingHomePage.docs.length > 0) {
-      try {
-        await payload.update({
-          collection: 'pages',
-          id: existingHomePage.docs[0].id,
-          locale: 'en',
-          data: {
-            title: 'Home',
-          },
-          context: {
-            skipRevalidation: true,
-          },
-        })
-        console.log(`  ✓ Updated Home page title for English locale`)
-      } catch (error: any) {
-        if (error.message?.includes('static generation store missing')) {
-          console.log(`  ⚠️ Updated Home page but revalidation skipped (normal in scripts)`)
-        } else {
-          throw error
-        }
-      }
-    }
+    console.log('✅ Translations seeded for all locales:')
+    console.log(`   ${Object.keys(allTranslations).join(', ')}`)
 
-    // Update Site Settings
-    console.log('🔄 Updating Site Settings...')
-    const existingSiteSettings = await payload.findGlobal({
-      slug: 'site-settings',
-    })
-
-    if (existingSiteSettings) {
-      try {
-        await payload.updateGlobal({
-          slug: 'site-settings',
-          locale: 'en',
-          data: {
-            companyName: 'TitanBrekers',
-            tagline: 'Professional Demolition Work with Power and Precision',
-          },
-          context: {
-            skipRevalidation: true,
-          },
-        })
-        console.log(`  ✓ Updated Site Settings for English locale`)
-      } catch (error: any) {
-        if (error.message?.includes('static generation store missing')) {
-          console.log(`  ⚠️ Updated Site Settings but revalidation skipped (normal in scripts)`)
-        } else {
-          throw error
-        }
-      }
-    }
-
-    // Update Home Page Global
-    console.log('🔄 Updating Home Page Global...')
-    const existingHomePageGlobal = await payload.findGlobal({
-      slug: 'home-page',
-    })
-
-    if (existingHomePageGlobal) {
-      try {
-        await payload.updateGlobal({
-          slug: 'home-page',
-          locale: 'en',
-          data: {
-            hero: {
-              title: 'POWER IN',
-              subtitle: 'DEMOLITION',
-              description:
-                'TitanBrekers is your reliable partner for professional demolition work. With more than 25 years of experience, we make room for your future.',
-            },
-            aboutPreview: {
-              title: 'ABOUT TITANBREKERS',
-              description:
-                'With more than 25 years of experience, TitanBrekers has grown into one of the most respected demolition companies in the Netherlands. We combine craftsmanship with modern techniques for every type of demolition and dismantling project.',
-            },
-          },
-          context: {
-            skipRevalidation: true,
-          },
-        })
-        console.log(`  ✓ Updated Home Page Global for English locale`)
-      } catch (error: any) {
-        if (error.message?.includes('static generation store missing')) {
-          console.log(`  ⚠️ Updated Home Page Global but revalidation skipped (normal in scripts)`)
-        } else {
-          throw error
-        }
-      }
-    }
-
-    // Update Services Page Global
-    console.log('🔄 Updating Services Page Global...')
-    const existingServicesPageGlobal = await payload.findGlobal({
-      slug: 'services-page',
-    })
-
-    if (existingServicesPageGlobal) {
-      try {
-        await payload.updateGlobal({
-          slug: 'services-page',
-          locale: 'en',
-          data: {
-            hero: {
-              title: 'WHAT WE DO',
-              description:
-                'From small strip-outs to complete building demolition - we have the expertise, equipment, and certifications for every demolition and dismantling project.',
-            },
-          },
-          context: {
-            skipRevalidation: true,
-          },
-        })
-        console.log(`  ✓ Updated Services Page Global for English locale`)
-      } catch (error: any) {
-        if (error.message?.includes('static generation store missing')) {
-          console.log(
-            `  ⚠️ Updated Services Page Global but revalidation skipped (normal in scripts)`,
-          )
-        } else {
-          throw error
-        }
-      }
-    }
-
-    // Update About Page Global
-    console.log('🔄 Updating About Page Global...')
-    const existingAboutPageGlobal = await payload.findGlobal({
-      slug: 'about-page',
-    })
-
-    if (existingAboutPageGlobal) {
-      try {
-        await payload.updateGlobal({
-          slug: 'about-page',
-          locale: 'en',
-          data: {
-            hero: {
-              title: 'WHO WE ARE',
-              description:
-                'For more than 25 years, TitanBrekers has been the specialist in professional demolition work. With passion, craftsmanship, and modern equipment, we make room for the future.',
-            },
-            story: {
-              title: 'OUR STORY',
-            },
-          },
-          context: {
-            skipRevalidation: true,
-          },
-        })
-        console.log(`  ✓ Updated About Page Global for English locale`)
-      } catch (error: any) {
-        if (error.message?.includes('static generation store missing')) {
-          console.log(`  ⚠️ Updated About Page Global but revalidation skipped (normal in scripts)`)
-        } else {
-          throw error
-        }
-      }
-    }
-
-    // Update Contact Page Global
-    console.log('🔄 Updating Contact Page Global...')
-    const existingContactPageGlobal = await payload.findGlobal({
-      slug: 'contact-page',
-    })
-
-    if (existingContactPageGlobal) {
-      try {
-        await payload.updateGlobal({
-          slug: 'contact-page',
-          locale: 'en',
-          data: {
-            hero: {
-              title: 'GET IN TOUCH',
-              description:
-                'Do you have a demolition or dismantling project? Feel free to contact us for a quote or advice. We respond within 24 hours.',
-            },
-            formSettings: {
-              title: 'SEND A MESSAGE',
-              subjects: [
-                { value: 'offerte', label: 'Request Quote' },
-                { value: 'informatie', label: 'Request Information' },
-                { value: 'samenwerking', label: 'Partnership' },
-                { value: 'anders', label: 'Other' },
-              ],
-            },
-          },
-          context: {
-            skipRevalidation: true,
-          },
-        })
-        console.log(`  ✓ Updated Contact Page Global for English locale`)
-      } catch (error: any) {
-        if (error.message?.includes('static generation store missing')) {
-          console.log(
-            `  ⚠️ Updated Contact Page Global but revalidation skipped (normal in scripts)`,
-          )
-        } else {
-          throw error
-        }
-      }
-    }
-
-    console.log('🎉 English translations added successfully!')
     process.exit(0)
   } catch (error) {
-    console.error('❌ Error adding English translations:', error)
+    console.error('❌ Error seeding translations:', error)
     process.exit(1)
   }
 }
 
-seedEnglishTranslations()
+seedTranslations()

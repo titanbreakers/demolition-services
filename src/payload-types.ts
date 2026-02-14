@@ -112,7 +112,12 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('nl' | 'en') | ('nl' | 'en')[];
+  fallbackLocale:
+    | ('false' | 'none' | 'null')
+    | false
+    | null
+    | ('nl' | 'en' | 'fr' | 'de' | 'it' | 'es' | 'sv' | 'fi' | 'pl' | 'ar' | 'zh' | 'ja' | 'pt' | 'tr' | 'ru')
+    | ('nl' | 'en' | 'fr' | 'de' | 'it' | 'es' | 'sv' | 'fi' | 'pl' | 'ar' | 'zh' | 'ja' | 'pt' | 'tr' | 'ru')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -121,6 +126,7 @@ export interface Config {
     'about-page': AboutPage;
     'services-page': ServicesPage;
     'contact-page': ContactPage;
+    translations: Translation;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -130,8 +136,9 @@ export interface Config {
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     'services-page': ServicesPageSelect<false> | ServicesPageSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+    translations: TranslationsSelect<false> | TranslationsSelect<true>;
   };
-  locale: 'nl' | 'en';
+  locale: 'nl' | 'en' | 'fr' | 'de' | 'it' | 'es' | 'sv' | 'fi' | 'pl' | 'ar' | 'zh' | 'ja' | 'pt' | 'tr' | 'ru';
   user: User & {
     collection: 'users';
   };
@@ -1959,6 +1966,30 @@ export interface ContactPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "translations".
+ */
+export interface Translation {
+  id: string;
+  translations?:
+    | {
+        locale: 'nl' | 'en' | 'fr' | 'de' | 'it' | 'es' | 'sv' | 'fi' | 'pl' | 'ar' | 'zh' | 'ja' | 'pt' | 'tr' | 'ru';
+        strings?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2192,6 +2223,22 @@ export interface ContactPageSelect<T extends boolean = true> {
               label?: T;
               id?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "translations_select".
+ */
+export interface TranslationsSelect<T extends boolean = true> {
+  translations?:
+    | T
+    | {
+        locale?: T;
+        strings?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -1,25 +1,30 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
-import type { Locale } from '@/utilities/translations'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface FooterClientProps {
   footerData?: any
 }
 
 const FooterClient = ({ footerData }: FooterClientProps) => {
-  const [locale, setLocale] = useState<Locale>('nl')
+  const { t, locale } = useTranslation()
 
-  useEffect(() => {
-    const storedLang = localStorage.getItem('locale') as Locale
-    if (storedLang && (storedLang === 'nl' || storedLang === 'en')) {
-      setLocale(storedLang)
-    }
-  }, [])
+  const paths = t.paths || {
+    home: '/',
+    services: '/services',
+    projects: '/projects',
+    blog: '/blog',
+    about: '/about',
+    contact: '/contact',
+  }
 
-  const isEnglish = locale === 'en'
+  const getLocalizedPath = (path: string | undefined, fallback: string) => {
+    const safePath = path || fallback
+    if (safePath === '/') return `/${locale}`
+    return `/${locale}${safePath}`
+  }
 
   // Translated navigation links
   const navLinks =
@@ -29,43 +34,38 @@ const FooterClient = ({ footerData }: FooterClientProps) => {
           path: item.link?.url || item.url || '/',
         }))
       : [
-          { name: 'Home', path: '/' },
+          { name: t.nav?.home || 'Home', path: getLocalizedPath(paths.home, '/') },
           {
-            name: isEnglish ? 'Services' : 'Diensten',
-            path: isEnglish ? '/en/services' : '/nl/diensten',
+            name: t.nav?.services || 'Services',
+            path: getLocalizedPath(paths.services, '/services'),
           },
           {
-            name: isEnglish ? 'Projects' : 'Projecten',
-            path: isEnglish ? '/en/projects' : '/nl/projecten',
+            name: t.nav?.projects || 'Projects',
+            path: getLocalizedPath(paths.projects, '/projects'),
           },
-          { name: isEnglish ? 'Blog' : 'Nieuws', path: isEnglish ? '/en/blog' : '/nl/nieuws' },
-          {
-            name: isEnglish ? 'About Us' : 'Over Ons',
-            path: isEnglish ? '/en/about' : '/nl/over-ons',
-          },
-          {
-            name: isEnglish ? 'Contact' : 'Contact',
-            path: isEnglish ? '/en/contact' : '/nl/contact',
-          },
+          { name: t.nav?.blog || 'Blog', path: getLocalizedPath(paths.blog, '/blog') },
+          { name: t.nav?.about || 'About', path: getLocalizedPath(paths.about, '/about') },
+          { name: t.nav?.contact || 'Contact', path: getLocalizedPath(paths.contact, '/contact') },
         ]
 
-  const services = isEnglish
-    ? [
-        'Manual Demolition',
-        'Interior Demolition',
-        'Selective Demolition',
-        'Kitchen & Bathroom',
-        'Property Clearing',
-        'Asbestos Removal',
-      ]
-    : [
-        'Handmatige Sloop',
-        'Interieur Sloop',
-        'Selectieve Sloop',
-        'Keuken & Badkamer',
-        'Woning Ontruiming',
-        'Asbest Sanering',
-      ]
+  const services =
+    locale === 'en'
+      ? [
+          t.services?.manual || 'Manual Demolition',
+          t.services?.interior || 'Interior Demolition',
+          t.services?.selective || 'Selective Demolition',
+          t.services?.kitchen || 'Kitchen & Bathroom',
+          t.services?.clearing || 'Property Clearing',
+          t.services?.asbestos || 'Asbestos Removal',
+        ]
+      : [
+          t.services?.manual || 'Handmatige Sloop',
+          t.services?.interior || 'Interieur Sloop',
+          t.services?.selective || 'Selectieve Sloop',
+          t.services?.kitchen || 'Keuken & Badkamer',
+          t.services?.clearing || 'Woning Ontruiming',
+          t.services?.asbestos || 'Asbest Sanering',
+        ]
 
   return (
     <footer className="bg-card border-t border-border">
@@ -85,16 +85,18 @@ const FooterClient = ({ footerData }: FooterClientProps) => {
               </span>
             </div>
             <p className="text-muted-foreground mb-6">
-              {isEnglish
-                ? 'Manual demolition work with hammer and chisel. For more than 25 years your partner in indoor demolition and renovation.'
-                : 'Handmatig sloopwerk met hamer en beitel. Al meer dan 25 jaar uw partner in binnensloop en renovatie.'}
+              {locale === 'en'
+                ? t.footer?.tagline ||
+                  'Manual demolition work with hammer and chisel. For more than 25 years your partner in indoor demolition and renovation.'
+                : t.footer?.tagline ||
+                  'Handmatig sloopwerk met hamer en beitel. Al meer dan 25 jaar uw partner in binnensloop en renovatie.'}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h4 className="font-display text-xl mb-6 text-foreground">
-              {isEnglish ? 'Navigation' : 'Navigatie'}
+              {t.footer?.navigation || (locale === 'en' ? 'Navigation' : 'Navigatie')}
             </h4>
             <ul className="space-y-3">
               {navLinks.map((link: any) => (
@@ -113,7 +115,7 @@ const FooterClient = ({ footerData }: FooterClientProps) => {
           {/* Services */}
           <div>
             <h4 className="font-display text-xl mb-6 text-foreground">
-              {isEnglish ? 'Services' : 'Diensten'}
+              {t.nav?.services || (locale === 'en' ? 'Services' : 'Diensten')}
             </h4>
             <ul className="space-y-3">
               {services.map((service) => (
@@ -127,15 +129,15 @@ const FooterClient = ({ footerData }: FooterClientProps) => {
           {/* Contact */}
           <div>
             <h4 className="font-display text-xl mb-6 text-foreground">
-              {isEnglish ? 'Contact' : 'Contact'}
+              {t.nav?.contact || (locale === 'en' ? 'Contact' : 'Contact')}
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <span className="text-muted-foreground">
-                  Industrieweg 45
+                  {t.footer?.address?.street || 'Industrieweg 45'}
                   <br />
-                  1234 AB Rotterdam
+                  {t.footer?.address?.city || '1234 AB Rotterdam'}
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -144,22 +146,25 @@ const FooterClient = ({ footerData }: FooterClientProps) => {
                   href="tel:+31612345678"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  06-12345678
+                  {t.footer?.phone || '06-12345678'}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
                 <a
-                  href="mailto:info@titanbrekers.nl"
+                  href={`mailto:info@${locale === 'en' ? 'titanbreakers.nl' : 'titaanbrekers.nl'}`}
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  info@titanbrekers.nl
+                  {t.footer?.email ||
+                    `info@${locale === 'en' ? 'titanbreakers.nl' : 'titaanbrekers.nl'}`}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                 <span className="text-muted-foreground">
-                  {isEnglish ? 'Mon-Fri: 07:00 - 18:00' : 'Ma-Vr: 07:00 - 18:00'}
+                  {locale === 'en'
+                    ? t.footer?.hours?.weekday || 'Mon-Fri: 07:00 - 18:00'
+                    : t.footer?.hours?.weekday || 'Ma-Vr: 07:00 - 18:00'}
                 </span>
               </li>
             </ul>
@@ -172,22 +177,24 @@ const FooterClient = ({ footerData }: FooterClientProps) => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-sm">
-              {isEnglish
-                ? '© 2024 TitanBrekers. All rights reserved.'
-                : '© 2024 TitanBrekers. Alle rechten voorbehouden.'}
+              {locale === 'en'
+                ? t.footer?.copyright || '© 2024 TitanBreakers. All rights reserved.'
+                : t.footer?.copyright || '© 2024 TitanBreakers. Alle rechten voorbehouden.'}
             </p>
             <div className="flex gap-6 text-sm">
               <Link
                 href="/privacy"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                Privacy Policy
+                {t.footer?.privacy || 'Privacy Policy'}
               </Link>
               <Link
                 href="/voorwaarden"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                {isEnglish ? 'Terms & Conditions' : 'Algemene Voorwaarden'}
+                {locale === 'en'
+                  ? t.footer?.terms || 'Terms & Conditions'
+                  : t.footer?.voorwaarden || 'Algemene Voorwaarden'}
               </Link>
             </div>
           </div>

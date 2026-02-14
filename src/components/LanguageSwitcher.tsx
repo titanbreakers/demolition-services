@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { Check, ChevronDown } from 'lucide-react'
+import { Check } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -56,118 +56,117 @@ const publicPaths: Record<string, Record<string, string>> = {
   fr: {
     home: '/',
     services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
+    projects: '/projets',
+    blog: '/actualites',
+    about: '/a-propos',
     contact: '/contact',
   },
   de: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/leistungen',
+    projects: '/projekte',
+    blog: '/neuigkeiten',
+    about: '/ueber-uns',
+    contact: '/kontakt',
   },
   it: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/servizi',
+    projects: '/progetti',
+    blog: '/notizie',
+    about: '/chi-siamo',
+    contact: '/contatti',
   },
   es: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/servicios',
+    projects: '/proyectos',
+    blog: '/noticias',
+    about: '/nosotros',
+    contact: '/contacto',
   },
   sv: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/tjanster',
+    projects: '/projekt',
+    blog: '/nyheter',
+    about: '/om-oss',
+    contact: '/kontakt',
   },
   fi: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/palvelut',
+    projects: '/projektit',
+    blog: '/uutiset',
+    about: '/meista',
+    contact: '/yhteystiedot',
   },
   pl: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/uslugi',
+    projects: '/projekty',
+    blog: '/aktualnosci',
+    about: '/o-nas',
+    contact: '/kontakt',
   },
   ar: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/الخدمات',
+    projects: '/المشاريع',
+    blog: '/الأخبار',
+    about: '/من-نحن',
+    contact: '/اتصل-بنا',
   },
   zh: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/服务',
+    projects: '/项目',
+    blog: '/新闻',
+    about: '/关于我们',
+    contact: '/联系我们',
   },
   ja: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/サービス',
+    projects: '/プロジェクト',
+    blog: '/ニュース',
+    about: '/会社概要',
+    contact: '/お問い合わせ',
   },
   pt: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/servicos',
+    projects: '/projetos',
+    blog: '/noticias',
+    about: '/sobre-nos',
+    contact: '/contato',
   },
   tr: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/hizmetler',
+    projects: '/projeler',
+    blog: '/haberler',
+    about: '/hakkimizda',
+    contact: '/iletisim',
   },
   ru: {
     home: '/',
-    services: '/services',
-    projects: '/projects',
-    blog: '/blog',
-    about: '/about',
-    contact: '/contact',
+    services: '/uslugi',
+    projects: '/proekty',
+    blog: '/novosti',
+    about: '/o-nas',
+    contact: '/kontakty',
   },
 }
 
-// Internal path names (the actual folder structure in app/)
-const internalPaths: Record<string, string> = {
-  home: '/',
-  services: '/diensten',
-  projects: '/projecten',
-  blog: '/nieuws',
-  about: '/over-ons',
-  contact: '/contact',
-}
+// Create a reverse mapping from any path to route key
+// This allows matching paths from any language to determine the route
+const pathToRouteKey: Record<string, string> = {}
+Object.entries(publicPaths).forEach(([, paths]) => {
+  Object.entries(paths).forEach(([key, path]) => {
+    pathToRouteKey[path] = key
+  })
+})
 
 export default function LanguageSwitcher() {
   const [currentLang, setCurrentLang] = useState<string>('nl')
@@ -268,15 +267,8 @@ export default function LanguageSwitcher() {
       }
 
       // Find which route key corresponds to the current public path
-      let routeKey: keyof typeof internalPaths = 'home'
-      const currentPaths = publicPaths[currentLocale] || publicPaths['nl']
-
-      for (const [key, path] of Object.entries(currentPaths)) {
-        if (path === currentPublicPath) {
-          routeKey = key as keyof typeof internalPaths
-          break
-        }
-      }
+      // Use reverse mapping to match paths from any language
+      const routeKey = pathToRouteKey[currentPublicPath] || 'home'
 
       // Get the new public path for the target locale
       const newPaths = publicPaths[langCode] || publicPaths['nl']
