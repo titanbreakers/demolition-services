@@ -71,7 +71,9 @@ export default function HeaderClient({ siteSettings }: HeaderClientProps) {
   const phone = '06-12345678'
 
   const isActive = (path: string) => {
-    const currentPath = pathname.replace(`/${locale}`, '') || '/'
+    // Decode pathname to handle non-ASCII characters (Chinese, Arabic, Japanese, etc.)
+    const decodedPathname = decodeURI(pathname)
+    const currentPath = decodedPathname.replace(`/${locale}`, '') || '/'
     const linkPath = path.replace(`/${locale}`, '') || '/'
     return currentPath === linkPath
   }
