@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 import path from 'path'
 import dotenv from 'dotenv'
 import fs from 'fs'
+import { blogTranslations } from './blog-all-translations.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -3589,7 +3590,7 @@ async function seed() {
       {
         key: 'kitchen',
         slug: 'keuken-sloop-gids',
-        image: images[9]?.id,
+        image: images[17]?.id,
         date: new Date('2023-12-10').toISOString(),
       },
       {
@@ -3601,7 +3602,7 @@ async function seed() {
       {
         key: 'asbestos',
         slug: 'asbest-verwijdering-veiligheid',
-        image: images[17]?.id,
+        image: images[9]?.id,
         date: new Date('2023-11-15').toISOString(),
       },
     ]
@@ -3627,10 +3628,24 @@ async function seed() {
         context: { disableRevalidate: true },
       })
 
-      // Add translations for all other locales
+      // Add translations for all other locales that have valid content
       for (const locale of locales.filter((l) => l !== 'nl')) {
-        const localeData = blogContent[post.key][locale]
-        if (localeData) {
+        // Check both blogContent and blogTranslations
+        let localeData = blogContent[post.key][locale]
+
+        // If not found in blogContent, check blogTranslations
+        if (!localeData && blogTranslations[locale] && blogTranslations[locale][post.key]) {
+          localeData = blogTranslations[locale][post.key]
+        }
+
+        // Only seed if we have valid content with proper structure
+        if (
+          localeData &&
+          localeData.content &&
+          localeData.content.root &&
+          localeData.content.root.children &&
+          localeData.content.root.children.length > 0
+        ) {
           await payload.update({
             collection: 'posts',
             id: created.id,
@@ -3658,7 +3673,7 @@ async function seed() {
     console.log('  ✅ 6 Services (all 15 locales)')
     console.log('  ✅ 6 Projects (all 15 locales)')
     console.log('  ✅ 6 Categories')
-    console.log('  ✅ 3 Blog Posts (NL + EN with full content)')
+    console.log('  ✅ 6 Blog Posts (NL + EN with full content)')
 
     process.exit(0)
   } catch (error) {
