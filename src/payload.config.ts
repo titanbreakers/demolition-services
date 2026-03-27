@@ -155,7 +155,15 @@ export default buildConfig({
     defaultLocale: 'nl',
     fallback: true,
   },
-  plugins,
+  plugins: [
+    ...plugins,
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    }),
+  ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
