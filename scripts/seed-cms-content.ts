@@ -1656,17 +1656,6 @@ async function seedCMSContent() {
 
     // Seed About Page for each locale
     console.log('\n📝 Seeding About Page content...')
-    for (const locale of locales) {
-      const content = (aboutPageContent as any)[locale]
-
-      if (content) {
-        try {
-          await payload.updateGlobal({
-            slug: 'about-page',
-            locale: locale as any,
-            data: content,
-          })
-          console.log(`   ✅ About Page seeded for ${locale}`)
         } catch (error) {
           console.error(`   ❌ Error seeding About Page for ${locale}:`, error)
         }
@@ -1675,17 +1664,6 @@ async function seedCMSContent() {
 
     // Seed Contact Page for each locale
     console.log('\n📝 Seeding Contact Page content...')
-    for (const locale of locales) {
-      const content = (contactPageContent as any)[locale]
-
-      if (content) {
-        try {
-          await payload.updateGlobal({
-            slug: 'contact-page',
-            locale: locale as any,
-            data: content,
-          })
-          console.log(`   ✅ Contact Page seeded for ${locale}`)
         } catch (error) {
           console.error(`   ❌ Error seeding Contact Page for ${locale}:`, error)
         }
@@ -1694,17 +1672,6 @@ async function seedCMSContent() {
 
     // Seed Home Page for each locale
     console.log('\n📝 Seeding Home Page content...')
-    for (const locale of locales) {
-      const content = (homePageContent as any)[locale]
-
-      if (content) {
-        try {
-          await payload.updateGlobal({
-            slug: 'home-page',
-            locale: locale as any,
-            data: content,
-          })
-          console.log(`   ✅ Home Page seeded for ${locale}`)
         } catch (error) {
           console.error(`   ❌ Error seeding Home Page for ${locale}:`, error)
         }
@@ -1713,17 +1680,6 @@ async function seedCMSContent() {
 
     // Seed Services Page for each locale
     console.log('\n📝 Seeding Services Page content...')
-    for (const locale of locales) {
-      const content = (servicesPageContent as any)[locale]
-
-      if (content) {
-        try {
-          await payload.updateGlobal({
-            slug: 'services-page',
-            locale: locale as any,
-            data: content,
-          })
-          console.log(`   ✅ Services Page seeded for ${locale}`)
         } catch (error) {
           console.error(`   ❌ Error seeding Services Page for ${locale}:`, error)
         }
