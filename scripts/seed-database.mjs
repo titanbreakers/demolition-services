@@ -3399,7 +3399,7 @@ async function seed() {
         data: { alt },
         file,
       })
-      console.log(`  ✓ Uploaded: ${filename}`)
+      console.log(`  ✓ Uploaded: ${filename} (ID: ${media.id})`)
       return media
     }
 
@@ -3427,6 +3427,7 @@ async function seed() {
     ])
 
     console.log('✅ Images uploaded')
+    console.log(`  Total images: ${images.filter(i => i !== null).length}/${images.length}`)
 
     // Seed Services with translations
     console.log('\n📦 Seeding Services with translations...')
@@ -3452,7 +3453,7 @@ async function seed() {
       const serviceData = {
         icon: service.icon,
         featured: service.featured,
-        image: serviceImages[service.key],
+        image: serviceImages[service.key] || undefined,
         title: translations.services[service.key].nl.title,
         description: translations.services[service.key].nl.description,
       }
@@ -3669,7 +3670,8 @@ async function seed() {
 
     console.log('\n🎉 Database fully seeded with translations!')
     console.log('\n📋 Seeded:')
-    console.log('  ✅ Images uploaded')
+    console.log('✅ Images uploaded')
+    console.log(`  Total images: ${images.filter(i => i !== null).length}/${images.length}`)
     console.log('  ✅ 6 Services (all 15 locales)')
     console.log('  ✅ 6 Projects (all 15 locales)')
     console.log('  ✅ 6 Categories')
