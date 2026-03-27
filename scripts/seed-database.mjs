@@ -3453,14 +3453,13 @@ async function seed() {
       const serviceData = {
         icon: service.icon,
         featured: service.featured,
-        image: serviceImages[service.key] || undefined,
         title: translations.services[service.key].nl.title,
         description: translations.services[service.key].nl.description,
       }
 
       const created = await payload.create({
         collection: 'services',
-        data: serviceData,
+        data: serviceImages[service.key] ? { ...serviceData, image: serviceImages[service.key] } : serviceData,
       })
 
       // Add translations for all locales

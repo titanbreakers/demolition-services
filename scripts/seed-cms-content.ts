@@ -1655,37 +1655,9 @@ async function seedCMSContent() {
     await ensureGlobalExists('services-page', defaultServicesData)
 
     // Seed About Page for each locale
-    console.log('\n📝 Seeding About Page content...')
-        } catch (error) {
-          console.error(`   ❌ Error seeding About Page for ${locale}:`, error)
-        }
-      }
-    }
-
     // Seed Contact Page for each locale
-    console.log('\n📝 Seeding Contact Page content...')
-        } catch (error) {
-          console.error(`   ❌ Error seeding Contact Page for ${locale}:`, error)
-        }
-      }
-    }
-
     // Seed Home Page for each locale
-    console.log('\n📝 Seeding Home Page content...')
-        } catch (error) {
-          console.error(`   ❌ Error seeding Home Page for ${locale}:`, error)
-        }
-      }
-    }
-
     // Seed Services Page for each locale
-    console.log('\n📝 Seeding Services Page content...')
-        } catch (error) {
-          console.error(`   ❌ Error seeding Services Page for ${locale}:`, error)
-        }
-      }
-    }
-
     console.log('\n✅ All CMS globals seeded successfully!')
     process.exit(0)
   } catch (error) {
