@@ -17,7 +17,7 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "seed:translations": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-translations.ts",
     "seed:cms-content": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-cms-content.ts",
-    "seed:all": "pnpm seed:translations && pnpm seed:cms-content && cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-database.mjs",
+    "seed:all": "pnpm migrate && pnpm seed:translations && pnpm seed:cms-content && cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-database.mjs",
     "clear-db": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/clear-database.ts",
     "download-images": "node download-images.mjs",
     "get-image": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/get-uploaded-image.ts",
