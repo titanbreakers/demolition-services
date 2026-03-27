@@ -157,14 +157,18 @@ export default buildConfig({
   },
   plugins: [
     ...plugins,
-    vercelBlobStorage({
-      collections: {
-        media: {
-          disableLocalStorage: true,
-        },
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
-    }),
+    // Temporarily disabled: Vercel Blob has race condition issues during seeding
+    // See: https://github.com/payloadcms/payload/issues/14709
+    // Re-enable after initial seed or use local storage for seeding
+    // vercelBlobStorage({
+    //   collections: {
+    //     media: {
+    //       disableLocalStorage: true,
+    //       prefix: 'media',
+    //     },
+    //   },
+    //   token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    // }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
