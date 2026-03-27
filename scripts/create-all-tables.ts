@@ -58,6 +58,8 @@ async function createTables() {
       'categories',
       'posts',
       'pages',
+      'media_folders',
+      'media_folders',
       'media',
       'users',
       'header',
@@ -101,9 +103,12 @@ async function createTables() {
       `CREATE TABLE "users_sessions" ("_order" INTEGER, "_parent_id" VARCHAR NOT NULL REFERENCES "users"("id") ON DELETE CASCADE, "id" VARCHAR PRIMARY KEY DEFAULT gen_random_uuid(), "created_at" TIMESTAMP(3), "expires_at" TIMESTAMP(3))`,
     )
 
-    // Media collection
+    // Media collection with folders support
     await pool.query(
-      `CREATE TABLE "media" ("id" VARCHAR PRIMARY KEY DEFAULT gen_random_uuid(), "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "alt" VARCHAR, "caption" TEXT, "file_name" VARCHAR, "mime_type" VARCHAR, "filesize" NUMERIC, "width" NUMERIC, "height" NUMERIC, "focal_x" NUMERIC, "focal_y" NUMERIC, "url" VARCHAR, "thumbnail_url" VARCHAR, "file_path" VARCHAR)`,
+      `CREATE TABLE "media" ("id" VARCHAR PRIMARY KEY DEFAULT gen_random_uuid(), "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "alt" VARCHAR, "caption" TEXT, "filename" VARCHAR, "mime_type" VARCHAR, "filesize" NUMERIC, "width" NUMERIC, "height" NUMERIC, "focal_x" NUMERIC, "focal_y" NUMERIC, "url" VARCHAR, "thumbnail_url" VARCHAR, "file_path" VARCHAR, "folder_id" VARCHAR, "thumbnail_width" NUMERIC, "thumbnail_height" NUMERIC, "square_width" NUMERIC, "square_height" NUMERIC, "small_width" NUMERIC, "small_height" NUMERIC, "medium_width" NUMERIC, "medium_height" NUMERIC, "large_width" NUMERIC, "large_height" NUMERIC, "xlarge_width" NUMERIC, "xlarge_height" NUMERIC, "og_width" NUMERIC, "og_height" NUMERIC)`,
+    )
+    await pool.query(
+      `CREATE TABLE "media_folders" ("id" VARCHAR PRIMARY KEY DEFAULT gen_random_uuid(), "name" VARCHAR NOT NULL, "slug" VARCHAR, "parent_id" VARCHAR REFERENCES "media_folders"("id") ON DELETE CASCADE, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`,
     )
 
     // Pages collection with locales
