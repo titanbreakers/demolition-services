@@ -3400,6 +3400,8 @@ async function seed() {
         file,
       })
       console.log(`  ✓ Uploaded: ${filename} (ID: ${media.id})`)
+      // Wait for blob metadata to persist
+      await new Promise(r => setTimeout(r, 500))
       return media
     }
 
@@ -3428,6 +3430,15 @@ async function seed() {
 
     console.log('✅ Images uploaded')
     console.log(`  Total images: ${images.filter(i => i !== null).length}/${images.length}`)
+    
+    // Validate all required images uploaded
+    const requiredImages = images.slice(14, 20)
+    const failedUploads = requiredImages.filter(i => i === null)
+    if (failedUploads.length > 0) {
+      console.error(`❌ ${failedUploads.length} required service images failed to upload`)
+      process.exit(1)
+    }
+    }
 
     // Seed Services with translations
     console.log('\n📦 Seeding Services with translations...')
@@ -3671,6 +3682,22 @@ async function seed() {
     console.log('\n📋 Seeded:')
     console.log('✅ Images uploaded')
     console.log(`  Total images: ${images.filter(i => i !== null).length}/${images.length}`)
+    
+    // Validate all required images uploaded
+    const requiredImages = images.slice(14, 20)
+    const failedUploads = requiredImages.filter(i => i === null)
+    if (failedUploads.length > 0) {
+      console.error(`❌ ${failedUploads.length} required service images failed to upload`)
+      process.exit(1)
+    }
+    
+    // Validate all required images uploaded
+    const requiredImages = images.slice(14, 20)
+    const failedUploads = requiredImages.filter(i => i === null)
+    if (failedUploads.length > 0) {
+      console.error(`❌ ${failedUploads.length} required service images failed to upload`)
+      process.exit(1)
+    }
     console.log('  ✅ 6 Services (all 15 locales)')
     console.log('  ✅ 6 Projects (all 15 locales)')
     console.log('  ✅ 6 Categories')
