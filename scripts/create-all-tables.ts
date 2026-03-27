@@ -10,7 +10,7 @@ async function createTables() {
     await (payload.db.connect as any)()
     console.log('✅ Database connected\n')
     
-    // Collections - insert/delete dummy data
+    // Collections
     const collections = [
       { slug: 'users', data: { email: 'temp@temp.com', password: 'temp' } },
       { slug: 'media', data: { alt: 'temp' } },
@@ -34,7 +34,7 @@ async function createTables() {
       }
     }
     
-    // Regular globals
+    // Simple globals
     const simpleGlobals = ['header', 'footer', 'site-settings', 'home-page', 'about-page', 'services-page', 'contact-page']
     console.log('\nCreating global tables...')
     for (const slug of simpleGlobals) {
@@ -53,15 +53,14 @@ async function createTables() {
           translations: [
             {
               locale: 'nl',
-              strings: [{ key: 'temp', value: 'temp' }]
+              strings: { temp: 'temp' }  // JSON object, not array!
             }
           ]
         }
       } as any)
       console.log('  ✓ translations (with join tables)')
       
-      // Now delete the temp data
-      const existing = await payload.findGlobal({ slug: 'translations' } as any)
+      // Clear the temp data
       await payload.updateGlobal({
         slug: 'translations',
         data: { translations: [] }
