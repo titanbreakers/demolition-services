@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "init-db": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/init-db.ts",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate.ts",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
@@ -14,7 +15,7 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "seed:translations": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-translations.ts",
     "seed:cms-content": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-cms-content.ts",
-    "seed:all": "pnpm clear-db && pnpm seed:translations && pnpm seed:cms-content && cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-database.mjs",
+    "seed:all": "pnpm init-db && pnpm clear-db && pnpm seed:translations && pnpm seed:cms-content && cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-database.mjs",
     "clear-db": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/clear-database.ts",
     "download-images": "node download-images.mjs",
     "get-image": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/get-uploaded-image.ts",
