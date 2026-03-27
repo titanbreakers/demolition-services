@@ -157,6 +157,8 @@ export default buildConfig({
   },
   plugins: [
     ...plugins,
+    // @ts-ignore - allowOverwrite added in PR #20795, types may not be updated
+    // @ts-ignore - allowOverwrite not in types yet
     vercelBlobStorage({
       collections: {
         media: {
@@ -164,6 +166,7 @@ export default buildConfig({
         },
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      allowOverwrite: true, // Fix for orphan blobs from failed uploads
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
