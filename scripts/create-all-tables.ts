@@ -127,3 +127,12 @@ async function createTables() {
 }
 
 createTables()
+
+// Add missing columns
+await pool.query(`ALTER TABLE "about_page_stats" ADD COLUMN IF NOT EXISTS "number" VARCHAR`)
+await pool.query(`ALTER TABLE "about_page_stats_locales" ADD COLUMN IF NOT EXISTS "number" VARCHAR`)
+await pool.query(`ALTER TABLE "about_page_timeline" ADD COLUMN IF NOT EXISTS "year" VARCHAR`)
+await pool.query(`ALTER TABLE "home_page_hero_stats" ADD COLUMN IF NOT EXISTS "number" VARCHAR`)
+await pool.query(`ALTER TABLE "home_page_hero_stats_locales" ADD COLUMN IF NOT EXISTS "number" VARCHAR`)
+await pool.query(`ALTER TABLE "contact_page_formSettings_subjects" ADD COLUMN IF NOT EXISTS "value" VARCHAR`)
+await pool.query(`ALTER TABLE "contact_page_formSettings_subjects_locales" ADD COLUMN IF NOT EXISTS "value" VARCHAR`)
