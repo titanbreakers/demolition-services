@@ -1,8 +1,9 @@
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -65,9 +66,17 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URL || '',
-  }),
+  db:
+    process.env.DATABASE_URL?.startsWith('postgres://') ||
+    process.env.DATABASE_URL?.startsWith('postgresql://')
+      ? postgresAdapter({
+          pool: {
+            connectionString: process.env.DATABASE_URL || '',
+          },
+        })
+      : mongooseAdapter({
+          url: process.env.DATABASE_URL || '',
+        }),
   collections: [Pages, Posts, Media, Categories, Users, Services, Projects],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [
