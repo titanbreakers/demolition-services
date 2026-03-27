@@ -13,6 +13,29 @@ async function createTables() {
 
     // First drop all tables with CASCADE in dependency order (children first)
     const dropOrder = [
+      // Pages nested tables (most dependent first)
+      'pages_layout_form_blocks_locales',
+      'pages_layout_form_blocks',
+      'pages_layout_archive_blocks_locales',
+      'pages_layout_archive_blocks',
+      'pages_layout_media_blocks',
+      'pages_layout_columns_locales',
+      'pages_layout_columns',
+      'pages_layout_locales',
+      'pages_layout',
+      'pages_hero_links_locales',
+      'pages_hero_links',
+      'pages_hero_locales',
+      'pages_hero',
+      'pages_locales',
+      // Posts nested tables
+      'posts_populated_authors',
+      'posts_authors',
+      'posts_categories',
+      'posts_related_posts',
+      'posts_content_locales',
+      'posts_content',
+      'posts_locales',
       // Locale tables first (most dependent)
       'contact_page_form_settings_subjects_locales',
       'services_page_service_details_features_locales',
@@ -26,8 +49,6 @@ async function createTables() {
       'about_page_stats_locales',
       'about_page_story_paragraphs_locales',
       'home_page_locales',
-      'pages_locales',
-      'posts_locales',
       'categories_locales',
       'services_locales',
       'projects_locales',
@@ -58,7 +79,6 @@ async function createTables() {
       'categories',
       'posts',
       'pages',
-      'media_folders',
       'media_folders',
       'media',
       'users',
