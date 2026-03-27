@@ -1,78 +1,51 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { Pool } from 'pg'
 
 async function createTables() {
-  console.log('🔧 Creating all database tables via Payload...\n')
+  console.log('🔧 Creating all database tables...\n')
   
-  const payload = await getPayload({ config })
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+  })
   
   try {
-    await (payload.db.connect as any)()
-    console.log('✅ Database connected\n')
+    // Core collections
+    await pool.query(`CREATE TABLE IF NOT EXISTS "users" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "email" VARCHAR UNIQUE, "reset_password_token" VARCHAR, "reset_password_expiration" TIMESTAMP(3), "salt" VARCHAR, "hash" VARCHAR, "login_attempts" NUMERIC DEFAULT 0, "lock_until" TIMESTAMP(3))`)
     
-    // Collections
-    const collections = [
-      { slug: 'users', data: { email: 'temp@temp.com', password: 'temp' } },
-      { slug: 'media', data: { alt: 'temp' } },
-      { slug: 'pages', data: { title: 'temp', slug: 'temp' } },
-      { slug: 'posts', data: { title: 'temp', slug: 'temp' } },
-      { slug: 'categories', data: { title: 'temp' } },
-      { slug: 'services', data: { title: 'temp', slug: 'temp' } },
-      { slug: 'projects', data: { title: 'temp', slug: 'temp' } },
-    ]
+    await pool.query(`CREATE TABLE IF NOT EXISTS "media" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "alt" VARCHAR, "caption" TEXT, "file_name" VARCHAR, "mime_type" VARCHAR, "filesize" NUMERIC, "width" NUMERIC, "height" NUMERIC, "focal_x" NUMERIC, "focal_y" NUMERIC, "url" VARCHAR, "thumbnail_url" VARCHAR, "file_path" VARCHAR)`)
     
-    console.log('Creating collection tables...')
-    for (const { slug, data } of collections) {
-      try {
-        const created = await payload.create({ collection: slug, data } as any)
-        await payload.delete({ collection: slug, id: created.id } as any)
-        console.log(`  ✓ ${slug}`)
-      } catch (e: any) {
-        if (e.message?.includes('duplicate') || e.message?.includes('unique')) {
-          console.log(`  ✓ ${slug} (exists)`)
-        }
-      }
-    }
+    await pool.query(`CREATE TABLE IF NOT EXISTS "pages" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "title" VARCHAR, "slug" VARCHAR, "meta_title" VARCHAR, "meta_description" TEXT, "_status" VARCHAR DEFAULT 'draft')`)
     
-    // Simple globals
-    const simpleGlobals = ['header', 'footer', 'site-settings', 'home-page', 'about-page', 'services-page', 'contact-page']
-    console.log('\nCreating global tables...')
-    for (const slug of simpleGlobals) {
-      try {
-        await payload.updateGlobal({ slug, data: {} } as any)
-        console.log(`  ✓ ${slug}`)
-      } catch (e: any) { /* ignore */ }
-    }
+    await pool.query(`CREATE TABLE IF NOT EXISTS "posts" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "title" VARCHAR, "slug" VARCHAR UNIQUE, "meta_title" VARCHAR, "meta_description" TEXT, "_status" VARCHAR DEFAULT 'draft')`)
     
-    // CRITICAL: translations global needs array data to create join tables
-    console.log('\nCreating translations global with array data...')
-    try {
-      await payload.updateGlobal({
-        slug: 'translations',
-        data: {
-          translations: [
-            {
-              locale: 'nl',
-              strings: { temp: 'temp' }  // JSON object, not array!
-            }
-          ]
-        }
-      } as any)
-      console.log('  ✓ translations (with join tables)')
-      
-      // Clear the temp data
-      await payload.updateGlobal({
-        slug: 'translations',
-        data: { translations: [] }
-      } as any)
-    } catch (e: any) {
-      console.log(`  ⚠ translations: ${e.message?.substring(0, 50)}`)
-    }
+    await pool.query(`CREATE TABLE IF NOT EXISTS "categories" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "title" VARCHAR)`)
     
-    console.log('\n✅ All database tables created!')
+    await pool.query(`CREATE TABLE IF NOT EXISTS "services" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "title" VARCHAR, "slug" VARCHAR UNIQUE)`)
+    
+    await pool.query(`CREATE TABLE IF NOT EXISTS "projects" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW(), "title" VARCHAR, "slug" VARCHAR UNIQUE)`)
+    
+    // Globals
+    await pool.query(`CREATE TABLE IF NOT EXISTS "header" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "footer" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "site_settings" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "home_page" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "about_page" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "services_page" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "contact_page" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    
+    // Translations global WITH join table
+    await pool.query(`CREATE TABLE IF NOT EXISTS "translations" ("id" SERIAL PRIMARY KEY, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "translations_translations" ("_order" INTEGER, "_parent_id" INTEGER NOT NULL REFERENCES "translations"("id") ON DELETE CASCADE, "id" SERIAL PRIMARY KEY, "locale" VARCHAR, "strings" JSONB)`)
+    
+    // Payload system
+    await pool.query(`CREATE TABLE IF NOT EXISTS "payload_migrations" ("id" SERIAL PRIMARY KEY, "name" VARCHAR(255), "batch" INTEGER, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS "payload_preferences" ("id" SERIAL PRIMARY KEY, "key" VARCHAR(255), "value" JSONB, "updated_at" TIMESTAMP(3) DEFAULT NOW(), "created_at" TIMESTAMP(3) DEFAULT NOW())`)
+    
+    console.log('✅ All database tables created!')
+    await pool.end()
     process.exit(0)
   } catch (error: any) {
-    console.error('\n❌ Failed:', error.message)
+    console.error('❌ Failed:', error.message)
+    await pool.end()
     process.exit(1)
   }
 }
