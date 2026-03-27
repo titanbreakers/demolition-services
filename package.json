@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "init-db": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/init-db.ts",
-    "migrate": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/migrate.ts",
+    "migrate": "payload migrate",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
@@ -15,7 +15,7 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "seed:translations": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-translations.ts",
     "seed:cms-content": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-cms-content.ts",
-    "seed:all": "pnpm clear-db || true && pnpm seed:translations && pnpm seed:cms-content && cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-database.mjs",
+    "seed:all": "pnpm migrate:fresh --yes && pnpm seed:translations && pnpm seed:cms-content && cross-env NODE_OPTIONS=--no-deprecation tsx scripts/seed-database.mjs",
     "clear-db": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/clear-database.ts",
     "download-images": "node download-images.mjs",
     "get-image": "cross-env NODE_OPTIONS=--no-deprecation tsx scripts/get-uploaded-image.ts",
@@ -27,7 +27,12 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test --config=playwright.config.ts",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "migrate:create": "payload migrate:create",
+    "migrate:status": "payload migrate:status",
+    "migrate:refresh": "payload migrate:refresh",
+    "migrate:down": "payload migrate:down",
+    "migrate:fresh": "payload migrate:fresh"
   },
   "dependencies": {
     "@payloadcms/admin-bar": "3.73.0",
