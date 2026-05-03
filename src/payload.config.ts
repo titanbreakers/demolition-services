@@ -162,15 +162,12 @@ export default buildConfig({
       collections: {
         media: {
           disableLocalStorage: true,
-          // Stores the direct Vercel Blob URL via beforeChange hook (before DB insert),
-          // working around issue #15991 where afterChange payload.update() fails with NotFound
-          // under Postgres transaction isolation during seeding.
           disablePayloadAccessControl: true,
         },
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
       allowOverwrite: true,
-    }),
+    } as any),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
