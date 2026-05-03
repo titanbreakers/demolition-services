@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 import path from 'path'
 import dotenv from 'dotenv'
 import fs from 'fs'
+import { head as blobHead } from '@vercel/blob'
 import { blogTranslations } from './blog-all-translations.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -3368,6 +3369,7 @@ async function seed() {
 
     // Upload Images
     console.log('\n📸 Uploading images...')
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN
     const uploadImage = async (filename, alt) => {
       const filePath = path.join(__dirname, '..', 'public', filename)
       if (!fs.existsSync(filePath)) {
@@ -3375,22 +3377,42 @@ async function seed() {
         return null
       }
 
+      // Check if media doc already exists in DB (from a previous seed within the same build)
       const existing = await payload.find({
         collection: 'media',
         where: { filename: { equals: filename } },
         limit: 1,
       })
-
-      if (existing.docs.length > 0) {
-        const doc = existing.docs[0]
-        if (doc.url) {
-          console.log(`  ↻ Already exists: ${filename}`)
-          return doc
-        }
-        console.log(`  ⚠️  Stale document (no URL), re-uploading: ${filename}`)
-        await payload.delete({ collection: 'media', id: doc.id })
+      if (existing.docs.length > 0 && existing.docs[0].url) {
+        console.log(`  ↻ DB hit: ${filename}`)
+        return existing.docs[0]
       }
 
+      // Check if blob already exists in Vercel Blob storage (from a previous build)
+      if (blobToken) {
+        try {
+          const blobInfo = await blobHead(filename, { token: blobToken })
+          if (blobInfo) {
+            // Blob exists — create DB record pointing to it without re-uploading
+            const media = await payload.create({
+              collection: 'media',
+              data: {
+                alt,
+                filename,
+                mimeType: blobInfo.contentType,
+                filesize: blobInfo.size,
+                url: blobInfo.url,
+              },
+            })
+            console.log(`  ↻ Blob exists, DB record created: ${filename} (ID: ${media.id})`)
+            return media
+          }
+        } catch (e) {
+          // blob_not_found — fall through to upload
+        }
+      }
+
+      // Upload to Vercel Blob via Payload
       const fileBuffer = fs.readFileSync(filePath)
       const file = {
         name: filename,
