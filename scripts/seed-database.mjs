@@ -3400,33 +3400,35 @@ async function seed() {
         file,
       })
       console.log(`  ✓ Uploaded: ${filename} (ID: ${media.id})`)
-      // Wait for blob metadata to persist
-      await new Promise(r => setTimeout(r, 2000))
       return media
     }
 
-    const images = await Promise.all([
-      uploadImage('hero-demolition.webp', 'TitanBreakers demolition equipment'),
-      uploadImage('about-team.webp', 'TitanBreakers team'),
-      uploadImage('project-1.webp', 'Demolition project 1'),
-      uploadImage('project-2.webp', 'Demolition project 2'),
-      uploadImage('project-3.webp', 'Demolition project 3'),
-      uploadImage('project-4.webp', 'Demolition project 4'),
-      uploadImage('project-5.webp', 'Demolition project 5'),
-      uploadImage('project-6.webp', 'Demolition project 6'),
-      uploadImage('blog-manual-demo.webp', 'Blog: Manual Demolition'),
-      uploadImage('blog-asbestos-safety.webp', 'Blog: Asbestos Safety'),
-      uploadImage('blog-kitchen-prep.webp', 'Blog: Kitchen Preparation'),
-      uploadImage('blog-bathroom-tips.webp', 'Blog: Bathroom Tips'),
-      uploadImage('blog-anniversary.webp', 'Blog: Anniversary'),
-      uploadImage('blog-sustainable.webp', 'Blog: Sustainable Demolition'),
-      uploadImage('service-asbestos.webp', 'Service: Asbestos'),
-      uploadImage('service-property-clearing.webp', 'Service: Property Clearing'),
-      uploadImage('service-manual.webp', 'Service: Manual Demolition'),
-      uploadImage('service-selective.webp', 'Service: Selective Demolition'),
-      uploadImage('service-kitchen-bathroom.webp', 'Service: Kitchen & Bathroom'),
-      uploadImage('service-interior.webp', 'Service: Interior Demolition'),
-    ])
+    const imageList = [
+      ['hero-demolition.webp', 'TitanBreakers demolition equipment'],
+      ['about-team.webp', 'TitanBreakers team'],
+      ['project-1.webp', 'Demolition project 1'],
+      ['project-2.webp', 'Demolition project 2'],
+      ['project-3.webp', 'Demolition project 3'],
+      ['project-4.webp', 'Demolition project 4'],
+      ['project-5.webp', 'Demolition project 5'],
+      ['project-6.webp', 'Demolition project 6'],
+      ['blog-manual-demo.webp', 'Blog: Manual Demolition'],
+      ['blog-asbestos-safety.webp', 'Blog: Asbestos Safety'],
+      ['blog-kitchen-prep.webp', 'Blog: Kitchen Preparation'],
+      ['blog-bathroom-tips.webp', 'Blog: Bathroom Tips'],
+      ['blog-anniversary.webp', 'Blog: Anniversary'],
+      ['blog-sustainable.webp', 'Blog: Sustainable Demolition'],
+      ['service-asbestos.webp', 'Service: Asbestos'],
+      ['service-property-clearing.webp', 'Service: Property Clearing'],
+      ['service-manual.webp', 'Service: Manual Demolition'],
+      ['service-selective.webp', 'Service: Selective Demolition'],
+      ['service-kitchen-bathroom.webp', 'Service: Kitchen & Bathroom'],
+      ['service-interior.webp', 'Service: Interior Demolition'],
+    ]
+    const images = []
+    for (const [filename, alt] of imageList) {
+      images.push(await uploadImage(filename, alt))
+    }
 
     console.log('✅ Images uploaded')
     console.log(`  Total images: ${images.filter(i => i !== null).length}/${images.length}`)
