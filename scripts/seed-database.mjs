@@ -3382,8 +3382,13 @@ async function seed() {
       })
 
       if (existing.docs.length > 0) {
-        console.log(`  ↻ Already exists: ${filename}`)
-        return existing.docs[0]
+        const doc = existing.docs[0]
+        if (doc.url) {
+          console.log(`  ↻ Already exists: ${filename}`)
+          return doc
+        }
+        console.log(`  ⚠️  Stale document (no URL), re-uploading: ${filename}`)
+        await payload.delete({ collection: 'media', id: doc.id })
       }
 
       const fileBuffer = fs.readFileSync(filePath)
