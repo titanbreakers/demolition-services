@@ -157,7 +157,6 @@ export default buildConfig({
   },
   plugins: [
     ...plugins,
-    // @ts-ignore - allowOverwrite not in types yet (added in PR #20795)
     vercelBlobStorage({
       collections: {
         media: {
