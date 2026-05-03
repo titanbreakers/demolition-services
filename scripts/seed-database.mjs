@@ -3491,10 +3491,12 @@ async function seed() {
         description: translations.services[service.key].nl.description,
       }
 
+      const imageId = serviceImages[service.key]
+      console.log(`  Creating service "${service.key}": image=${imageId ?? 'NONE'} (type=${typeof imageId})`)
       const created = await payload.create({
         collection: 'services',
-        data: serviceImages[service.key]
-          ? { ...serviceData, image: serviceImages[service.key] }
+        data: imageId
+          ? { ...serviceData, image: imageId }
           : serviceData,
       })
 
@@ -3714,7 +3716,10 @@ async function seed() {
 
     process.exit(0)
   } catch (error) {
-    console.error('\n❌ Error:', error)
+    console.error('\n❌ Error:', error.message || error)
+    if (error.data) {
+      console.error('Error data:', JSON.stringify(error.data, null, 2))
+    }
     process.exit(1)
   }
 }
