@@ -1,3 +1,24 @@
+diff --git a/dist/getClientUploadRoute.js b/dist/getClientUploadRoute.js
+index e11cf568867309efcb243fab490a33c6b01c46a8..bfeeee12b5180db867576f1a33738ebd076850a7 100644
+--- a/dist/getClientUploadRoute.js
++++ b/dist/getClientUploadRoute.js
+@@ -1,7 +1,7 @@
+ import { handleUpload } from '@vercel/blob/client';
+ import { APIError, Forbidden } from 'payload';
+ const defaultAccess = ({ req })=>!!req.user;
+-export const getClientUploadRoute = ({ access = defaultAccess, addRandomSuffix, cacheControlMaxAge, token })=>async (req)=>{
++export const getClientUploadRoute = ({ access = defaultAccess, addRandomSuffix, allowOverwrite, cacheControlMaxAge, token })=>async (req)=>{
+         const body = await req.json();
+         try {
+             const jsonResponse = await handleUpload({
+@@ -18,6 +18,7 @@ export const getClientUploadRoute = ({ access = defaultAccess, addRandomSuffix,
+                     }
+                     return Promise.resolve({
+                         addRandomSuffix,
++                        allowOverwrite,
+                         cacheControlMaxAge
+                     });
+                 },
 diff --git a/dist/handleUpload.js b/dist/handleUpload.js
 index db797445156822d2a2a0024b303df940b446e4c2..eedefda709bf53e7f0b4bd2f1b0cdc81e5267c52 100644
 --- a/dist/handleUpload.js
@@ -17,10 +38,18 @@ index db797445156822d2a2a0024b303df940b446e4c2..eedefda709bf53e7f0b4bd2f1b0cdc81
              contentType: mimeType,
              token
 diff --git a/dist/index.js b/dist/index.js
-index 7c56ee05908afb9dfb3bfa20f2a5b9ed3e4cca69..17c905178e9b00ec45f211c9ca3613707a437b9e 100644
+index 7c56ee05908afb9dfb3bfa20f2a5b9ed3e4cca69..b0248c78c8900f3f6da8d38e58cf62dc2c46189d 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -96,7 +96,7 @@ export const vercelBlobStorage = (options)=>(incomingConfig)=>{
+@@ -38,6 +38,7 @@ export const vercelBlobStorage = (options)=>(incomingConfig)=>{
+             serverHandler: getClientUploadRoute({
+                 access: typeof options.clientUploads === 'object' ? options.clientUploads.access : undefined,
+                 addRandomSuffix: optionsWithDefaults.addRandomSuffix,
++                allowOverwrite: optionsWithDefaults.allowOverwrite,
+                 cacheControlMaxAge: options.cacheControlMaxAge,
+                 token: options.token ?? ''
+             }),
+@@ -96,7 +97,7 @@ export const vercelBlobStorage = (options)=>(incomingConfig)=>{
      };
  function vercelBlobStorageInternal(options) {
      return ({ collection, prefix })=>{
@@ -29,7 +58,7 @@ index 7c56ee05908afb9dfb3bfa20f2a5b9ed3e4cca69..17c905178e9b00ec45f211c9ca361370
          if (!token) {
              throw new Error('Vercel Blob storage token is required');
          }
-@@ -115,6 +115,7 @@ function vercelBlobStorageInternal(options) {
+@@ -115,6 +116,7 @@ function vercelBlobStorageInternal(options) {
              handleUpload: getHandleUpload({
                  access,
                  addRandomSuffix,
