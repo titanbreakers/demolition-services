@@ -11,7 +11,7 @@ dotenv.config({ path: path.join(__dirname, '..', '.env') })
 // NODE_ENV must not be 'production' for pushDevSchema to run (auto-creates tables).
 process.env.PAYLOAD_DROP_DATABASE = 'true'
 const originalNodeEnv = process.env.NODE_ENV
-process.env.NODE_ENV = 'development'
+;(process.env as any).NODE_ENV = 'development'
 
 console.log('🔧 Creating database tables via Payload schema push...\n')
 
@@ -26,7 +26,7 @@ try {
   console.error('❌ Failed to create tables:', error.message || error)
   process.exit(1)
 } finally {
-  process.env.NODE_ENV = originalNodeEnv
+  ;(process.env as any).NODE_ENV = originalNodeEnv
   process.env.PAYLOAD_DROP_DATABASE = 'false'
 }
 
