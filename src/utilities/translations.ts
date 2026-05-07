@@ -31,8 +31,19 @@ export const translations = {
       viewAllServices: 'Alle Diensten Bekijken',
       viewAllProjects: 'Alle Projecten Bekijken',
       sendMessage: 'Verstuur Bericht',
+      readyToStart: 'KLAAR OM TE STARTEN?',
+      contactToday:
+        'Neem vandaag nog contact met ons op voor een vrijblijvende offerte. Wij reageren binnen 24 uur op uw aanvraag.',
+      requestQuote: 'Offerte Aanvragen',
+      callDirect: 'Bel Direct: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Gecertificeerd & Verzekerd',
+      title: 'KRACHT IN',
+      subtitle: 'SLOOPWERK',
+      description:
+        'titaanbrekers is uw betrouwbare partner voor professioneel sloop- en demontagewerk. Met meer dan 25 jaar ervaring maken wij ruimte voor uw toekomst.',
+      backgroundAlt: 'Sloopapparatuur en machines',
       stats: {
         years: 'Jaar Ervaring',
         projects: 'Projecten',
@@ -41,8 +52,10 @@ export const translations = {
       features: {
         fastResponse: 'Snelle Respons',
         insured: 'Volledig Verzekerd',
+        insuredDesc: 'Volledig verzekerd',
         certified: 'VCA Gecertificeerd',
         certifiedDesc: 'Volledig gecertificeerd & verzekerd',
+        fastResponseDesc: 'Binnen 24 uur',
         specialist: 'Specialist',
         specialistDesc: 'Handmatige sloopwerk',
         recycling: '98% Recyclen',
@@ -71,6 +84,10 @@ export const translations = {
       kitchen: 'Keuken & Badkamer',
       clearing: 'Woning Ontruiming',
       asbestos: 'Asbest Sanering',
+      sectionTitle: 'PROFESSIONEEL SLOOPWERK',
+      description:
+        'Van kleine stripwerken tot complete gebouwsloop - wij hebben de expertise en het materieel voor elk project.',
+      moreInfo: 'Meer Info',
     },
     footer: {
       services: 'Diensten',
@@ -138,6 +155,47 @@ export const translations = {
       certifications: 'CERTIFICERINGEN & ERKENNINGEN',
       certificationsDesc:
         'Wij voldoen aan de hoogste eisen op het gebied van veiligheid, kwaliteit en milieu.',
+      storyTitle: 'ONS VERHAAL',
+      story1:
+        'TitanBrekers werd in 1999 opgericht door twee ervaren slopers met een duidelijke missie: professioneel sloopwerk leveren met oog voor veiligheid, kwaliteit en milieu.',
+      story2:
+        'Wat begon als een klein familiebedrijf is uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland. Met meer dan 50 medewerkers, een modern machinepark en alle benodigde certificeringen pakken wij elk project aan - groot of klein.',
+      story3:
+        'Onze kracht zit in ons team. Ervaren vakmensen die trots zijn op hun werk en altijd streven naar het beste resultaat. Samen met onze opdrachtgevers vinden wij oplossingen voor de meest complexe sloopprojecten.',
+      years: 'Jaar Ervaring',
+      projects: 'Projecten',
+      employees: 'Medewerkers',
+      recycling: 'Recycling',
+      safety: 'Veiligheid',
+      safetyDesc:
+        'Veiligheid staat altijd voorop. Wij werken volgens VCA** en hanteren de hoogste veiligheidsnormen op al onze projecten.',
+      quality: 'Kwaliteit',
+      qualityDesc:
+        'Wij leveren kwaliteitswerk, op tijd en binnen budget. Onze klanten kunnen rekenen op professionele uitvoering.',
+      sustainability: 'Duurzaamheid',
+      sustainabilityDesc:
+        'Met 98% recycling van sloopafval dragen wij bij aan een circulaire economie en een schonere toekomst.',
+      craftsmanship: 'Vakmanschap',
+      craftsmanshipDesc:
+        'Ons team bestaat uit ervaren vakmensen die trots zijn op hun werk en altijd streven naar het beste resultaat.',
+      foundation: 'Oprichting',
+      foundationDesc: 'TitanBrekers wordt opgericht in Rotterdam',
+      vca: 'VCA Certificering',
+      vcaDesc: 'Behalen van VCA** certificering',
+      sc530: 'SC-530 Erkenning',
+      sc530Desc: 'Erkenning voor asbestverwijdering',
+      national: 'Landelijke Dekking',
+      nationalDesc: 'Uitbreiding naar heel Nederland',
+      employees50: '50 Medewerkers',
+      employees50Desc: 'Groei naar 50+ vakmensen',
+      projects500: '500+ Projecten',
+      projects500Desc: 'Mijlpaal van 500 succesvolle projecten',
+      vcaCert: 'VCA** Gecertificeerd',
+      sc530Cert: 'SC-530 Asbestverwijdering',
+      iso9001: 'ISO 9001 Kwaliteitsmanagement',
+      iso14001: 'ISO 14001 Milieumanagement',
+      training: 'Erkend Leerbedrijf',
+      association: 'Lid Vereniging Sloopbedrijven',
     },
     projects: {
       title: 'ONZE PROJECTEN',
@@ -147,6 +205,24 @@ export const translations = {
       asbestos: 'Asbest Sanering',
       environmental: 'Milieusanering',
       image: 'Project afbeelding',
+      sectionTitle: 'RECENT WERK',
+      description: 'Ontdek onze meest recente sloop- en demontageprojecten door heel Nederland.',
+      completed: 'Voltooid',
+    },
+    about: {
+      title: 'OVER TITANBREKERS',
+      description:
+        'Met meer dan 25 jaar ervaring is TitanBrekers uitgegroeid tot een van de meest gerespecteerde sloopbedrijven van Nederland.',
+      certifications: 'VCA** gecertificeerd en volledig verzekerd',
+      equipment: 'Modern machinepark en ervaren vakmensen',
+      recycling: '98% recycling van alle sloopafval',
+      coverage: 'Landelijke dekking met lokale service',
+      yearsActive: 'Jaar Actief',
+      projects: 'Projecten',
+      employees: 'Medewerkers',
+      recyclingStat: 'Recycling',
+      titleShort: 'Over Ons',
+      moreAbout: 'Meer Over Ons',
     },
   },
   en: {
@@ -181,8 +257,19 @@ export const translations = {
       viewAllServices: 'View All Services',
       viewAllProjects: 'View All Projects',
       sendMessage: 'Send Message',
+      readyToStart: 'READY TO START?',
+      contactToday:
+        'Contact us today for a no-obligation quote. We respond within 24 hours of your request.',
+      requestQuote: 'Request Quote',
+      callDirect: 'Call Direct: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certified & Insured',
+      title: 'POWER IN',
+      subtitle: 'DEMOLITION',
+      description:
+        'TitanBreakers is your trusted partner for professional demolition and dismantling work. With over 25 years of experience, we make space for your future.',
+      backgroundAlt: 'Demolition equipment and machinery',
       stats: {
         years: 'Years Experience',
         projects: 'Projects',
@@ -191,8 +278,10 @@ export const translations = {
       features: {
         fastResponse: 'Fast Response',
         insured: 'Fully Insured',
+        insuredDesc: 'Fully insured',
         certified: 'VCA Certified',
         certifiedDesc: 'Fully certified & insured',
+        fastResponseDesc: 'Within 24 hours',
         specialist: 'Specialist',
         specialistDesc: 'Manual demolition work',
         recycling: '98% Recycling',
@@ -221,6 +310,10 @@ export const translations = {
       kitchen: 'Kitchen & Bathroom',
       clearing: 'Property Clearing',
       asbestos: 'Asbestos Removal',
+      sectionTitle: 'PROFESSIONAL DEMOLITION',
+      description:
+        'From small strip-outs to complete building demolition - we have the expertise and equipment for every project.',
+      moreInfo: 'More Info',
     },
     footer: {
       services: 'Services',
@@ -287,6 +380,47 @@ export const translations = {
       ourHistory: 'OUR HISTORY',
       certifications: 'CERTIFICATIONS & RECOGNITIONS',
       certificationsDesc: 'We meet the highest standards in safety, quality, and environment.',
+      storyTitle: 'OUR STORY',
+      story1:
+        'TitanBreakers was founded in 1999 by two experienced demolition specialists with a clear mission: to deliver professional demolition work with a focus on safety, quality, and the environment.',
+      story2:
+        'What started as a small family business has grown into one of the most respected demolition companies in the Netherlands. With over 50 employees, modern equipment, and all necessary certifications, we tackle every project - large or small.',
+      story3:
+        'Our strength lies in our team. Experienced craftsmen who are proud of their work and always strive for the best results. Together with our clients, we find solutions for the most complex demolition projects.',
+      years: 'Years Experience',
+      projects: 'Projects',
+      employees: 'Employees',
+      recycling: 'Recycling',
+      safety: 'Safety',
+      safetyDesc:
+        'Safety always comes first. We work according to VCA** and maintain the highest safety standards on all our projects.',
+      quality: 'Quality',
+      qualityDesc:
+        'We deliver quality work, on time and within budget. Our clients can count on professional execution.',
+      sustainability: 'Sustainability',
+      sustainabilityDesc:
+        'With 98% recycling of demolition waste, we contribute to a circular economy and a cleaner future.',
+      craftsmanship: 'Craftsmanship',
+      craftsmanshipDesc:
+        'Our team consists of experienced craftsmen who are proud of their work and always strive for the best results.',
+      foundation: 'Foundation',
+      foundationDesc: 'TitanBreakers is founded in Rotterdam',
+      vca: 'VCA Certification',
+      vcaDesc: 'Obtaining VCA** certification',
+      sc530: 'SC-530 Recognition',
+      sc530Desc: 'Recognition for asbestos removal',
+      national: 'National Coverage',
+      nationalDesc: 'Expansion throughout the Netherlands',
+      employees50: '50 Employees',
+      employees50Desc: 'Growth to 50+ professionals',
+      projects500: '500+ Projects',
+      projects500Desc: 'Milestone of 500 successful projects',
+      vcaCert: 'VCA** Certified',
+      sc530Cert: 'SC-530 Asbestos Removal',
+      iso9001: 'ISO 9001 Quality Management',
+      iso14001: 'ISO 14001 Environmental Management',
+      training: 'Recognized Training Company',
+      association: 'Member Demolition Association',
     },
     projects: {
       title: 'OUR PROJECTS',
@@ -296,6 +430,25 @@ export const translations = {
       asbestos: 'Asbestos Removal',
       environmental: 'Environmental Remediation',
       image: 'Project image',
+      sectionTitle: 'RECENT WORK',
+      description:
+        'Discover our most recent demolition and dismantling projects throughout the Netherlands.',
+      completed: 'Completed',
+    },
+    about: {
+      title: 'ABOUT TITANBREAKERS',
+      description:
+        'With over 25 years of experience, TitanBreakers has grown into one of the most respected demolition companies in the Netherlands.',
+      certifications: 'VCA** certified and fully insured',
+      equipment: 'Modern equipment and experienced professionals',
+      recycling: '98% recycling of all demolition waste',
+      coverage: 'National coverage with local service',
+      yearsActive: 'Years Active',
+      projects: 'Projects',
+      employees: 'Employees',
+      recyclingStat: 'Recycling',
+      titleShort: 'About Us',
+      moreAbout: 'More About Us',
     },
   },
   fr: {
@@ -330,8 +483,19 @@ export const translations = {
       viewAllServices: 'Voir Tous les Services',
       viewAllProjects: 'Voir Tous les Projets',
       sendMessage: 'Envoyer le Message',
+      readyToStart: 'PRÊT À COMMENCER?',
+      contactToday:
+        "Contactez-nous aujourd'hui pour un devis sans engagement. Nous répondons dans les 24 heures.",
+      requestQuote: 'Demander un Devis',
+      callDirect: 'Appeler Directement: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certifié & Assuré',
+      title: 'PUISSANCE EN',
+      subtitle: 'DÉMOLITION',
+      description:
+        "TitanBreakers est votre partenaire fiable pour des travaux professionnels de démolition et démontage. Avec plus de 25 ans d'expérience, nous créons de l'espace pour votre avenir.",
+      backgroundAlt: 'Équipements et machines de démolition',
       stats: {
         years: "Années d'Expérience",
         projects: 'Projets',
@@ -342,6 +506,8 @@ export const translations = {
         insured: 'Entièrement Assuré',
         certified: 'Certifié VCA',
         certifiedDesc: 'Entièrement certifié et assuré',
+        insuredDesc: 'Entièrement assuré',
+        fastResponseDesc: 'Dans les 24 heures',
         specialist: 'Spécialiste',
         specialistDesc: 'Travail de démolition manuelle',
         recycling: '98% Recyclage',
@@ -370,6 +536,10 @@ export const translations = {
       kitchen: 'Cuisine & Salle de Bain',
       clearing: 'Vidage de Propriété',
       asbestos: "Suppression d'Amiante",
+      sectionTitle: 'DÉMOLITION PROFESSIONNELLE',
+      description:
+        "Des petits démontages aux démolitions complètes de bâtiments - nous avons l'expertise et l'équipement pour chaque projet.",
+      moreInfo: "Plus d'Info",
     },
     footer: {
       services: 'Services',
@@ -470,6 +640,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Formation Continue',
       association: "Membre de l'Association",
+      storyTitle: 'NOTRE HISTOIRE',
+      story1:
+        "Fondée en 1999 par deux spécialistes expérimentés de la démolition avec une mission claire : fournir un travail professionnel axé sur la sécurité, la qualité et l'environnement.",
+      story2:
+        "Ce qui a commencé comme une petite entreprise familiale est devenu l'une des sociétés de démolition les plus respectées. Avec plus de 50 employés, un parc d'équipements moderne et toutes les certifications nécessaires.",
+      story3:
+        'Notre force réside dans notre équipe. Des artisans expérimentés fiers de leur travail et toujours à la recherche des meilleurs résultats.',
+      years: "Années d'Expérience",
+      projects: 'Projets',
+      employees: 'Employés',
+      recycling: 'Recyclage',
     },
     about: {
       title: 'À Propos de TitanBreakers',
@@ -485,6 +666,13 @@ export const translations = {
       projects: 'Projets Réalisés',
       employees: 'Employés',
       recycling: 'Taux de Recyclage',
+      certifications: 'Certifié VCA** et entièrement assuré',
+      equipment: 'Équipements modernes et professionnels expérimentés',
+      coverage: 'Couverture nationale avec service local',
+      yearsActive: "Années d'Activité",
+      recyclingStat: 'Recyclage',
+      titleShort: 'À Propos',
+      moreAbout: 'En Savoir Plus',
     },
     projects: {
       title: 'NOS PROJETS',
@@ -494,6 +682,9 @@ export const translations = {
       asbestos: 'Désamiantage',
       environmental: 'Assainissement Environnemental',
       image: 'Image du projet',
+      sectionTitle: 'TRAVAUX RÉCENTS',
+      description: 'Découvrez nos projets de démolition et démontage les plus récents à travers la région.',
+      completed: 'Terminé',
     },
   },
   de: {
@@ -528,8 +719,19 @@ export const translations = {
       viewAllServices: 'Alle Leistungen Ansehen',
       viewAllProjects: 'Alle Projekte Ansehen',
       sendMessage: 'Nachricht Senden',
+      readyToStart: 'BEREIT ZU STARTEN?',
+      contactToday:
+        'Kontaktieren Sie uns noch heute für ein unverbindliches Angebot. Wir antworten innerhalb von 24 Stunden auf Ihre Anfrage.',
+      requestQuote: 'Angebot Anfordern',
+      callDirect: 'Direkt Anrufen: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Zertifiziert & Versichert',
+      title: 'KRAFT IN',
+      subtitle: 'ABBRUCHARBEITEN',
+      description:
+        'titaanbrekers ist Ihr zuverlässiger Partner für professionelle Abbruch- und Demontagearbeiten. Mit mehr als 25 Jahren Erfahrung schaffen wir Raum für Ihre Zukunft.',
+      backgroundAlt: 'Abbruchausrüstung und Maschinen',
       stats: {
         years: 'Jahre Erfahrung',
         projects: 'Projekte',
@@ -540,6 +742,8 @@ export const translations = {
         insured: 'Voll Versichert',
         certified: 'VCA Zertifiziert',
         certifiedDesc: 'Vollständig zertifiziert & versichert',
+        insuredDesc: 'Vollständig versichert',
+        fastResponseDesc: 'Innerhalb von 24 Stunden',
         specialist: 'Spezialist',
         specialistDesc: 'Manuelle Abbrucharbeit',
         recycling: '98% Recycling',
@@ -568,6 +772,10 @@ export const translations = {
       kitchen: 'Küche & Bad',
       clearing: 'Wohnungsräumung',
       asbestos: 'Asbestsanierung',
+      sectionTitle: 'PROFESSIONELLE ABBRUCHARBEITEN',
+      description:
+        'Von kleinen Rückbaumaßnahmen bis zum vollständigen Gebäudeabbruch - wir haben die Expertise und das Material für jedes Projekt.',
+      moreInfo: 'Mehr Info',
     },
     footer: {
       services: 'Leistungen',
@@ -663,6 +871,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Weiterbildung',
       association: 'Verbandsmitglied',
+      storyTitle: 'UNSERE GESCHICHTE',
+      story1:
+        'TitanBreakers wurde 1999 von zwei erfahrenen Abrissexperten mit einer klaren Mission gegründet: professionellen Abbruch mit Fokus auf Sicherheit, Qualität und Umwelt.',
+      story2:
+        'Was als kleines Familienunternehmen begann, ist zu einem der angesehensten Abbruchunternehmen der Region gewachsen. Mit über 50 Mitarbeitern, modernem Equipment und allen erforderlichen Zertifizierungen meistern wir jedes Projekt.',
+      story3:
+        'Unsere Stärke liegt in unserem Team. Erfahrene Fachkräfte, die stolz auf ihre Arbeit sind und stets das beste Ergebnis anstreben.',
+      years: 'Jahre Erfahrung',
+      projects: 'Projekte',
+      employees: 'Mitarbeiter',
+      recycling: 'Recycling',
     },
     about: {
       title: 'Über TitanBreakers',
@@ -678,6 +897,13 @@ export const translations = {
       projects: 'Abgeschlossene Projekte',
       employees: 'Mitarbeiter',
       recycling: 'Recyclingquote',
+      certifications: 'VCA** zertifiziert und vollständig versichert',
+      equipment: 'Moderner Maschinenpark und erfahrene Fachkräfte',
+      coverage: 'Landesweite Abdeckung mit lokalem Service',
+      yearsActive: 'Aktive Jahre',
+      recyclingStat: 'Recycling',
+      titleShort: 'Über Uns',
+      moreAbout: 'Mehr Erfahren',
     },
     projects: {
       title: 'UNSERE PROJEKTE',
@@ -687,6 +913,10 @@ export const translations = {
       asbestos: 'Asbestsanierung',
       environmental: 'Umweltsanierung',
       image: 'Projektbild',
+      sectionTitle: 'AKTUELLE ARBEITEN',
+      description:
+        'Entdecken Sie unsere neuesten Abbruch- und Demontageprojekte in ganz Deutschland.',
+      completed: 'Abgeschlossen',
     },
   },
   it: {
@@ -721,8 +951,19 @@ export const translations = {
       viewAllServices: 'Vedi Tutti i Servizi',
       viewAllProjects: 'Vedi Tutti i Progetti',
       sendMessage: 'Invia Messaggio',
+      readyToStart: 'PRONTI A INIZIARE?',
+      contactToday:
+        'Contattateci oggi per un preventivo senza impegno. Rispondiamo entro 24 ore dalla vostra richiesta.',
+      requestQuote: 'Richiedi Preventivo',
+      callDirect: 'Chiama Direttamente: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certificato & Assicurato',
+      title: 'POTENZA NELLA',
+      subtitle: 'DEMOLIZIONE',
+      description:
+        'titaanbrekers è il vostro partner affidabile per lavori professionali di demolizione e smontaggio. Con oltre 25 anni di esperienza, creiamo spazio per il vostro futuro.',
+      backgroundAlt: 'Attrezzatura e macchinari per demolizioni',
       stats: {
         years: 'Anni di Esperienza',
         projects: 'Progetti',
@@ -733,6 +974,8 @@ export const translations = {
         insured: 'Pienamente Assicurato',
         certified: 'Certificato VCA',
         certifiedDesc: 'Completamente certificato e assicurato',
+        insuredDesc: 'Pienamente assicurato',
+        fastResponseDesc: 'Entro 24 ore',
         specialist: 'Specialista',
         specialistDesc: 'Lavori di demolizione manuale',
         recycling: '98% Riciclaggio',
@@ -761,6 +1004,10 @@ export const translations = {
       kitchen: 'Cucina e Bagno',
       clearing: 'Sgombero Immobile',
       asbestos: 'Rimozione Amianto',
+      sectionTitle: 'DEMOLIZIONE PROFESSIONALE',
+      description:
+        'Dai piccoli lavori di smantellamento alle demolizioni complete degli edifici - abbiamo la competenza e le attrezzature per ogni progetto.',
+      moreInfo: 'Più Info',
     },
     footer: {
       services: 'Servizi',
@@ -858,6 +1105,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Formazione Continua',
       association: "Membro dell'Associazione",
+      storyTitle: 'LA NOSTRA STORIA',
+      story1:
+        "TitanBreakers è stata fondata nel 1999 da due esperti di demolizione con una chiara missione: fornire lavori professionali di demolizione con attenzione alla sicurezza, qualità e ambiente.",
+      story2:
+        "Quello che è iniziato come una piccola azienda familiare è diventato uno dei più rispettati nel settore. Con oltre 50 dipendenti, attrezzature moderne e tutte le certificazioni necessarie, affrontiamo ogni progetto.",
+      story3:
+        "La nostra forza sta nel nostro team. Professionisti esperti che sono orgogliosi del loro lavoro e sempre cercano i migliori risultati.",
+      years: 'Anni di Esperienza',
+      projects: 'Progetti',
+      employees: 'Dipendenti',
+      recycling: 'Riciclaggio',
     },
     about: {
       title: 'Chi è TitanBreakers',
@@ -872,6 +1130,13 @@ export const translations = {
       projects: 'Progetti Completati',
       employees: 'Dipendenti',
       recycling: 'Tasso di Riciclaggio',
+      certifications: 'Certificato VCA** e completamente assicurato',
+      equipment: 'Attrezzatura moderna e professionisti esperti',
+      coverage: 'Copertura nazionale con servizio locale',
+      yearsActive: 'Anni di Attività',
+      recyclingStat: 'Riciclaggio',
+      titleShort: 'Chi Siamo',
+      moreAbout: 'Scopri di Più',
     },
     projects: {
       title: 'I NOSTRI PROGETTI',
@@ -881,6 +1146,10 @@ export const translations = {
       asbestos: 'Rimozione Amianto',
       environmental: 'Bonifica Ambientale',
       image: 'Immagine del progetto',
+      sectionTitle: 'LAVORI RECENTI',
+      description:
+        'Scopri i nostri progetti di demolizione e smontaggio più recenti in tutto il territorio.',
+      completed: 'Completato',
     },
   },
   es: {
@@ -915,8 +1184,19 @@ export const translations = {
       viewAllServices: 'Ver Todos los Servicios',
       viewAllProjects: 'Ver Todos los Proyectos',
       sendMessage: 'Enviar Mensaje',
+      readyToStart: '¿LISTO PARA EMPEZAR?',
+      contactToday:
+        'Contáctenos hoy para un presupuesto sin compromiso. Respondemos dentro de las 24 horas.',
+      requestQuote: 'Solicitar Presupuesto',
+      callDirect: 'Llamar Directamente: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certificado y Asegurado',
+      title: 'POTENCIA EN',
+      subtitle: 'DEMOLICIÓN',
+      description:
+        'titaanbrekers es su socio de confianza para trabajos profesionales de demolición y desmontaje. Con más de 25 años de experiencia, creamos espacio para su futuro.',
+      backgroundAlt: 'Equipos y maquinaria de demolición',
       stats: {
         years: 'Años de Experiencia',
         projects: 'Proyectos',
@@ -927,6 +1207,8 @@ export const translations = {
         insured: 'Totalmente Asegurado',
         certified: 'Certificado VCA',
         certifiedDesc: 'Completamente certificado y asegurado',
+        insuredDesc: 'Totalmente asegurado',
+        fastResponseDesc: 'En 24 horas',
         specialist: 'Especialista',
         specialistDesc: 'Trabajo de demolición manual',
         recycling: '98% Reciclaje',
@@ -955,6 +1237,10 @@ export const translations = {
       kitchen: 'Cocina y Baño',
       clearing: 'Vaciado de Propiedad',
       asbestos: 'Retiro de Asbesto',
+      sectionTitle: 'DEMOLICIÓN PROFESIONAL',
+      description:
+        'Desde pequeños desmantelamientos hasta demoliciones completas de edificios - tenemos la experiencia y el equipo para cada proyecto.',
+      moreInfo: 'Más Info',
     },
     footer: {
       services: 'Servicios',
@@ -1054,6 +1340,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Formación Continua',
       association: 'Miembro de la Asociación',
+      storyTitle: 'NUESTRA HISTORIA',
+      story1:
+        'TitanBreakers fue fundada en 1999 por dos expertos en demolición con una clara misión: proporcionar trabajos profesionales de demolición con enfoque en seguridad, calidad y medio ambiente.',
+      story2:
+        'Lo que comenzó como una pequeña empresa familiar se ha convertido en una de las empresas de demolición más respetadas de la región. Con más de 50 empleados, equipos modernos y todas las certificaciones necesarias, abordamos cada proyecto.',
+      story3:
+        'Nuestra fortaleza está en nuestro equipo. Profesionales experimentados que están orgullosos de su trabajo y siempre buscan los mejores resultados.',
+      years: 'Años de Experiencia',
+      projects: 'Proyectos',
+      employees: 'Empleados',
+      recycling: 'Reciclaje',
     },
     about: {
       title: 'Sobre TitanBreakers',
@@ -1068,6 +1365,13 @@ export const translations = {
       projects: 'Proyectos Completados',
       employees: 'Empleados',
       recycling: 'Tasa de Reciclaje',
+      certifications: 'Certificado VCA** y completamente asegurado',
+      equipment: 'Equipos modernos y profesionales experimentados',
+      coverage: 'Cobertura nacional con servicio local',
+      yearsActive: 'Años Activos',
+      recyclingStat: 'Reciclaje',
+      titleShort: 'Nosotros',
+      moreAbout: 'Más Sobre Nosotros',
     },
     projects: {
       title: 'NUESTROS PROYECTOS',
@@ -1077,6 +1381,10 @@ export const translations = {
       asbestos: 'Retiro de Asbesto',
       environmental: 'Remediación Ambiental',
       image: 'Imagen del proyecto',
+      sectionTitle: 'TRABAJOS RECIENTES',
+      description:
+        'Descubre nuestros proyectos de demolición y desmontaje más recientes en toda la región.',
+      completed: 'Completado',
     },
   },
   sv: {
@@ -1111,8 +1419,19 @@ export const translations = {
       viewAllServices: 'Se Alla Tjänster',
       viewAllProjects: 'Se Alla Projekt',
       sendMessage: 'Skicka Meddelande',
+      readyToStart: 'REDO ATT BÖRJA?',
+      contactToday:
+        'Kontakta oss idag för en kostnadsfri offert. Vi svarar inom 24 timmar på din förfrågan.',
+      requestQuote: 'Begär Offert',
+      callDirect: 'Ring Direkt: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certifierad & Försäkrad',
+      title: 'KRAFT I',
+      subtitle: 'RIVNINGSARBETE',
+      description:
+        'titaanbrekers är din pålitliga partner för professionella rivnings- och demonteringsarbeten. Med mer än 25 års erfarenhet skapar vi utrymme för din framtid.',
+      backgroundAlt: 'Rivningsutrustning och maskiner',
       stats: {
         years: 'Års Erfarenhet',
         projects: 'Projekt',
@@ -1123,6 +1442,8 @@ export const translations = {
         insured: 'Fullt Försäkrad',
         certified: 'VCA Certifierad',
         certifiedDesc: 'Fullt certifierad och försäkrad',
+        insuredDesc: 'Fullt försäkrad',
+        fastResponseDesc: 'Inom 24 timmar',
         specialist: 'Specialist',
         specialistDesc: 'Manuellt rivningsarbete',
         recycling: '98% Återvinning',
@@ -1151,6 +1472,10 @@ export const translations = {
       kitchen: 'Kök & Badrum',
       clearing: 'Fastighets tömning',
       asbestos: 'Asbest Avlägsnande',
+      sectionTitle: 'PROFESSIONELLT RIVNINGSARBETE',
+      description:
+        'Från små nedmonteringar till fullständiga byggnadsrivningar - vi har kompetensen och utrustningen för varje projekt.',
+      moreInfo: 'Mer Info',
     },
     footer: {
       services: 'Tjänster',
@@ -1244,6 +1569,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Fortbildning',
       association: 'Föreningsmedlem',
+      storyTitle: 'VÅR HISTORIA',
+      story1:
+        'TitanBreakers grundades 1999 av två erfarna rivningsexperter med ett tydligt uppdrag: att leverera professionellt rivningsarbete med fokus på säkerhet, kvalitet och miljö.',
+      story2:
+        'Det som startade som ett litet familjeföretag har vuxit till ett av de mest respekterade rivningsföretagen i regionen. Med mer än 50 anställda, modern utrustning och alla nödvändiga certifieringar tar vi itu med varje projekt.',
+      story3:
+        'Vår styrka ligger i vårt team. Erfarna yrkesmän som är stolta över sitt arbete och alltid strävar efter de bästa resultaten.',
+      years: 'Års Erfarenhet',
+      projects: 'Projekt',
+      employees: 'Anställda',
+      recycling: 'Återvinning',
     },
     about: {
       title: 'Om TitanBreakers',
@@ -1256,6 +1592,13 @@ export const translations = {
       projects: 'Slutförda Projekt',
       employees: 'Anställda',
       recycling: 'Återvinningsgrad',
+      certifications: 'VCA** certifierad och fullt försäkrad',
+      equipment: 'Modern utrustning och erfarna yrkesmän',
+      coverage: 'Nationell täckning med lokal service',
+      yearsActive: 'Aktiva År',
+      recyclingStat: 'Återvinning',
+      titleShort: 'Om Oss',
+      moreAbout: 'Mer Om Oss',
     },
     projects: {
       title: 'VÅRA PROJEKT',
@@ -1265,6 +1608,10 @@ export const translations = {
       asbestos: 'Asbestsanering',
       environmental: 'Miljösanering',
       image: 'Projektbild',
+      sectionTitle: 'SENASTE ARBETEN',
+      description:
+        'Upptäck våra senaste rivnings- och demonteringsprojekt i hela regionen.',
+      completed: 'Slutfört',
     },
   },
   fi: {
@@ -1299,8 +1646,19 @@ export const translations = {
       viewAllServices: 'Näytä Kaikki Palvelut',
       viewAllProjects: 'Näytä Kaikki Projektit',
       sendMessage: 'Lähetä Viesti',
+      readyToStart: 'VALMIINA ALOITTAMAAN?',
+      contactToday:
+        'Ota meihin yhteyttä tänään saadaksesi ilmaisen tarjouksen. Vastaamme 24 tunnin kuluessa pyyntöösi.',
+      requestQuote: 'Pyydä Tarjous',
+      callDirect: 'Soita Suoraan: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Sertifioitu & Vakuutettu',
+      title: 'VOIMAA',
+      subtitle: 'PURKUTYÖHÖN',
+      description:
+        'titaanbrekers on luotettava kumppanisi ammattimaisiin purku- ja purkutöihin. Yli 25 vuoden kokemuksella luomme tilaa tulevaisuudellesi.',
+      backgroundAlt: 'Purkukalusto ja koneet',
       stats: {
         years: 'Vuoden Kokemus',
         projects: 'Projektit',
@@ -1311,6 +1669,8 @@ export const translations = {
         insured: 'Täysin Vakuutettu',
         certified: 'VCA Sertifioitu',
         certifiedDesc: 'Täysin sertifioitu ja vakuutettu',
+        insuredDesc: 'Täysin vakuutettu',
+        fastResponseDesc: '24 tunnin kuluessa',
         specialist: 'Erikoistunut',
         specialistDesc: 'Käsipurkutyö',
         recycling: '98% Kierrätys',
@@ -1339,6 +1699,10 @@ export const translations = {
       kitchen: 'Keittiö & Kylpyhuone',
       clearing: 'Kiinteistön Tyhjennys',
       asbestos: 'Asbestin Poisto',
+      sectionTitle: 'AMMATTIMAINEN PURKUTYÖ',
+      description:
+        'Pienistä purkutöistä kokonaisiin rakennusten purkamisiin - meillä on osaaminen ja kalusto jokaiseen projektiin.',
+      moreInfo: 'Lisää Tietoa',
     },
     footer: {
       services: 'Palvelut',
@@ -1433,6 +1797,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Jatkuva Koulutus',
       association: 'Yhdistyksen Jäsen',
+      storyTitle: 'HISTORIAMME',
+      story1:
+        'TitanBreakers perustettiin vuonna 1999 kahden kokeneen purkuasiantuntijan toimesta selkeällä tehtävällä: toimittaa ammattimaisia purkutöitä turvallisuuteen, laatuun ja ympäristöön keskittyen.',
+      story2:
+        'Pienestä perheyrityksestä alkanut kasvoi yhdeksi alueen arvostetuimmista purkuyrityksistä. Yli 50 työntekijällä, modernilla kalustolla ja kaikilla tarvittavilla sertifioinneilla tartumme jokaiseen projektiin.',
+      story3:
+        'Vahvuutemme on tiimissämme. Kokeneet ammattilaiset, jotka ovat ylpeitä työstään ja pyrkivät aina parhaaseen tulokseen.',
+      years: 'Vuoden Kokemus',
+      projects: 'Projektit',
+      employees: 'Työntekijät',
+      recycling: 'Kierrätys',
     },
     about: {
       title: 'TitanBreakersista',
@@ -1446,6 +1821,13 @@ export const translations = {
       projects: 'Valmistuneet Projektit',
       employees: 'Työntekijät',
       recycling: 'Kierrätysaste',
+      certifications: 'VCA** sertifioitu ja täysin vakuutettu',
+      equipment: 'Moderni kalusto ja kokeneet ammattilaiset',
+      coverage: 'Valtakunnallinen kattavuus paikallisella palvelulla',
+      yearsActive: 'Aktiiviset Vuodet',
+      recyclingStat: 'Kierrätys',
+      titleShort: 'Meistä',
+      moreAbout: 'Lisätietoa',
     },
     projects: {
       title: 'PROJEKTIMME',
@@ -1455,6 +1837,10 @@ export const translations = {
       asbestos: 'Asbestinpoisto',
       environmental: 'Ympäristön Puhdistus',
       image: 'Projektikuva',
+      sectionTitle: 'VIIMEISIMMÄT TYÖT',
+      description:
+        'Tutustu uusimpiin purku- ja demontageprojekteihimme koko alueella.',
+      completed: 'Valmistunut',
     },
   },
   pl: {
@@ -1489,8 +1875,19 @@ export const translations = {
       viewAllServices: 'Zobacz Wszystkie Usługi',
       viewAllProjects: 'Zobacz Wszystkie Projekty',
       sendMessage: 'Wyślij Wiadomość',
+      readyToStart: 'GOTOWI DO STARTU?',
+      contactToday:
+        'Skontaktuj się z nami dziś, aby otrzymać bezpłatną wycenę. Odpowiadamy w ciągu 24 godzin od Twojego zapytania.',
+      requestQuote: 'Poproś o Wycenę',
+      callDirect: 'Zadzwoń Bezpośrednio: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certyfikowany i Ubezpieczony',
+      title: 'SIŁA W',
+      subtitle: 'ROZBIÓRCE',
+      description:
+        'titaanbrekers to Twój niezawodny partner w zakresie profesjonalnych prac rozbiórkowych i demontażowych. Z ponad 25-letnim doświadczeniem tworzymy przestrzeń dla Twojej przyszłości.',
+      backgroundAlt: 'Sprzęt i maszyny rozbiórkowe',
       stats: {
         years: 'Lat Doświadczenia',
         projects: 'Projekty',
@@ -1501,6 +1898,8 @@ export const translations = {
         insured: 'W Pełni Ubezpieczony',
         certified: 'Certyfikowany VCA',
         certifiedDesc: 'W pełni certyfikowany i ubezpieczony',
+        insuredDesc: 'W pełni ubezpieczony',
+        fastResponseDesc: 'W ciągu 24 godzin',
         specialist: 'Specjalista',
         specialistDesc: 'Ręczna praca rozbiórkowa',
         recycling: '98% Recykling',
@@ -1529,6 +1928,10 @@ export const translations = {
       kitchen: 'Kuchnia i Łazienka',
       clearing: 'Opróżnianie Nieruchomości',
       asbestos: 'Usuwanie Azbestu',
+      sectionTitle: 'PROFESJONALNA ROZBIÓRKA',
+      description:
+        'Od małych rozbiórek do kompletnych wyburzeń budynków - mamy ekspertyzę i sprzęt do każdego projektu.',
+      moreInfo: 'Więcej Info',
     },
     footer: {
       services: 'Usługi',
@@ -1624,6 +2027,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Cykliczne Szkolenia',
       association: 'Członek Stowarzyszenia',
+      storyTitle: 'NASZA HISTORIA',
+      story1:
+        'TitanBreakers został założony w 1999 roku przez dwóch doświadczonych specjalistów od wyburzeń z jasną misją: dostarczanie profesjonalnych usług wyburzeniowych z naciskiem na bezpieczeństwo, jakość i środowisko.',
+      story2:
+        'To, co zaczęło się jako małe rodzinne przedsiębiorstwo, przekształciło się w jedną z najbardziej szanowanych firm wyburzeniowych w regionie. Z ponad 50 pracownikami, nowoczesnym sprzętem i wszystkimi niezbędnymi certyfikatami podejmujemy się każdego projektu.',
+      story3:
+        'Nasza siła tkwi w naszym zespole. Doświadczeni fachowcy, którzy są dumni ze swojej pracy i zawsze dążą do najlepszych wyników.',
+      years: 'Lat Doświadczenia',
+      projects: 'Projekty',
+      employees: 'Pracownicy',
+      recycling: 'Recykling',
     },
     about: {
       title: 'O TitanBreakers',
@@ -1636,6 +2050,13 @@ export const translations = {
       projects: 'Ukończone Projekty',
       employees: 'Pracownicy',
       recycling: 'Współczynnik Recyklingu',
+      certifications: 'Certyfikowany VCA** i w pełni ubezpieczony',
+      equipment: 'Nowoczesny sprzęt i doświadczeni specjaliści',
+      coverage: 'Ogólnopolski zasięg z lokalną obsługą',
+      yearsActive: 'Aktywne Lata',
+      recyclingStat: 'Recykling',
+      titleShort: 'O Nas',
+      moreAbout: 'Więcej O Nas',
     },
     projects: {
       title: 'NASZE PROJEKTY',
@@ -1645,6 +2066,10 @@ export const translations = {
       asbestos: 'Usuwanie Azbestu',
       environmental: 'Rekultywacja Środowiska',
       image: 'Zdjęcie projektu',
+      sectionTitle: 'OSTATNIE PRACE',
+      description:
+        'Odkryj nasze najnowsze projekty rozbiórkowe i demontażowe w całym regionie.',
+      completed: 'Ukończono',
     },
   },
   ar: {
@@ -1678,8 +2103,19 @@ export const translations = {
       viewAllServices: 'عرض جميع الخدمات',
       viewAllProjects: 'عرض جميع المشاريع',
       sendMessage: 'إرسال الرسالة',
+      readyToStart: 'مستعد للبدء؟',
+      contactToday:
+        'اتصل بنا اليوم للحصول على عرض سعر مجاني. نرد خلال 24 ساعة من طلبك.',
+      requestQuote: 'اطلب عرض سعر',
+      callDirect: 'اتصل مباشرة: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'معتمد ومؤمن',
+      title: 'القوة في',
+      subtitle: 'الهدم',
+      description:
+        'titaanbrekers هو شريكك الموثوق للأعمال المهنية في الهدم والتفكيك. مع أكثر من 25 عامًا من الخبرة، نحن نصنع مساحة لمستقبلك.',
+      backgroundAlt: 'معدات وآلات الهدم',
       stats: {
         years: 'سنوات الخبرة',
         projects: 'المشاريع',
@@ -1690,6 +2126,8 @@ export const translations = {
         insured: 'مؤمن بالكامل',
         certified: 'معتمد VCA',
         certifiedDesc: 'معتمد ومؤمن بالكامل',
+        insuredDesc: 'مؤمن بالكامل',
+        fastResponseDesc: 'خلال 24 ساعة',
         specialist: 'متخصص',
         specialistDesc: 'عمل الهدم اليدوي',
         recycling: '98% إعادة تدوير',
@@ -1718,6 +2156,10 @@ export const translations = {
       kitchen: 'المطبخ والحمام',
       clearing: 'إفراغ الممتلكات',
       asbestos: 'إزالة الأسبست',
+      sectionTitle: 'هدم احترافي',
+      description:
+        'من عمليات التفكيك الصغيرة إلى الهدم الكامل للمباني - لدينا الخبرة والمعدات لكل مشروع.',
+      moreInfo: 'مزيد من المعلومات',
     },
     footer: {
       services: 'الخدمات',
@@ -1810,6 +2252,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'التدريب المستمر',
       association: 'عضو في الجمعية',
+      storyTitle: 'قصتنا',
+      story1:
+        'تأسست TitanBreakers عام 1999 على يد خبيرين متمرسين في الهدم بمهمة واضحة: تقديم أعمال هدم احترافية مع التركيز على السلامة والجودة والبيئة.',
+      story2:
+        'ما بدأ كشركة عائلية صغيرة نما ليصبح من أكثر شركات الهدم احتراماً في المنطقة. مع أكثر من 50 موظفاً ومعدات حديثة وجميع الشهادات اللازمة، نتعامل مع كل مشروع.',
+      story3:
+        'قوتنا تكمن في فريقنا. متخصصون ذوو خبرة يفخرون بعملهم ويسعون دائماً لتحقيق أفضل النتائج.',
+      years: 'سنوات الخبرة',
+      projects: 'المشاريع',
+      employees: 'الموظفون',
+      recycling: 'إعادة التدوير',
     },
     about: {
       title: 'حول TitanBreakers',
@@ -1822,6 +2275,13 @@ export const translations = {
       projects: 'المشاريع المكتملة',
       employees: 'الموظفين',
       recycling: 'معدل إعادة التدوير',
+      certifications: 'معتمد VCA** ومؤمن بالكامل',
+      equipment: 'معدات حديثة ومحترفون متمرسون',
+      coverage: 'تغطية وطنية مع خدمة محلية',
+      yearsActive: 'سنوات النشاط',
+      recyclingStat: 'إعادة التدوير',
+      titleShort: 'من نحن',
+      moreAbout: 'المزيد عنا',
     },
     projects: {
       title: 'مشاريعنا',
@@ -1831,6 +2291,9 @@ export const translations = {
       asbestos: 'إزالة الأسبستوس',
       environmental: 'التصحيح البيئي',
       image: 'صورة المشروع',
+      sectionTitle: 'الأعمال الأخيرة',
+      description: 'اكتشف مشاريعنا الأحدث في مجال الهدم والتفكيك في جميع أنحاء المنطقة.',
+      completed: 'مكتمل',
     },
   },
   zh: {
@@ -1864,8 +2327,18 @@ export const translations = {
       viewAllServices: '查看所有服务',
       viewAllProjects: '查看所有项目',
       sendMessage: '发送消息',
+      readyToStart: '准备开始了吗？',
+      contactToday: '今天联系我们获取免费报价。我们将在24小时内回复您的请求。',
+      requestQuote: '请求报价',
+      callDirect: '直接致电: 06-12345678',
     },
     hero: {
+      certifiedBadge: '认证与保险',
+      title: '拆除的',
+      subtitle: '力量',
+      description:
+        'titaanbrekers 是您可靠的专业拆除和拆卸工程合作伙伴。凭借超过25年的经验，我们为您的未来创造空间。',
+      backgroundAlt: '拆除设备和机械',
       stats: {
         years: '年经验',
         projects: '项目',
@@ -1876,6 +2349,8 @@ export const translations = {
         insured: '全面保险',
         certified: 'VCA认证',
         certifiedDesc: '完全认证并投保',
+        insuredDesc: '完全投保',
+        fastResponseDesc: '24小时内',
         specialist: '专家',
         specialistDesc: '人工拆除工程',
         recycling: '98%回收',
@@ -1904,6 +2379,9 @@ export const translations = {
       kitchen: '厨房和浴室',
       clearing: '物业清理',
       asbestos: '石棉清除',
+      sectionTitle: '专业拆除',
+      description: '从小型拆卸到完整建筑拆除 - 我们拥有每个项目所需的专业知识和设备。',
+      moreInfo: '更多信息',
     },
     footer: {
       services: '服务',
@@ -1995,6 +2473,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: '持续培训',
       association: '协会会员',
+      storyTitle: '我们的故事',
+      story1:
+        'TitanBreakers于1999年由两位经验丰富的拆除专家创立，使命明确：提供专业的拆除服务，注重安全、质量和环境。',
+      story2:
+        '从一个小型家族企业发展成为该地区最受尊敬的拆除公司之一。拥有50多名员工、现代化设备和所有必要认证，我们承接每一个项目。',
+      story3:
+        '我们的优势在于我们的团队。经验丰富的专业人员为自己的工作感到自豪，始终追求最佳结果。',
+      years: '年经验',
+      projects: '项目',
+      employees: '员工',
+      recycling: '回收',
     },
     about: {
       title: '关于TitanBreakers',
@@ -2007,6 +2496,13 @@ export const translations = {
       projects: '已完成项目',
       employees: '员工',
       recycling: '回收率',
+      certifications: 'VCA**认证且完全投保',
+      equipment: '现代设备和经验丰富的专业人员',
+      coverage: '全国覆盖本地服务',
+      yearsActive: '活跃年份',
+      recyclingStat: '回收',
+      titleShort: '关于我们',
+      moreAbout: '了解更多',
     },
     projects: {
       title: '我们的项目',
@@ -2016,6 +2512,9 @@ export const translations = {
       asbestos: '石棉清除',
       environmental: '环境修复',
       image: '项目图片',
+      sectionTitle: '近期工程',
+      description: '探索我们在该地区最新的拆除和拆卸项目。',
+      completed: '已完成',
     },
   },
   ja: {
@@ -2050,8 +2549,19 @@ export const translations = {
       viewAllServices: 'すべてのサービスを見る',
       viewAllProjects: 'すべてのプロジェクトを見る',
       sendMessage: 'メッセージを送信',
+      readyToStart: '始める準備はできていますか？',
+      contactToday:
+        '今日お問い合わせいただき、無料見積もりをお受け取りください。リクエストから24時間以内にご返信いたします。',
+      requestQuote: '見積もりを依頼',
+      callDirect: '直接お電話: 06-12345678',
     },
     hero: {
+      certifiedBadge: '認証済み・保険加入',
+      title: '解体の',
+      subtitle: 'パワー',
+      description:
+        'titaanbrekers はプロフェッショナルな解体・撤去工事の信頼できるパートナーです。25年以上の経験で、あなたの未来のための空間を作ります。',
+      backgroundAlt: '解体機器と機械',
       stats: {
         years: '年の経験',
         projects: 'プロジェクト',
@@ -2062,6 +2572,8 @@ export const translations = {
         insured: '完全保険加入',
         certified: 'VCA認証',
         certifiedDesc: '完全認証・保険加入',
+        insuredDesc: '完全保険加入',
+        fastResponseDesc: '24時間以内',
         specialist: 'スペシャリスト',
         specialistDesc: '手作業の解體工事',
         recycling: '98%リサイクル',
@@ -2090,6 +2602,10 @@ export const translations = {
       kitchen: 'キッチンとバスルーム',
       clearing: '物件の片付け',
       asbestos: 'アスベスト除去',
+      sectionTitle: 'プロフェッショナルな解体',
+      description:
+        '小規模な撤去作業から建物全体の解体まで - あらゆるプロジェクトに対応する専門知識と設備を備えています。',
+      moreInfo: '詳細情報',
     },
     footer: {
       services: 'サービス',
@@ -2182,6 +2698,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: '継続的な研修',
       association: '協会会員',
+      storyTitle: '私たちのストーリー',
+      story1:
+        'TitanBreakersは1999年、経験豊富な解体専門家2名により設立されました。明確な使命：安全・品質・環境に焦点を当てたプロフェッショナルな解体工事の提供。',
+      story2:
+        '小さな家族経営から始まり、地域で最も信頼される解体会社の一つに成長しました。50名以上のスタッフ、最新設備、必要な認証を持ち、あらゆるプロジェクトに取り組みます。',
+      story3:
+        '私たちの強みはチームにあります。誇りを持って仕事に取り組む経験豊富な専門家が、常に最高の結果を追求します。',
+      years: '年の経験',
+      projects: 'プロジェクト',
+      employees: '従業員',
+      recycling: 'リサイクル',
     },
     about: {
       title: 'TitanBreakersについて',
@@ -2194,6 +2721,13 @@ export const translations = {
       projects: '完了したプロジェクト',
       employees: '従業員',
       recycling: 'リサイクル率',
+      certifications: 'VCA**認証・完全保険加入',
+      equipment: '最新設備と経験豊富な専門家',
+      coverage: '全国展開・地域密着サービス',
+      yearsActive: '活動年数',
+      recyclingStat: 'リサイクル',
+      titleShort: '会社概要',
+      moreAbout: '詳細はこちら',
     },
     projects: {
       title: '当社のプロジェクト',
@@ -2203,6 +2737,9 @@ export const translations = {
       asbestos: 'アスベスト除去',
       environmental: '環境修復',
       image: 'プロジェクト画像',
+      sectionTitle: '最近の工事',
+      description: '当地域における当社の最新の解体・撤去プロジェクトをご覧ください。',
+      completed: '完了',
     },
   },
   pt: {
@@ -2237,8 +2774,19 @@ export const translations = {
       viewAllServices: 'Ver Todos os Serviços',
       viewAllProjects: 'Ver Todos os Projetos',
       sendMessage: 'Enviar Mensagem',
+      readyToStart: 'PRONTO PARA COMEÇAR?',
+      contactToday:
+        'Entre em contato conosco hoje para um orçamento gratuito. Respondemos dentro de 24 horas do seu pedido.',
+      requestQuote: 'Solicitar Orçamento',
+      callDirect: 'Ligar Diretamente: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Certificado & Segurado',
+      title: 'PODER NA',
+      subtitle: 'DEMOLIÇÃO',
+      description:
+        'titaanbrekers é o seu parceiro de confiança para trabalhos profissionais de demolição e desmontagem. Com mais de 25 anos de experiência, criamos espaço para o seu futuro.',
+      backgroundAlt: 'Equipamentos e máquinas de demolição',
       stats: {
         years: 'Anos de Experiência',
         projects: 'Projetos',
@@ -2249,6 +2797,8 @@ export const translations = {
         insured: 'Totalmente Assegurado',
         certified: 'Certificado VCA',
         certifiedDesc: 'Totalmente certificado e assegurado',
+        insuredDesc: 'Totalmente assegurado',
+        fastResponseDesc: 'Dentro de 24 horas',
         specialist: 'Especialista',
         specialistDesc: 'Trabalho de demolição manual',
         recycling: '98% Reciclagem',
@@ -2277,6 +2827,10 @@ export const translations = {
       kitchen: 'Cozinha e Banheiro',
       clearing: 'Esvaziamento de Imóvel',
       asbestos: 'Remoção de Amianto',
+      sectionTitle: 'DEMOLIÇÃO PROFISSIONAL',
+      description:
+        'De pequenos desmantelamentos a demolições completas de edifícios - temos a expertise e o equipamento para cada projeto.',
+      moreInfo: 'Mais Info',
     },
     footer: {
       services: 'Serviços',
@@ -2373,6 +2927,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Treinamento Contínuo',
       association: 'Membro da Associação',
+      storyTitle: 'NOSSA HISTÓRIA',
+      story1:
+        'A TitanBreakers foi fundada em 1999 por dois especialistas experientes em demolição com uma missão clara: fornecer trabalhos profissionais de demolição com foco em segurança, qualidade e meio ambiente.',
+      story2:
+        'O que começou como uma pequena empresa familiar cresceu para se tornar uma das empresas de demolição mais respeitadas da região. Com mais de 50 funcionários, equipamentos modernos e todas as certificações necessárias, abordamos cada projeto.',
+      story3:
+        'Nossa força está em nossa equipe. Profissionais experientes que têm orgulho de seu trabalho e sempre buscam os melhores resultados.',
+      years: 'Anos de Experiência',
+      projects: 'Projetos',
+      employees: 'Funcionários',
+      recycling: 'Reciclagem',
     },
     about: {
       title: 'Sobre a TitanBreakers',
@@ -2385,6 +2950,13 @@ export const translations = {
       projects: 'Projetos Concluídos',
       employees: 'Funcionários',
       recycling: 'Taxa de Reciclagem',
+      certifications: 'Certificado VCA** e totalmente segurado',
+      equipment: 'Equipamentos modernos e profissionais experientes',
+      coverage: 'Cobertura nacional com serviço local',
+      yearsActive: 'Anos Ativos',
+      recyclingStat: 'Reciclagem',
+      titleShort: 'Sobre Nós',
+      moreAbout: 'Mais Sobre Nós',
     },
     projects: {
       title: 'NOSSOS PROJETOS',
@@ -2394,6 +2966,10 @@ export const translations = {
       asbestos: 'Remoção de Amianto',
       environmental: 'Recuperação Ambiental',
       image: 'Imagem do projeto',
+      sectionTitle: 'TRABALHOS RECENTES',
+      description:
+        'Descubra os nossos projetos de demolição e desmontagem mais recentes em toda a região.',
+      completed: 'Concluído',
     },
   },
   tr: {
@@ -2428,8 +3004,19 @@ export const translations = {
       viewAllServices: 'Tüm Hizmetleri Gör',
       viewAllProjects: 'Tüm Projeleri Gör',
       sendMessage: 'Mesaj Gönder',
+      readyToStart: 'BAŞLAMAYA HAZIR MISINIZ?',
+      contactToday:
+        'Ücretsiz teklif almak için bugün bize ulaşın. Talebinizden sonra 24 saat içinde yanıt veriyoruz.',
+      requestQuote: 'Teklif İste',
+      callDirect: 'Doğrudan Arayın: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Sertifikalı & Sigortalı',
+      title: 'YIKIMDA',
+      subtitle: 'GÜÇ',
+      description:
+        'titaanbrekers, profesyonel yıkım ve söküm işleri için güvenilir ortağınızdır. 25 yılı aşkın deneyimimizle geleceğiniz için alan yaratıyoruz.',
+      backgroundAlt: 'Yıkım ekipmanları ve makineleri',
       stats: {
         years: 'Yıllık Deneyim',
         projects: 'Projeler',
@@ -2440,6 +3027,8 @@ export const translations = {
         insured: 'Tamamen Sigortalı',
         certified: 'VCA Sertifikalı',
         certifiedDesc: 'Tamamen sertifikalı ve sigortalı',
+        insuredDesc: 'Tamamen sigortalı',
+        fastResponseDesc: '24 saat içinde',
         specialist: 'Uzman',
         specialistDesc: 'Manuel yıkım işi',
         recycling: '%98 Geri Dönüşüm',
@@ -2468,6 +3057,10 @@ export const translations = {
       kitchen: 'Mutfak ve Banyo',
       clearing: 'Mülk Boşaltma',
       asbestos: 'Asbest Kaldırma',
+      sectionTitle: 'PROFESYONEL YIKIM',
+      description:
+        'Küçük söküm çalışmalarından tam bina yıkımlarına kadar - her proje için uzmanlık ve ekipmana sahibiz.',
+      moreInfo: 'Daha Fazla Bilgi',
     },
     footer: {
       services: 'Hizmetler',
@@ -2562,6 +3155,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Sürekli Eğitim',
       association: 'Dernek Üyesi',
+      storyTitle: 'HİKAYEMİZ',
+      story1:
+        "TitanBreakers, 1999 yılında iki deneyimli yıkım uzmanı tarafından açık bir misyonla kuruldu: güvenlik, kalite ve çevreye odaklanarak profesyonel yıkım hizmetleri sunmak.",
+      story2:
+        "Küçük bir aile şirketi olarak başlayan, bölgenin en saygın yıkım şirketlerinden biri haline geldi. 50'den fazla çalışan, modern ekipman ve tüm gerekli sertifikalar ile her projeyi üstleniyoruz.",
+      story3:
+        'Gücümüz ekibimizde yatmaktadır. İşlerinden gurur duyan deneyimli profesyoneller her zaman en iyi sonuçları hedefler.',
+      years: 'Yıl Deneyim',
+      projects: 'Projeler',
+      employees: 'Çalışanlar',
+      recycling: 'Geri Dönüşüm',
     },
     about: {
       title: 'TitanBreakers Hakkında',
@@ -2574,6 +3178,13 @@ export const translations = {
       projects: 'Tamamlanan Projeler',
       employees: 'Çalışanlar',
       recycling: 'Geri Dönüşüm Oranı',
+      certifications: 'VCA** sertifikalı ve tamamen sigortalı',
+      equipment: 'Modern ekipman ve deneyimli uzmanlar',
+      coverage: 'Yerel hizmetle ulusal kapsama',
+      yearsActive: 'Aktif Yıllar',
+      recyclingStat: 'Geri Dönüşüm',
+      titleShort: 'Hakkımızda',
+      moreAbout: 'Daha Fazla Bilgi',
     },
     projects: {
       title: 'PROJELERİMİZ',
@@ -2583,6 +3194,9 @@ export const translations = {
       asbestos: 'Asbest Kaldırma',
       environmental: 'Çevre Rehabilitasyonu',
       image: 'Proje görseli',
+      sectionTitle: 'SON ÇALIŞMALAR',
+      description: 'Bölge genelindeki en son yıkım ve söküm projelerimizi keşfedin.',
+      completed: 'Tamamlandı',
     },
   },
   ru: {
@@ -2617,8 +3231,19 @@ export const translations = {
       viewAllServices: 'Посмотреть Все Услуги',
       viewAllProjects: 'Посмотреть Все Проекты',
       sendMessage: 'Отправить Сообщение',
+      readyToStart: 'ГОТОВЫ НАЧАТЬ?',
+      contactToday:
+        'Свяжитесь с нами сегодня для получения бесплатного расчёта. Мы отвечаем в течение 24 часов после вашего запроса.',
+      requestQuote: 'Запросить КП',
+      callDirect: 'Позвонить Напрямую: 06-12345678',
     },
     hero: {
+      certifiedBadge: 'Сертифицирован & Застрахован',
+      title: 'СИЛА В',
+      subtitle: 'ДЕМОНТАЖЕ',
+      description:
+        'titaanbrekers — ваш надёжный партнёр в профессиональных работах по сносу и демонтажу. С более чем 25-летним опытом мы создаём пространство для вашего будущего.',
+      backgroundAlt: 'Оборудование и техника для сноса',
       stats: {
         years: 'Лет Опыта',
         projects: 'Проекты',
@@ -2629,6 +3254,8 @@ export const translations = {
         insured: 'Полностью Застрахован',
         certified: 'Сертифицирован VCA',
         certifiedDesc: 'Полностью сертифицирован и застрахован',
+        insuredDesc: 'Полностью застрахован',
+        fastResponseDesc: 'В течение 24 часов',
         specialist: 'Специалист',
         specialistDesc: 'Ручные демонтажные работы',
         recycling: '98% Переработка',
@@ -2657,6 +3284,10 @@ export const translations = {
       kitchen: 'Кухня и Ванная',
       clearing: 'Опустошение Недвижимости',
       asbestos: 'Удаление Асбеста',
+      sectionTitle: 'ПРОФЕССИОНАЛЬНЫЙ ДЕМОНТАЖ',
+      description:
+        'От небольших демонтажных работ до полного сноса зданий — у нас есть опыт и оборудование для каждого проекта.',
+      moreInfo: 'Подробнее',
     },
     footer: {
       services: 'Услуги',
@@ -2753,6 +3384,17 @@ export const translations = {
       iso14001: 'ISO 14001',
       training: 'Непрерывное Обучение',
       association: 'Член Ассоциации',
+      storyTitle: 'НАША ИСТОРИЯ',
+      story1:
+        'TitanBreakers была основана в 1999 году двумя опытными специалистами по сносу с чёткой миссией: предоставлять профессиональные услуги по сносу с акцентом на безопасность, качество и окружающую среду.',
+      story2:
+        'То, что начиналось как небольшой семейный бизнес, выросло в одну из наиболее уважаемых компаний по сносу в регионе. С более чем 50 сотрудниками, современным оборудованием и всеми необходимыми сертификатами мы берёмся за каждый проект.',
+      story3:
+        'Наша сила — в нашей команде. Опытные специалисты, гордящиеся своей работой и всегда стремящиеся к наилучшим результатам.',
+      years: 'Лет Опыта',
+      projects: 'Проекты',
+      employees: 'Сотрудники',
+      recycling: 'Переработка',
     },
     about: {
       title: 'О TitanBreakers',
@@ -2766,6 +3408,13 @@ export const translations = {
       projects: 'Завершенные Проекты',
       employees: 'Сотрудники',
       recycling: 'Коэффициент Переработки',
+      certifications: 'Сертифицирован VCA** и полностью застрахован',
+      equipment: 'Современное оборудование и опытные специалисты',
+      coverage: 'Nationwide охват с местным обслуживанием',
+      yearsActive: 'Активные Годы',
+      recyclingStat: 'Переработка',
+      titleShort: 'О Нас',
+      moreAbout: 'Подробнее О Нас',
     },
     projects: {
       title: 'НАШИ ПРОЕКТЫ',
@@ -2775,6 +3424,9 @@ export const translations = {
       asbestos: 'Удаление Асбеста',
       environmental: 'Экологическая Реабилитация',
       image: 'Изображение проекта',
+      sectionTitle: 'ПОСЛЕДНИЕ РАБОТЫ',
+      description: 'Ознакомьтесь с нашими последними проектами по сносу и демонтажу в регионе.',
+      completed: 'Завершён',
     },
   },
 } as const
